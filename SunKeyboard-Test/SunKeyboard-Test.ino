@@ -7,13 +7,13 @@
  * Wiring:
  *    Keyboard Pin 2 (White): GND
  *    Keyboard Pin 8 (Red): +5V
- *    Keyboard Pin 6 (Yellow): Arduino Pin D10 (Serial RX)
- *    Keyboard Pin 5 (Green): Aruidno Pin D11 (Serial TX)
+ *    Keyboard Pin 6 (blue): Arduino Pin D14 (Serial RX) From Keyboard
+ *    Keyboard Pin 5 (brown): Aruidno Pin D15 (Serial TX) to Keyboard
  */
 #include <SoftwareSerial.h>
 
 //Software serial for Sun KBD
-SoftwareSerial sunSerial(10, 11, true);
+SoftwareSerial sunSerial(14, 15, true);
 
 void setup() {
   Serial.begin(1200);
@@ -21,6 +21,7 @@ void setup() {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
   sunSerial.begin(1200);
+  Serial.print("start");
 }
 
 void loop() {
