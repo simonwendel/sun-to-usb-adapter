@@ -1,6 +1,6 @@
 # USB-to-Sun Keyboard Adapter using Arduino Micro
 
-It's my firm belief that the best keyboard in history is the Sun Type 5 UNIX Layout.  It big, heavy, chunky, blocky, and feels wonderful to me.  What's more?  It's _the_ UNIX keyboard and the first keyboard I ever fell in love with.  Sadly, the Sun Type 5 only works with Sun workstations.  
+It's my firm belief that the best keyboard in history is the Sun Type 5 UNIX Layout.  It big, heavy, chunky, blocky, and feels wonderful to me.  What's more?  It's _the_ UNIX keyboard and the first keyboard I ever fell in love with.  Sadly, the Sun Type 5 only works with Sun workstations.
 
 The Type 6 keyboard was available with USB, and thats the keyboard I use every day, but it was sleaked down from the chunky glory that was the Type 5.  The Type 7 was something of a middle-ground, the blocky figure of the Type 5 but it was made with cheap plastics and lacked the heaft of the Type 5.
 
@@ -30,12 +30,12 @@ You'll notice that they keyboard has its own Vcc +5v & Ground as well as a "from
 
 Lets connect to our Arduino!  If you buy the MD-80PL100 I recommended above ([PDF datasheet](http://www.mouser.com/ds/2/670/md-xxpl100-series-516094.pdf)]), the write mapping will be:
 
-| Keyboard Plug  |         Arduino |
+| Keyboard Kable | Arduino Micro   |
 |----------------|-----------------|
-| Pin 2 (White)  | GND             |
+| Pin 2 (Black)  | GND             |
 | Pin 8 (Red)    | +5V             |
-| Pin 6 (Yellow) | D10 (Serial RX) |
-| Pin 5 (Green)  | D11 (Serial TX) |
+| Pin 6 (Blue)   | D14 (Serial RX) |
+| Pin 5 (Brown)  | D15 (Serial TX) |
 
 Wire it up and then you just need to upload the sketch!
 
@@ -53,7 +53,7 @@ Another option is to perminantly build this adapter into a Sun keyboard.  If you
 
 This solution is gloriously simple!  The simplicity is thanks to the capabilities of the Arduino hardware/software and the cleverness of Sun engineers.
 
-The Sun Keyboard is actually a 1200 baud serial device.  Seriuosly.  That sounds odd but is actually wonderful because the Arduino can easily interface with it using the [Serial Library](https://www.arduino.cc/en/Reference/Serial).  We can also use the Arduino [Keyboard/Mouse Library](https://www.arduino.cc/en/Reference/MouseKeyboard) to write to the computer.  Therefore, all we need to do is read from the serial output of the keyboard, translate each key from the Sun scancode to the ASCII equivilent and then write the ASCII to our computer as keyboard input!  
+The Sun Keyboard is actually a 1200 baud serial device.  Seriuosly.  That sounds odd but is actually wonderful because the Arduino can easily interface with it using the [Serial Library](https://www.arduino.cc/en/Reference/Serial).  We can also use the Arduino [Keyboard/Mouse Library](https://www.arduino.cc/en/Reference/MouseKeyboard) to write to the computer.  Therefore, all we need to do is read from the serial output of the keyboard, translate each key from the Sun scancode to the ASCII equivilent and then write the ASCII to our computer as keyboard input!
 
 By using the Arduino Serial Monitor and a simple sketch to listen, we can see what they keyboard is sending.  Press "a" on the keyboard and we get the following (decimal) output to the monitor:
 
@@ -69,7 +69,7 @@ After some playing around, you'll realize that the 3 values send by the keyboard
 2. **-51**: This indicates the key being released (key up), but which key?  Add this value to 128 to determine the key!  128-51=77, so the "a" key is being released.  _Clever right!?!_
 3. **127**: This code is sent when no other key is being pressed, it is the "all clear" message.
 
-You can verify this all by pressing and holding "a", then pressing and holding "b", then "c", and then release each key one at a time.  You'll clearly see the key downs, key ups, and releases.  
+You can verify this all by pressing and holding "a", then pressing and holding "b", then "c", and then release each key one at a time.  You'll clearly see the key downs, key ups, and releases.
 
 It just so happens that these map perfectly to our Arduino library!
 
@@ -113,26 +113,26 @@ Serial.write() can only pass a single value, so using 2 in sequence was hit or m
 
 I found that on my Mac & Linux systems when Caps Lock is pressed the OS handles translation of keys for me, so I don't need to alter the scan code interpretations.  However, the [Keyboard Modifiers](https://www.arduino.cc/en/Reference/KeyboardModifiers) do not include a mapping for Number lock... howerver after digging I [found](https://learn.adafruit.com/introducing-bluefruit-ez-key-diy-bluetooth-hid-keyboard/sending-keys-via-serial) the [extended ASCII scan codes](https://en.wikipedia.org/wiki/ASCII) elsewhere to provide mapping.  I may add Number Lock in the future, but for now it is simply fixed for simplicity.
 
+## Modifications to the original source
 
-
-## Bonus Features
-
-The Keyboard has a speaker built in and you can enable a "bell" (annoying!) and "key chirp".  I have mapped these to the top-right 4 keys: 
-
-* Mute Key: Disable Chirp Mode
-* Decrease Volume Key: Enable Chirp Mode
-* Increase Volume Key: Turn on Bell (constant sound)
-* Power Key: Turn off Bell
+* Ported to a PlatformIO project
+* uses the HID-Project a HID Library
+* Hardcoded to support Mac OS X Multimedia and special Keys
+  - You can press the "copy" key to copy a thing and the "paste" key to paste it
+  - Implemented are the follow Keys: Undo, Copy, Paste, Cut, Open, Help and find, The Props key works like Meta+,
+* Caps Lock is completely diabled and works like the control key
+* The Keyboard only beeps on power on
 
 ## What doesn't work (yet)
 
 * Scroll Lock and Compose don't function by design; there is no practical use for them and don't see a reason to add the 10 lines of logic
-* I force Number lock on and you can not toggle it (may fix in the future)
-* All Sun specific keys do not work (but you can remap them how you wish), this is a limitation of the way the Arduino Keyboard library emulates the keyboard.  I may find a fix for it in the future, but not planned.
-* The passthrough mouse doesn't work, but I didn't like it anyway.. may or may not add in the future
+* Pause and Print Screen does not have any function on macos
+* Power Button is ignored, but could be easily Implemented
+* The passthrough mouse is currenlty not implemenmted and may be added in the future
 
 # Acknowledgements
 
+* Ben Rockwood for the project and his implementation
 * Arduino.cc
 * Adafruit
 * Alexander Kurz's awesome Keyboard Pin-outs
