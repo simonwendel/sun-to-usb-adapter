@@ -256,12 +256,12 @@ void loop() {
     case 98:
       if (!NUM_LOCK_ON) {
         NUM_LOCK_ON = true;
-        led_cmd[1] += 1;
+        led_cmd[1] ^= 1;
         sunSerial.write(led_cmd, 2);
         Keyboard.press(KEY_NUM_LOCK);
       } else {
         NUM_LOCK_ON = false;
-        led_cmd[1] -= 1;
+        led_cmd[1] ^= 1;
         sunSerial.write(led_cmd, 2);
         Keyboard.press(KEY_NUM_LOCK);
         Keyboard.release(KEY_NUM_LOCK);
