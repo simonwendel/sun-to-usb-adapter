@@ -275,6 +275,13 @@ void loop() {
       Keyboard.release(HID_KEYBOARD_LEFT_CONTROL);
       break;
 
+    case 42:
+      Keyboard.press(KEY_TILDE);
+      break;
+    case -86:
+      Keyboard.release(KEY_TILDE);
+      break;
+
       // case 119: if (!CAPS_LOCK_ON) {
       //               CAPS_LOCK_ON = true;
       //               led_cmd[1] += 8;
