@@ -5,13 +5,12 @@
  *  -  Changes to use the sun keyboard at macos with support for the special
  * keys
  *
- * Developed on Arduino Micro
- * MiniDIN 8a Adapter P/N: MD-80PL100
+ * Developed on Adafruit ItsyBitsy 32u4 5V 16Mhz
  * Wiring:
- *    Keyboard Pin 2 (White): GND
- *    Keyboard Pin 8 (Red): +5V
- *    Keyboard Pin 6 (blue): Arduino Pin D14 (Serial RX) From Keyboard
- *    Keyboard Pin 5 (brown): Aruidno Pin D15 (Serial TX) to Keyboard
+ *    Keyboard Pin 2 (White):  GND
+ *    Keyboard Pin 8 (Red):    +5V
+ *    Keyboard Pin 6 (Yellow): Pin D10 (Serial RX) From Keyboard
+ *    Keyboard Pin 5 (Green):  Pin D11 (Serial TX) to Keyboard
  */
 
 #include "sun_keyboard_map.h"

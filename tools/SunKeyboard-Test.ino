@@ -2,14 +2,14 @@
  * Test Program for Sun Type 5 Keyboard
  * Ben Rockwood <benr@cuddletech.com> 1/1/17
  * 
- * Developed on Arduino Micro
- * MiniDIN 8a Adapter P/N: MD-80PL100 
+ * Developed on Adafruit ItsyBitsy 32u4 5V 16Mhz
  * Wiring:
- *    Keyboard Pin 2 (White): GND
- *    Keyboard Pin 8 (Red): +5V
- *    Keyboard Pin 6 (blue): Arduino Pin D14 (Serial RX) From Keyboard
- *    Keyboard Pin 5 (brown): Aruidno Pin D15 (Serial TX) to Keyboard
+ *    Keyboard Pin 2 (White):  GND
+ *    Keyboard Pin 8 (Red):    +5V
+ *    Keyboard Pin 6 (Yellow): Pin D10 (Serial RX) From Keyboard
+ *    Keyboard Pin 5 (Green):  Pin D11 (Serial TX) to Keyboard
  */
+
 #include <SoftwareSerial.h>
 
 //Software serial for Sun KBD
