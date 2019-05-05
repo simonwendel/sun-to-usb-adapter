@@ -12,8 +12,6 @@
 #define CMD_ENABLE_BELL 0x02
 #define CMD_DISABLE_BELL 0x03
 
-void outputKey(int key);
-
 static const int sun_to_ascii[128] = {
     /* 0 */ 0,
     /* 1 */ 0,    /* Stop */

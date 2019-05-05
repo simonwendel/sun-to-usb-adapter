@@ -17,6 +17,8 @@
 #include <HID-Project.h>
 #include <SoftwareSerial.h>
 
+void outputKey(int key);
+
 // Software serial for Sun KBD
 SoftwareSerial sunSerial(14, 15, true);
 
