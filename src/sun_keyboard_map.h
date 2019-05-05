@@ -4,6 +4,8 @@
   Sun_KeyCode   ASCII_Code  Description
  */
 
+#pragma once
+
 #define CMD_RESET 0x01
 #define CMD_DISABLE_CLICK 0x0B
 #define CMD_ENABLE_CLICK 0x0A
