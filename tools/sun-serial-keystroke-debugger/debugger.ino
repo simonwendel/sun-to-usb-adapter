@@ -13,7 +13,7 @@
 #include <SoftwareSerial.h>
 
 //Software serial for Sun KBD
-SoftwareSerial sunSerial(14, 15, true);
+SoftwareSerial sunSerial(10, 11, true);
 
 void setup() {
   Serial.begin(1200);
