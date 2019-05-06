@@ -20,7 +20,7 @@
 void outputKey(int key);
 
 // Software serial for Sun KBD
-SoftwareSerial sunSerial(14, 15, true);
+SoftwareSerial sunSerial(10, 11, true);
 
 boolean NUM_LOCK_ON = false;  // led bitfield xxx1 (1)
 boolean CAPS_LOCK_ON = false; // led bitfield 1xxx (8)
