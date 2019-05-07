@@ -1,6 +1,6 @@
 #pragma once
 
-const struct board_config 
+const struct board_config
 {
     int serial_rx = 10;
     int serial_tx = 11;
