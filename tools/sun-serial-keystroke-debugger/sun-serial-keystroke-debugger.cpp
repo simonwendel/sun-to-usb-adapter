@@ -13,17 +13,19 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
+#include "../../src/board_config.h"
+
 void printKey(int key);
 
 //Software serial for Sun KBD
-SoftwareSerial sunSerial(10, 11, true);
+SoftwareSerial sunSerial(default_config.serial_rx, default_config.serial_tx, true);
 
 void setup() {
-  Serial.begin(1200);
+  Serial.begin(default_config.serial_rate);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
-  sunSerial.begin(1200);
+  sunSerial.begin(default_config.serial_rate);
   Serial.print("start");
 }
 

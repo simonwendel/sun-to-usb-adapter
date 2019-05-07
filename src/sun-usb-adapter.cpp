@@ -14,14 +14,16 @@
  */
 
 #include <Arduino.h>
-#include "sun_keyboard_map.h"
 #include <HID-Project.h>
 #include <SoftwareSerial.h>
+
+#include "sun_keyboard_map.h"
+#include "board_config.h"
 
 void outputKey(int key);
 
 // Software serial for Sun KBD
-SoftwareSerial sunSerial(10, 11, true);
+SoftwareSerial sunSerial(default_config.serial_rx, default_config.serial_tx, true);
 
 boolean NUM_LOCK_ON = false;  // led bitfield xxx1 (1)
 boolean CAPS_LOCK_ON = false; // led bitfield 1xxx (8)
@@ -30,8 +32,9 @@ byte led_cmd[2] = {
     0x0E, 0x01}; // Used for sending the 2 byte commands to the keyboard
 
 void setup() {
-  Serial.begin(1200);    // Normal serial for Serial Monitor Debugging
-  sunSerial.begin(1200); // Serial Connection to Sun Keyboard
+  Serial.begin(default_config.serial_rate);    // Normal serial for Serial Monitor Debugging
+  sunSerial.begin(default_config.serial_rate); // Serial Connection to Sun Keyboard
+  
   led_cmd[1] = 0x0;
   sunSerial.write(led_cmd, 2); // Enable Number Lock by Default
 
