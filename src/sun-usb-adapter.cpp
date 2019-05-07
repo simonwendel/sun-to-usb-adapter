@@ -13,6 +13,7 @@
  *    Keyboard Pin 5 (Green):  Pin D11 (Serial TX) to Keyboard
  */
 
+#include <Arduino.h>
 #include "sun_keyboard_map.h"
 #include <HID-Project.h>
 #include <SoftwareSerial.h>

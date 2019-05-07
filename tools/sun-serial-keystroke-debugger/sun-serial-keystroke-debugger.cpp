@@ -10,7 +10,10 @@
  *    Keyboard Pin 5 (Green):  Pin D11 (Serial TX) to Keyboard
  */
 
+#include <Arduino.h>
 #include <SoftwareSerial.h>
+
+void printKey(int key);
 
 //Software serial for Sun KBD
 SoftwareSerial sunSerial(10, 11, true);
