@@ -87,7 +87,6 @@
 0	23	Scroll_Lock
 0	21	Pause/Break
 176	90	KP_Enter
-128	76	Ctrl_L
 47	46	R5/KP_Div
 135	122	Meta_R
 210	52	T5_Home
