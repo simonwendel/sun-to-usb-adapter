@@ -19,10 +19,15 @@ CXXFLAGS				+= -DARDUINO=10805 # v1.8.5
 
 # this should be the dir of this Project.mk file
 SELF_DIR				:= $(dir $(lastword $(MAKEFILE_LIST)))
+BUILD_DIR				= $(SELF_DIR)build
 
 CURRENT_DIR				= $(shell basename $(CURDIR))
-OBJDIR					= $(SELF_DIR)build/$(CURRENT_DIR)-$(BOARD_TAG)
+OBJDIR					= $(BUILD_DIR)/$(CURRENT_DIR)
 
 # check out the rpm from my config github repo at
 # https://github.com/simonwendel/configs/tree/master/Packages
 include /usr/share/arduino/Arduino.mk
+
+clean::
+	$(info Removing $(BUILD_DIR) if empty...)
+	$(shell rmdir $(BUILD_DIR) &>/dev/null)
