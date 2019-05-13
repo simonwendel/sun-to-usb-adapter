@@ -17,9 +17,11 @@ LDFLAGS					+= -fdiagnostics-color
 # the version of your actual Arduino SDK install
 CXXFLAGS				+= -DARDUINO=10805 # v1.8.5
 
+# this should be the dir of this Project.mk file
+SELF_DIR				:= $(dir $(lastword $(MAKEFILE_LIST)))
+
 CURRENT_DIR				= $(shell basename $(CURDIR))
-PROJECT_DIR				= $(shell dirname $(shell pwd))
-OBJDIR					= $(PROJECT_DIR)/build/$(CURRENT_DIR)/$(BOARD_TAG)
+OBJDIR					= $(SELF_DIR)build/$(CURRENT_DIR)-$(BOARD_TAG)
 
 # check out the rpm from my config github repo at
 # https://github.com/simonwendel/configs/tree/master/Packages
