@@ -133,6 +133,7 @@ I found that on my Mac & Linux systems when Caps Lock is pressed the OS handles 
 # Acknowledgements
 
 * Ben Rockwood for the project and his implementation
+* Sven Guenther for introducing the HID-Project and advanced keys
 * Arduino.cc
 * Adafruit
 * Alexander Kurz's awesome Keyboard Pin-outs
