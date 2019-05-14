@@ -100,7 +100,10 @@
 209	44	T5_Insert
 212	66	Delete
 130	19	Alt_L
-#######Sun Special Keys###################
+?   124 UK_Pipe/SE_AngleBrackets
+0   13  Alt_Graph
+ #######Sun Special Keys###################
+0   67  Compose
 0	118	Help
 0	1	Stop
 0	3	Again
