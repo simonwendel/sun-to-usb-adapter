@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceRoot}/**",
+                "/usr/avr/include/**",
+                "/usr/share/arduino/hardware/**",
+                "/usr/share/arduino/libraries/**",
+                "~/Arduino/libraries/**"
+            ],
+            "defines": [
+                "ARDUINO=10805",
+                "USBCON"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
