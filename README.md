@@ -121,10 +121,10 @@ I found that on my Mac & Linux systems when Caps Lock is pressed the OS handles 
 * Power Button is ignored, but could be easily Implemented
 * The passthrough mouse is currenlty not implemenmted and may be added in the future
 
-# Acknowledgements
+# Thanks to
 
-* Ben Rockwood for the project and his implementation
-* Sven Guenther for introducing the HID-Project and advanced keys
-* Arduino.cc
-* Adafruit
-* Alexander Kurz's awesome Keyboard Pin-outs
+* Ben Rockwood for [the original project](https://github.com/benr/SunType5_ArduinoAdapter)
+* Sven Guenther for [introducing the HID-Project and complex actions](https://github.com/0x6e3078/SunType5_ArduinoAdapter)
+* Alexander Kurz for the [keyboard pin-outs](http://www.kbdbabel.org/conn/index.html)
+* Adafruit for the [itsybitsy 32u4](https://www.adafruit.com/product/3677), an awesome board
+* [Arduino.cc](https://www.arduino.cc/) for, you know, everything
