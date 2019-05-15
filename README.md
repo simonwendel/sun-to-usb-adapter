@@ -4,33 +4,41 @@ I am totally a UNIX nerd and one day I decided to get myself an old Sun keybard.
 
 I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood](https://github.com/benr) and [Sven Guenther](https://github.com/0x6e3078) by forking from the latter. Check those repos out, I owe it all to them.
 
-
-# How to Build
+# Building the hardware
 
 You will require:
 
-* An Arduino based on the Atmel 32u4 chip, these are required by the [Arduino Mouse & Keyboard libraries](https://www.arduino.cc/en/Reference/MouseKeyboard)
-which you'll need for the Arduino to act as a keyboard adapter
-* A USB Type A to USB Micro B cable to attach the Arduino to your computer
-* An [MD-80PL100](http://www.mouser.com/ProductDetail/CUI-Inc/MD-80PL100/) Mini-Din 8a (female) panel connector
-* A Sun Type 5 Keyboard! (UNIX Layout preferably!)
+* Board based on the Atmel 32u4 chip, thus being to act as a HID device (I use an Adafruit ItsyBitsy 32u4 5V 16MHz)
+* A USB Type A to USB Micro B cable to attach the board to your computer
+* A Mini-DIN 8a female connector, the kind built for PCB attachment
+* A Sun Mini-DIN variant Type 6 Keyboard, duh!
 
-The Sun keyboard uses a Mini-Din 8a connector.  Thanks to Alexander Kurz you can find the [Sun Type 4/5/6 Pinout](http://www.kbdbabel.org/conn/index.html) on kbdbabel.org:
+The Sun keyboard uses a Mini-DIN 8a connector.  Thanks to Alexander Kurz you can find the [Sun Type 4/5/6 Pinout](http://www.kbdbabel.org/conn/index.html) on kbdbabel.org:
 
 ![Keyboard Pinout](http://www.kbdbabel.org/conn/kbd_connector_sun456.png)
 
-You'll notice that they keyboard has its own Vcc +5v & Ground as well as a "from keyboard" and "to keyboard".  You also have 3 more wires providing Vcc +5V & Ground plus a single read line for the mouse!   (We'll ignore the mouse for now).
+You'll notice that they keyboard has its own Vcc +5V & Ground as well as a "from keyboard" and "to keyboard".  You also have 3 more wires providing Vcc +5V & Ground plus a single read line for the mouse! We'll ignore the mouse for now.
 
-Lets connect to our Arduino!  If you buy the MD-80PL100 I recommended above ([PDF datasheet](http://www.mouser.com/ds/2/670/md-xxpl100-series-516094.pdf)]), the write mapping will be:
+Lets connect to our board! I use the following pin mapping:  
 
-| Keyboard Kable | Itsybitsy 32u4  |
+| Mini-DIN       | Itsybitsy 32u4  |
 |----------------|-----------------|
 | Pin 2 (White)  | GND             |
 | Pin 8 (Red)    | +5V             |
 | Pin 6 (Yellow) | D10 (Serial RX) |
 | Pin 5 (Green)  | D11 (Serial TX) |
 
-Wire it up and then you just need to upload the sketch!
+I bought my DIN connector from the swedish store [Electrokit](https://www.electrokit.com/). I was unsure of the pinout on the mounting end of the connector, so I put my multimeter in diode mode and came up with the following pinout:
+
+![Mini-DIN PCB Connection Pinout](doc/pinout.png)
+
+Wire it up and, assuming the pins on your board matches my setup, just do
+
+```
+cd src/ && make && make upload
+```
+
+from the project root.
 
 # How the Keyboard and Software Works
 
