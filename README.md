@@ -4,42 +4,6 @@ I am totally a UNIX nerd and one day I decided to get myself an old Sun keybard.
 
 I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood][benr] and [Sven Guenther][sven] by forking from the latter. Check those repos out, I owe it all to them.
 
-# Building the hardware
-
-You will require:
-
-* Board based on the Atmel 32u4 chip, thus being to act as a HID device (I use an Adafruit ItsyBitsy 32u4 5V 16MHz)
-* A USB Type A to USB Micro B cable to attach the board to your computer
-* A Mini-DIN 8a female connector, the kind built for PCB attachment
-* A Sun Mini-DIN variant Type 6 Keyboard, duh!
-
-The Sun keyboard uses a Mini-DIN 8a connector.  Thanks to Alexander Kurz you can find the [Sun Type 4/5/6 Pinout][keyboard pin-outs] on kbdbabel.org:
-
-![Keyboard Pinout][sun 456 din]
-
-You'll notice that they keyboard has its own Vcc +5V & Ground as well as a "from keyboard" and "to keyboard".  You also have 3 more wires providing Vcc +5V & Ground plus a single read line for the mouse! We'll ignore the mouse for now.
-
-Lets connect to our board! I use the following pin mapping:  
-
-| Mini-DIN       | Itsybitsy 32u4  |
-|----------------|-----------------|
-| Pin 2 (White)  | GND             |
-| Pin 8 (Red)    | +5V             |
-| Pin 6 (Yellow) | D10 (Serial RX) |
-| Pin 5 (Green)  | D11 (Serial TX) |
-
-I bought my DIN connector from the swedish store [Electrokit](https://www.electrokit.com/). I was unsure of the pinout on the mounting end of the connector, so I put my multimeter in diode mode and came up with the following pinout:
-
-![Mini-DIN PCB Connection Pinout](doc/pinout.png)
-
-Wire it up and, assuming the pins on your board matches my setup, just do
-
-```
-cd src/ && make && make upload
-```
-
-from the project root.
-
 # How Sun Keyboards Work
 
 It's actually gloriously simple, thanks to the cleverness of the original Sun engineers!
@@ -117,6 +81,42 @@ The effect of this is that you must keep the state of the LEDs in your controlle
 # Modifications to the original source
 
 My version is a bit different, both regarding the fixes to the serial protocol and also in that I want to support a wider range of USB-HID codes. I'm from Sweden and need to have support for the Swedish keyboard layout.
+
+# Building the hardware
+
+You will require:
+
+* Board based on the Atmel 32u4 chip, thus being to act as a HID device (I use an Adafruit ItsyBitsy 32u4 5V 16MHz)
+* A USB Type A to USB Micro B cable to attach the board to your computer
+* A Mini-DIN 8a female connector, the kind built for PCB attachment
+* A Sun Mini-DIN variant Type 6 Keyboard, duh!
+
+The Sun keyboard uses a Mini-DIN 8a connector.  Thanks to Alexander Kurz you can find the [Sun Type 4/5/6 Pinout][keyboard pin-outs] on kbdbabel.org:
+
+![Keyboard Pinout][sun 456 din]
+
+You'll notice that they keyboard has its own Vcc +5V & Ground as well as a "from keyboard" and "to keyboard".  You also have 3 more wires providing Vcc +5V & Ground plus a single read line for the mouse! We'll ignore the mouse for now.
+
+Lets connect to our board! I use the following pin mapping:  
+
+| Mini-DIN       | Itsybitsy 32u4  |
+|----------------|-----------------|
+| Pin 2 (White)  | GND             |
+| Pin 8 (Red)    | +5V             |
+| Pin 6 (Yellow) | D10 (Serial RX) |
+| Pin 5 (Green)  | D11 (Serial TX) |
+
+I bought my DIN connector from the swedish store [Electrokit](https://www.electrokit.com/). I was unsure of the pinout on the mounting end of the connector, so I put my multimeter in diode mode and came up with the following pinout:
+
+![Mini-DIN PCB Connection Pinout](doc/pinout.png)
+
+Wire it up and, assuming the pins on your board matches my setup, just do
+
+```
+cd src/ && make && make upload
+```
+
+from the project root.
 
 # What doesn't work (yet)
 
