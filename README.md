@@ -39,16 +39,6 @@ Lets connect to our Arduino!  If you buy the MD-80PL100 I recommended above ([PD
 
 Wire it up and then you just need to upload the sketch!
 
-# Packaging Ideas
-
-If you are just playing around with a Sun keyboard, build it on a breadboard and then reclaim the parts for other projects.... but if you want to build a perminant solution, read on.
-
-There are several ways you can package this solution.  As of January 2017 there are no Arduiono Micro's sold without headers.  The knock-off Micro's on Amazon all have bad reviews, so I'm avoiding them.  You can either de-solder the headers on a genuine Micro or use snips to clip off the leads for packaging.
-
-One idea is to follow Adafruits favorite pattern and use an Altiods tin like they did for their [NeXT Keyboard adapter](https://learn.adafruit.com/usb-next-keyboard-with-arduino-micro/wiring).
-
-Another option is to perminantly build this adapter into a Sun keyboard.  If you open the case of the keyboard you'll find the circuit board on one side but a lot of extra room on the other.  Using non-conductive epoxy or foam tape (such as 3M VHB Tape RP32) you could mount the Arduino right inside, exposing only the USB cable.  If you do this and are willing to damage the keyboard perminantly, you could cut off the cable and splice (or de-solder it completely), connecting directly to the Arduino bypassing the Mini-Din connector completely!
-
 # How the Keyboard and Software Works
 
 This solution is gloriously simple!  The simplicity is thanks to the capabilities of the Arduino hardware/software and the cleverness of Sun engineers.
