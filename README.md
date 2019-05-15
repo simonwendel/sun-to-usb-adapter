@@ -30,12 +30,12 @@ You'll notice that they keyboard has its own Vcc +5v & Ground as well as a "from
 
 Lets connect to our Arduino!  If you buy the MD-80PL100 I recommended above ([PDF datasheet](http://www.mouser.com/ds/2/670/md-xxpl100-series-516094.pdf)]), the write mapping will be:
 
-| Keyboard Kable | Arduino Micro   |
+| Keyboard Kable | Itsybitsy 32u4  |
 |----------------|-----------------|
-| Pin 2 (Black)  | GND             |
+| Pin 2 (White)  | GND             |
 | Pin 8 (Red)    | +5V             |
-| Pin 6 (Blue)   | D14 (Serial RX) |
-| Pin 5 (Brown)  | D15 (Serial TX) |
+| Pin 6 (Yellow) | D10 (Serial RX) |
+| Pin 5 (Green)  | D11 (Serial TX) |
 
 Wire it up and then you just need to upload the sketch!
 
