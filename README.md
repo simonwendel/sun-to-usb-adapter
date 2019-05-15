@@ -40,13 +40,17 @@ cd src/ && make && make upload
 
 from the project root.
 
-# How the Keyboard and Software Works
+# How Sun Keyboards Work
 
-This solution is gloriously simple!  The simplicity is thanks to the capabilities of the Arduino hardware/software and the cleverness of Sun engineers.
+It's actually gloriously simple, thanks to the cleverness of the original Sun engineers!
 
-The Sun Keyboard is actually a 1200 baud serial device.  Seriuosly.  That sounds odd but is actually wonderful because the Arduino can easily interface with it using the [Serial Library](https://www.arduino.cc/en/Reference/Serial).  We can also use the Arduino [Keyboard/Mouse Library](https://www.arduino.cc/en/Reference/MouseKeyboard) to write to the computer.  Therefore, all we need to do is read from the serial output of the keyboard, translate each key from the Sun scancode to the ASCII equivilent and then write the ASCII to our computer as keyboard input!
+The Sun keyboard is actually a 1200 baud serial device.  Seriuosly.  That sounds odd but is actually wonderful because the Arduino can easily interface with it using the [Serial Library](https://www.arduino.cc/en/Reference/Serial).
 
-By using the Arduino Serial Monitor and a simple sketch to listen, we can see what they keyboard is sending.  Press "a" on the keyboard and we get the following (decimal) output to the monitor:
+There is a bug in the original code from both [benr] and [sven] regarding the values received from the keyboard on "key relese".
+
+## Original Interpretation
+
+By using the Arduino Serial Monitor and a simple sketch to listen, we can see what the keyboard is sending.  Press "A" on the keyboard and we get the following (decimal) output to the monitor:
 
 ```
 77
@@ -54,21 +58,27 @@ By using the Arduino Serial Monitor and a simple sketch to listen, we can see wh
 127
 ```
 
-After some playing around, you'll realize that the 3 values send by the keyboard have 3 meanings represending different actions:
+After some playing around, you'll realize that the 3 values sent by the keyboard have 3 meanings, representing different actions:
 
-1. **77**: 77 is the code representing the "a" key being pressed down
-2. **-51**: This indicates the key being released (key up), but which key?  Add this value to 128 to determine the key!  128-51=77, so the "a" key is being released.  _Clever right!?!_
+1. **77**: 77 is the code representing the "A" key being pressed down
+2. **-51**: This indicates the key being released (key up), but which key?  Add this value to 128 to determine the key!  128-51=77, so the "A" key is being released.  _Clever right!?!_
 3. **127**: This code is sent when no other key is being pressed, it is the "all clear" message.
 
-You can verify this all by pressing and holding "a", then pressing and holding "b", then "c", and then release each key one at a time.  You'll clearly see the key downs, key ups, and releases.
+You can verify this all by pressing and holding "A", then pressing and holding "B", then "C", and then release each key one at a time.  You'll clearly see the key downs, key ups, and releases.
 
-It just so happens that these map perfectly to our Arduino library!
+## Adjusted Serial Protocol
 
-In **SunKeyboard-to-USB/sun_keyboard_map.h** I created an array mapping the Sun scancode (as the array index) to the equivilent ASCII charactor.  You'll notice several keys map to "0" because they aren't supported by the Keyboard library (or PC's for that matter).  By messing with this array you can re-map keys as you wish (such as making Caps Locks Control for PC Layout).
+There is however a nasty little bug hiding in the [above interpretation](#original-interpretation). As part of the loop that reads from the serial line, the following line is used to actually read:
 
-Once you have the Sun to ASCII map worked out, everything is simple!  We listen on Serial for input.  If we get a number between 1 and 126 we look it up in the array and then pass the result (ASCII) to Keyboard.press().  If we get a number less than 0 we know this is a key-up event, so we add to 128 to find the key which we then lookup in the array and pass to Keyboard.release().  Finally, if we get 127 as input, we know that no keys are being pressed, so we send Keyboard.releaseAll()!
+```
+char c = sunSerial.read();
+```
 
-Couldn't be simpler.
+Looks totally innocent, but notice that the serial read method returns an ```int``` which is stored in a ```char```. On the 8-bit AVR the size of a char is 8 bits, but the size of an ```int``` is 16 bits, thus causing an overflow when assigned to the signed char ```c```.
+
+Reading from the official [specification], the example of the 'A' button in the US Scan Set has in fact a "make code" of 0x42 = 77, but the "break code" (what [benr] calls "key release" or "key up") is 0xCD = 205. If you put that in a signed char it will overflow to 205-2^8 = -51.
+
+If we instead use an ```unsigned char```, or perhaps better, an ```int``` the above protocol still basically works. The only adjustment to make is that if the value read on the serial line is > 127 we know that this is a break code. We then _subtract_ 128 to get the corresponding make code of the key released.
 
 ## LED Control & Sending Commands to the Keyboard
 
