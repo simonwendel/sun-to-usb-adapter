@@ -1,16 +1,9 @@
-# USB-to-Sun Keyboard Adapter using Arduino Micro
+# Type 6 Sun-to-USB Adapter using Arduino Micro Compatible
 
-It's my firm belief that the best keyboard in history is the Sun Type 5 UNIX Layout.  It big, heavy, chunky, blocky, and feels wonderful to me.  What's more?  It's _the_ UNIX keyboard and the first keyboard I ever fell in love with.  Sadly, the Sun Type 5 only works with Sun workstations.
+I am totally a UNIX nerd and one day I decided to get myself an old Sun keybard. Being from Sweden I needed one with a Swedish layout. I was initially looking for a Type 5, but the only one I could find was a Type 6. They do come in a variant with a USB connection, but this one had the old-style proprietary Mini-DIN connection similar to the Type 5.
 
-The Type 6 keyboard was available with USB, and thats the keyboard I use every day, but it was sleaked down from the chunky glory that was the Type 5.  The Type 7 was something of a middle-ground, the blocky figure of the Type 5 but it was made with cheap plastics and lacked the heaft of the Type 5.
+I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood](https://github.com/benr) and [Sven Guenther](https://github.com/0x6e3078) by forking from the latter. Check those repos out, I owe it all to them.
 
-So, for the last 10+ years I've had a dream of converting Sun Type 5 to USB so I can live the dream. Commercially available adapters have been on the market forever, but they typically cost $150+, outside
-of my budget.  Some adventurous souls have created their own adapters, but they seemed overly complicated given the task.  What I _really_ wanted was to create my own, simple, affordable adapter.
-
-Last month I came across an Adafruit tutorial that rekindled my old desire:
-[USB NeXT Keyboard with an Arduino Micro](https://learn.adafruit.com/usb-next-keyboard-with-arduino-micro/overview).  The links provided happened to include the pin-out of the Sun Type 4/5/6 keyboards and some pointers on how
-to build the adapter.  So I found the right plug on [Mouser](http://www.mouser.com/ProductDetail/CUI-Inc/MD-80PL100/)
-and on New Years Eve got to hacking on it.  New Years day I had a working Sun Type 5 on my MacBook!
 
 # How to Build
 
