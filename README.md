@@ -68,7 +68,7 @@ You can verify this all by pressing and holding "A", then pressing and holding "
 
 ## Adjusted Serial Protocol
 
-There is however a nasty little bug hiding in the [above interpretation](#original-interpretation). As part of the loop that reads from the serial line, the following line is used to actually read:
+There is however a nasty little bug hiding on line 37 of the [the original implementation][the nasty bug 1] which taints the above interpretation. As part of the loop that reads from the serial line, in the main code and the [test program source][the nasty bug 2], the following line is used to actually read from the keyboard:
 
 ```
 char c = sunSerial.read();
@@ -136,6 +136,8 @@ My version is a bit different, both regarding the fixes to the serial protocol a
 <!--- references -->
 [benr]: https://github.com/benr
 [the original project]: https://github.com/benr/SunType5_ArduinoAdapter
+[the nasty bug 1]: https://github.com/benr/SunType5_ArduinoAdapter/blob/ce8563530b73615de718b7d3bd865f4cd5b1e1c2/SunKeyboard-to-USB/SunKeyboard-to-USB.ino
+[the nasty bug 2]: https://github.com/benr/SunType5_ArduinoAdapter/blob/20bdba3d11223bc0ef12191bc31469b4e79e1b7a/SunKeyboard-Test/SunKeyboard-Test.ino
 
 [sven]: https://github.com/0x6e3078
 [the later project]: https://github.com/0x6e3078/SunType5_ArduinoAdapter
