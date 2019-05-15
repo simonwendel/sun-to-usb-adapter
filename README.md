@@ -114,15 +114,9 @@ Serial.write() can only pass a single value, so using 2 in sequence is a bit hit
 
 The effect of this is that you must keep the state of the LEDs in your controller, and therefore re-initialize the LEDs on each load in setup() to a known state.
 
-## Modifications to the original source
+# Modifications to the original source
 
-* Ported to a PlatformIO project
-* uses the HID-Project a HID Library
-* Hardcoded to support Mac OS X Multimedia and special Keys
-  - You can press the "copy" key to copy a thing and the "paste" key to paste it
-  - Implemented are the follow Keys: Undo, Copy, Paste, Cut, Open, Help and find, The Props key works like Meta+,
-* Caps Lock is completely diabled and works like the control key
-* The Keyboard only beeps on power on
+My version is a bit different, both regarding the fixes to the serial protocol and also in that I want to support a wider range of USB-HID codes. I'm from Sweden and need to have support for the Swedish keyboard layout.
 
 ## What doesn't work (yet)
 
