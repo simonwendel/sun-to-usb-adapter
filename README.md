@@ -93,7 +93,7 @@ You will require:
 
 The Sun keyboard uses a Mini-DIN 8a connector.  Thanks to Alexander Kurz you can find the [Sun Type 4/5/6 Pinout][keyboard pin-outs] on kbdbabel.org:
 
-![Keyboard Pinout][sun 456 din]
+![Keyboard Pinout](doc/kbd_connector_sun456.png)
 
 You'll notice that they keyboard has its own Vcc +5V & Ground as well as a "from keyboard" and "to keyboard".  You also have 3 more wires providing Vcc +5V & Ground plus a single read line for the mouse! We'll ignore the mouse for now.
 
@@ -144,6 +144,5 @@ from the project root.
 
 [specification]: http://sparc.org/wp-content/uploads/2014/01/KBD.pdf.gz
 [keyboard pin-outs]: http://www.kbdbabel.org/conn/index.html
-[sun 456 din]: http://www.kbdbabel.org/conn/kbd_connector_sun456.png
 
 [itsybitsy 32u4]: https://www.adafruit.com/product/3677
