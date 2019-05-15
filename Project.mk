@@ -24,7 +24,7 @@ BUILD_DIR				= $(SELF_DIR)build
 CURRENT_DIR				= $(shell basename $(CURDIR))
 OBJDIR					= $(BUILD_DIR)/$(CURRENT_DIR)
 
-# check out the rpm from my config github repo at
+# check out the Arduino-Makefile RPM from my config github repo at
 # https://github.com/simonwendel/configs/tree/master/Packages
 include /usr/share/arduino/Arduino.mk
 
