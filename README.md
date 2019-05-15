@@ -2,7 +2,7 @@
 
 I am totally a UNIX nerd and one day I decided to get myself an old Sun keybard. Being from Sweden I needed one with a Swedish layout. I was initially looking for a Type 5, but the only one I could find was a Type 6. They do come in a variant with a USB connection, but this one had the old-style proprietary Mini-DIN connection similar to the Type 5.
 
-I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood](https://github.com/benr) and [Sven Guenther](https://github.com/0x6e3078) by forking from the latter. Check those repos out, I owe it all to them.
+I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood][benr] and [Sven Guenther][sven] by forking from the latter. Check those repos out, I owe it all to them.
 
 # Building the hardware
 
@@ -13,9 +13,9 @@ You will require:
 * A Mini-DIN 8a female connector, the kind built for PCB attachment
 * A Sun Mini-DIN variant Type 6 Keyboard, duh!
 
-The Sun keyboard uses a Mini-DIN 8a connector.  Thanks to Alexander Kurz you can find the [Sun Type 4/5/6 Pinout](http://www.kbdbabel.org/conn/index.html) on kbdbabel.org:
+The Sun keyboard uses a Mini-DIN 8a connector.  Thanks to Alexander Kurz you can find the [Sun Type 4/5/6 Pinout][keyboard pin-outs] on kbdbabel.org:
 
-![Keyboard Pinout](http://www.kbdbabel.org/conn/kbd_connector_sun456.png)
+![Keyboard Pinout][sun 456 din]
 
 You'll notice that they keyboard has its own Vcc +5V & Ground as well as a "from keyboard" and "to keyboard".  You also have 3 more wires providing Vcc +5V & Ground plus a single read line for the mouse! We'll ignore the mouse for now.
 
@@ -123,8 +123,21 @@ I found that on my Mac & Linux systems when Caps Lock is pressed the OS handles 
 
 # Thanks to
 
-* Ben Rockwood for [the original project](https://github.com/benr/SunType5_ArduinoAdapter)
-* Sven Guenther for [introducing the HID-Project and complex actions](https://github.com/0x6e3078/SunType5_ArduinoAdapter)
-* Alexander Kurz for the [keyboard pin-outs](http://www.kbdbabel.org/conn/index.html)
-* Adafruit for the [itsybitsy 32u4](https://www.adafruit.com/product/3677), an awesome board
+* Ben Rockwood for [the original project]
+* Sven Guenther for [introducing the HID-Project and complex actions][the later project]
+* Alexander Kurz for the [keyboard pin-outs]
+* Adafruit for the [itsybitsy 32u4], an awesome board
 * [Arduino.cc](https://www.arduino.cc/) for, you know, everything
+
+<!--- references -->
+[benr]: https://github.com/benr
+[the original project]: https://github.com/benr/SunType5_ArduinoAdapter
+
+[sven]: https://github.com/0x6e3078
+[the later project]: https://github.com/0x6e3078/SunType5_ArduinoAdapter
+
+[specification]: http://sparc.org/wp-content/uploads/2014/01/KBD.pdf.gz
+[keyboard pin-outs]: http://www.kbdbabel.org/conn/index.html
+[sun 456 din]: http://www.kbdbabel.org/conn/kbd_connector_sun456.png
+
+[itsybitsy 32u4]: https://www.adafruit.com/product/3677
