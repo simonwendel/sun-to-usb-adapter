@@ -82,7 +82,9 @@ If we instead use an ```unsigned char```, or perhaps better, an ```int``` the ab
 
 ## LED Control & Sending Commands to the Keyboard
 
-Commands can be sent on the serial line to the keyboard.  Because they aren't emitted from the keyboard its harder to discover them through trial-and-error, thankfully in my search I finally found the document I needed from the beginning: [The SPARC International: SPARC Keyboard Specification](http://sparc.org/wp-content/uploads/2014/01/KBD.pdf.gz).  Contained within are the pinouts, the scancodes, and most importantly the serial commands!  On page 17 of the PDF you'll find the serial protocal and the commands you can send:
+Commands can be sent on the serial line to the keyboard.  Because they aren't emitted from the keyboard its harder to discover them through trial-and-error. Contained in the official specification however are the pinouts, the scancodes and, most importantly, the serial commands! 
+
+On page 17 of the [specification] you'll find the serial protocol and the commands you can send:
 
 * **0x01**: Reset
 * **0x02**: Bell On
@@ -96,23 +98,21 @@ The Bell is simply a loud computer speaker sound.  Normally it should only be us
 
 The Keyboard Click is something you may remember from the old WYSE & HP Terminal days.  When enabled you will get a little "chirp" sound every time you press a key.  It brings back nostalgia for about 10 seconds and then is incredibly annoying.
 
-I'm not using the Layout command because I found the scan codes for both PC & UNIX layouts are the same, so I don't currently see a need for this.
+We're not using the Layout command because it seems the scan codes for both PC & UNIX layouts are the same, so currently no need for this.
 
-The Reset seemed promising but ultimately I found little utility in it.  I experimented with sending it during keyboard setup in my Arduino code, but it seemed to have no utility.
+Reset command is not used right now.
 
 The LED Command is the important one.  You must send 2 bytes, the first is the LED Command 0x0E and the second is a 4-bit bitmask which determines which of the 4 LED's are on or off:
 
-```
-                   0000 All off
-                   0001 Numlock         == 1
-                   0010 Compose         == 2
-                   0100 Scroll          == 4
-                   1000 Caps Lock       == 8
-```
+* **0000**: All off
+* **0001**: Numlock
+* **0010**: Compose
+* **0100**: Scroll
+* **1000**: Caps Lock
 
-Serial.write() can only pass a single value, so using 2 in sequence was hit or miss, so instead I created a 2 byte array, the first element is the LED Command 0x0E and the second is the value of the bitmask.  Then I can pass that array to Serial.write as a single unit.  Rather than manipulate the mask via bitwise operators and make the code most complex I instead stuck with the poor-mans method of simply adding or subtracting the decimal values to the mask.  So to enable Caps lock, add 8 to the mask, to turn off, subtract 8.  The effect of this is that you must keep the state of the LEDs in your controller, and therefore I re-initialize the LEDs on each load in setup() to a known state.
+Serial.write() can only pass a single value, so using 2 in sequence is a bit hit or miss. Instead we can create a 2 byte array, the first element is the LED Command 0x0E and the second is the value of the bitmask. Then we can pass that array to Serial.write() as a single unit.
 
-I found that on my Mac & Linux systems when Caps Lock is pressed the OS handles translation of keys for me, so I don't need to alter the scan code interpretations.  However, the [Keyboard Modifiers](https://www.arduino.cc/en/Reference/KeyboardModifiers) do not include a mapping for Number lock... howerver after digging I [found](https://learn.adafruit.com/introducing-bluefruit-ez-key-diy-bluetooth-hid-keyboard/sending-keys-via-serial) the [extended ASCII scan codes](https://en.wikipedia.org/wiki/ASCII) elsewhere to provide mapping.  I may add Number Lock in the future, but for now it is simply fixed for simplicity.
+The effect of this is that you must keep the state of the LEDs in your controller, and therefore re-initialize the LEDs on each load in setup() to a known state.
 
 ## Modifications to the original source
 
