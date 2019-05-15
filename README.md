@@ -118,7 +118,7 @@ The effect of this is that you must keep the state of the LEDs in your controlle
 
 My version is a bit different, both regarding the fixes to the serial protocol and also in that I want to support a wider range of USB-HID codes. I'm from Sweden and need to have support for the Swedish keyboard layout.
 
-## What doesn't work (yet)
+# What doesn't work (yet)
 
 * Scroll Lock and Compose don't function by design; there is no practical use for them and don't see a reason to add the 10 lines of logic
 * Pause and Print Screen does not have any function on macos
