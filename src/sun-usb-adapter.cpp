@@ -4,13 +4,6 @@
  * Sven Guenther <sven.guenther@gmail.com> 02/10/18
  *  -  Changes to use the sun keyboard at macos with support for the special
  * keys
- *
- * Developed on Adafruit ItsyBitsy 32u4 5V 16Mhz
- * Wiring:
- *    Keyboard Pin 2 (White):  GND
- *    Keyboard Pin 8 (Red):    +5V
- *    Keyboard Pin 6 (Yellow): Pin D10 (Serial RX) From Keyboard
- *    Keyboard Pin 5 (Green):  Pin D11 (Serial TX) to Keyboard
  */
 
 #include "board_config.h"

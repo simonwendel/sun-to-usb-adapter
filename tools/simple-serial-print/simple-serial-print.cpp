@@ -1,13 +1,6 @@
 /*
  * Test program to output stuff from the sun_to_ascii map.
  * Simon Wendel <mail@simonwendel.se>
- *
- * Developed on Adafruit ItsyBitsy 32u4 5V 16Mhz
- * Wiring:
- *    Keyboard Pin 2 (White):  GND
- *    Keyboard Pin 8 (Red):    +5V
- *    Keyboard Pin 6 (Yellow): Pin D10 (Serial RX) From Keyboard
- *    Keyboard Pin 5 (Green):  Pin D11 (Serial TX) to Keyboard
  */
 
 #include "../../src/board_config.h"
