@@ -120,10 +120,7 @@ from the project root.
 
 # What doesn't work (yet)
 
-* Scroll Lock and Compose don't function by design; there is no practical use for them and don't see a reason to add the 10 lines of logic
-* Pause and Print Screen does not have any function on macos
-* Power Button is ignored, but could be easily Implemented
-* The passthrough mouse is currenlty not implemenmted and may be added in the future
+< Scope not yet determined >
 
 # Thanks to
 
