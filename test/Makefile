@@ -15,15 +15,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 GOOGLE_TEST_LIB		= gtest
+GOOGLE_MOCK_LIB		= gmock
 GOOGLE_TEST_INCLUDE	= /usr/include
 
 CXX					= g++
 CXX_FLAGS			= -c -Wall -I $(GOOGLE_TEST_INCLUDE)
-LD_FLAGS			= -L /usr/local/lib -l $(GOOGLE_TEST_LIB) -l pthread
+LD_FLAGS			= -L /usr/local/lib -l $(GOOGLE_TEST_LIB) -l $(GOOGLE_MOCK_LIB) -l pthread
 
 BUILD_DIR			= ../build
 OBJDIR				= $(BUILD_DIR)/test
-OBJECTS				= $(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard *.cpp))
+
+OBJECTS				= \
+					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard *.cpp)) \
+					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard **/*.cpp)) \
+					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../lib/*.cpp)) \
+					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../src/**/*.cpp))
+
 TARGET				= $(OBJDIR)/test_runner.bin
 
 all: ensure-dir $(TARGET)
@@ -37,6 +44,7 @@ $(TARGET): $(OBJECTS)
 	$(CXX) -o $(TARGET) $(OBJECTS) $(LD_FLAGS)
 
 $(OBJDIR)/%.o : %.cpp
+	mkdir -p $(@D)
 	$(CXX) $(CXX_FLAGS) $< -o $@
 
 clean:
