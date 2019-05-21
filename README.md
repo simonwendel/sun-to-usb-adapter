@@ -78,6 +78,12 @@ Serial.write() can only pass a single value, so using 2 in sequence is a bit hit
 
 The effect of this is that you must keep the state of the LEDs in your controller, and therefore re-initialize the LEDs on each load in setup() to a known state.
 
+# Unit Testing
+
+The ```test``` folder contains a bunch of unit tests and a ```Makefile``` that will compile the tests using [GTest and GMock][gtest] on the non-AVR development host. That means that the hardware running the tests is the machine I develop on, not the actual board.
+
+This might of course produce slight deviations, f.x. on an x86 system the size of an ```int``` is probably not 16 bits. However, the tests do give opportunity to make sure the vital logic is in place before even uploading to an Arduino-compatible board.
+
 # Modifications to the original source
 
 My version is a bit different, both regarding the fixes to the serial protocol and also in that I want to support a wider range of USB-HID codes. I'm from Sweden and need to have support for the Swedish keyboard layout.
@@ -143,3 +149,5 @@ from the project root.
 [keyboard pin-outs]: http://www.kbdbabel.org/conn/index.html
 
 [itsybitsy 32u4]: https://www.adafruit.com/product/3677
+
+[gtest]: https://github.com/google/googletest
