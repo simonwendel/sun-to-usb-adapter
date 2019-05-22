@@ -27,7 +27,8 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
-void testKey(int key);
+bool isWithinValidRange(int key);
+void checkIfKnown(int key);
 
 SoftwareSerial sunSerial(default_config.serial_rx,
                          default_config.serial_tx,
