@@ -45,7 +45,6 @@ namespace hardware_tests
     TEST_F(hardware_InputPin, getState_GivenPinControl_ReadsStateFromPin)
     {
         auto expected = 10;
-
         ON_CALL(pinControl, digitalRead(boardPin))
         .WillByDefault(Return(expected));
 
