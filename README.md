@@ -107,10 +107,10 @@ Lets connect to our board! I use the following pin mapping:
 
 | Mini-DIN       | Itsybitsy 32u4  |
 |----------------|-----------------|
-| Pin 2 (White)  | GND             |
-| Pin 8 (Red)    | +5V             |
-| Pin 6 (Yellow) | D10 (Serial RX) |
-| Pin 5 (Green)  | D11 (Serial TX) |
+| Pin 2          | GND             |
+| Pin 8          | +5V             |
+| Pin 6          | D10 (Serial RX) |
+| Pin 5          | D11 (Serial TX) |
 
 I bought my DIN connector from the swedish store [Electrokit](https://www.electrokit.com/). I was unsure of the pinout on the mounting end of the connector, so I put my multimeter in diode mode and came up with the following pinout:
 
