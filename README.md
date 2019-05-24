@@ -116,6 +116,12 @@ I bought my DIN connector from the swedish store [Electrokit](https://www.electr
 
 ![Mini-DIN PCB Connection Pinout](doc/pinout.png)
 
+I also want to have a configurable key tone, via the keyboard click on and off commands we can send. I add a DIP-switch between the 3V and pin 8, and use a 10k&#8486; resistor to pull pin 8 low when the switch is open. Whenever pin 8 is high we can turn the click on and if it's low we turn it off. Super quick sketch in [Fritzing] of the complete circuit:
+
+![Schematic](doc/schematic.png)
+
+The pull-down resistor is actually connected to a ground pin G physically located in the ItsyBitsy between EN and D8, however in the [parts library][Fritzing parts] from Adafruit the ItsyBitsy part only includes one ground pin, GND.
+
 Wire it up and, assuming the pins on your board matches my setup, just do
 
 ```
@@ -151,3 +157,6 @@ from the project root.
 [itsybitsy 32u4]: https://www.adafruit.com/product/3677
 
 [gtest]: https://github.com/google/googletest
+
+[Fritzing]: http://fritzing.org/home/
+[Fritzing parts]: https://github.com/adafruit/Fritzing-Library
