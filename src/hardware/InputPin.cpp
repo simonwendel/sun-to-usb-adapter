@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../../lib/arduino-platform.h"
 #include "InputPin.h"
+
+#include "../../lib/arduino-platform.h"
 #include "IPinControl.h"
 
 namespace hardware
 {
-    InputPin::InputPin(IPinControl &pinControl, int boardPin)
-    : pinControl(pinControl), boardPin(boardPin)
+    InputPin::InputPin(IPinControl &pinControl, int boardPin) :
+        pinControl(pinControl), boardPin(boardPin)
     {
         pinControl.pinMode(boardPin, INPUT);
     }
