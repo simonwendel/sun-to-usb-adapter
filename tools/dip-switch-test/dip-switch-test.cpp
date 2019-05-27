@@ -21,33 +21,38 @@
  * Simon Wendel <mail@simonwendel.se>
  */
 
-#include <Arduino.h>
-#include <SoftwareSerial.h>
+#include "../../src/adapter/Setting.h"
+#include "../../src/hardware/InputPin.h"
+#include "../../src/hardware/OutputPin.h"
+#include "../../src/hardware/PinControl.h"
+
+#include <arduino-platform.h>
 
 int ledPin = 13;
 int switchPin = 8;
 bool lightOn = false;
 
+hardware::PinControl pinControl;
+hardware::InputPin input{&pinControl, switchPin};
+hardware::OutputPin output{&pinControl, ledPin};
+adapter::Setting dipSwitch{&input};
+
 void setup()
 {
-    pinMode(ledPin, OUTPUT);
-    pinMode(switchPin, INPUT);
 }
 
 void loop()
 {
-    if (digitalRead(switchPin) == HIGH && !lightOn)
+    if(dipSwitch.isOn() && !lightOn)
     {
-        Serial.println("Turning ON the LED.");
-        digitalWrite(ledPin, HIGH);
+        output.setState(HIGH);
         lightOn = true;
     }
-    else if (digitalRead(switchPin) == LOW && lightOn)
+    else if (!dipSwitch.isOn() && lightOn)
     {
-        Serial.println("Turning OFF the LED.");
-        digitalWrite(ledPin, LOW);
+        output.setState(LOW);
         lightOn = false;
     }
-
+    
     delay(100);
 }
