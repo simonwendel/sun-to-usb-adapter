@@ -18,8 +18,8 @@
 
 #pragma once
 
-#ifdef ARDUINO_VERSION
-    #include <Arduino.h>
+#ifdef STUB_ARDUINO
+#include "stub-Arduino.h"
 #else
-    #include "stub-Arduino.h"
+#include <Arduino.h>
 #endif

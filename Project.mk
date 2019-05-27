@@ -37,13 +37,18 @@ CXXFLAGS				+= -I $(SELF_DIR)/lib
 CXXFLAGS				+= -pedantic -Wall -Wextra
 LDFLAGS					+= -fdiagnostics-color
 
+# check out the Arduino-Makefile RPM from my config github repo at
+# https://github.com/simonwendel/configs/tree/master/Packages
+include /usr/share/arduino/Arduino.mk
+
 # hack to make sure HID-Project.h doesn't throw. should probably match
 # the version of your actual Arduino SDK install
 CXXFLAGS				+= -DARDUINO=10805 # v1.8.5
 
-# check out the Arduino-Makefile RPM from my config github repo at
-# https://github.com/simonwendel/configs/tree/master/Packages
-include /usr/share/arduino/Arduino.mk
+# hack for us to be able to stub out Arduino.h if needed for testing
+# here we unstub it
+CXXFLAGS				+= -USTUB_ARDUINO
+
 
 clean::
 	$(info Removing $(BUILD_DIR) if empty...)
