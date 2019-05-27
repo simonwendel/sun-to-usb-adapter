@@ -24,9 +24,5 @@ namespace hardware
     {
     public:
         virtual int getState() = 0;
-
-        virtual ~IInputPin()
-        {
-        }
     };
 } // namespace hardware

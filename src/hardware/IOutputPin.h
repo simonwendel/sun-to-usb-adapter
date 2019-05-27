@@ -26,9 +26,5 @@ namespace hardware
     {
     public:
         virtual void setState(uint8_t state) = 0;
-
-        virtual ~IOutputPin()
-        {
-        }
     };
 } // namespace hardware

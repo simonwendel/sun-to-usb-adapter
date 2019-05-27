@@ -24,9 +24,5 @@ namespace adapter
     {
     public:
         virtual bool isOn() = 0;
-
-        virtual ~ISetting()
-        {
-        }
     };
 } // namespace adapter
