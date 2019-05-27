@@ -16,12 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
 #include "stub-SoftwareSerial.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+
+#include <stdint.h>
+
+SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin)
+{
+}
+
+SoftwareSerial::SoftwareSerial(uint8_t receivePin,
+                               uint8_t transmitPin,
+                               bool inverseLogic)
+{
+}
+
+int SoftwareSerial::read()
+{
+}
+
+size_t SoftwareSerial::write(uint8_t byte)
+{
+    return -1;
+}
+
+size_t SoftwareSerial::write(const uint8_t *buffer, size_t size)
+{
+    return -1;
+}

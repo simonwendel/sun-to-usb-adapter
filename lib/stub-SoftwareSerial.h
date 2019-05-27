@@ -18,10 +18,15 @@
 
 #pragma once
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-SoftwareSerial.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+#include <stdint.h>
+#include <stdlib.h>
+
+class SoftwareSerial
+{
+public:
+    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin);
+    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverseLogic);
+    int read();
+    size_t write(uint8_t byte);
+    size_t write(const uint8_t *buffer, size_t size);
+};
