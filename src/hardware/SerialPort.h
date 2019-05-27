@@ -20,8 +20,7 @@
 
 #include "ISerialPort.h"
 
-#include <SoftwareSerial.h>
-#include <memory>
+#include <arduino-platform.h>
 #include <stdint.h>
 
 namespace hardware
@@ -29,12 +28,11 @@ namespace hardware
     class SerialPort : public ISerialPort
     {
     private:
-        std::unique_ptr<SoftwareSerial> serial;
+        SoftwareSerial *serial;
 
     public:
-        SerialPort::SerialPort(uint8_t receivePin,
-                               uint8_t transmitPin,
-                               bool inverse_logic = false);
+        SerialPort(uint8_t receivePin, uint8_t transmitPin);
+        SerialPort(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic);
 
         int read() override;
         size_t write(uint8_t byte) override;

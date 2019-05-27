@@ -22,12 +22,12 @@
 
 namespace adapter
 {
-    Setting::Setting(hardware::IInputPin &inputPin) : inputPin(inputPin)
+    Setting::Setting(hardware::IInputPin *inputPin) : inputPin(inputPin)
     {
     }
 
     bool Setting::isOn()
     {
-        return inputPin.getState() == HIGH;
+        return inputPin->getState() == HIGH;
     }
 } // namespace adapter

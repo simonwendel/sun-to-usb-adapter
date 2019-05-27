@@ -28,11 +28,11 @@ namespace hardware
     class OutputPin : public IOutputPin
     {
     private:
-        IPinControl &pinControl;
+        IPinControl *pinControl;
         int boardPin;
 
     public:
-        OutputPin(IPinControl &pinControl, int boardPin);
+        OutputPin(IPinControl *pinControl, int boardPin);
         void setState(uint8_t state) override;
     };
 } // namespace hardware

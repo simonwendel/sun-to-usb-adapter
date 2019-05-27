@@ -39,7 +39,7 @@ namespace hardware_tests
     {
         EXPECT_CALL(pinControl, pinMode(boardPin, INPUT)).Times(Exactly(1));
 
-        hardware::InputPin sut{pinControl, boardPin};
+        hardware::InputPin sut{&pinControl, boardPin};
     }
 
     TEST_F(hardware_InputPin, getState_GivenPinControl_ReadsStateFromPin)
@@ -50,7 +50,7 @@ namespace hardware_tests
 
         EXPECT_CALL(pinControl, pinMode(boardPin, INPUT)).Times(Exactly(1));
 
-        hardware::InputPin sut{pinControl, boardPin};
+        hardware::InputPin sut{&pinControl, boardPin};
 
         EXPECT_EQ(sut.getState(), expected);
     }

@@ -23,14 +23,14 @@
 
 namespace hardware
 {
-    InputPin::InputPin(IPinControl &pinControl, int boardPin) :
+    InputPin::InputPin(IPinControl *pinControl, int boardPin) :
         pinControl(pinControl), boardPin(boardPin)
     {
-        pinControl.pinMode(boardPin, INPUT);
+        pinControl->pinMode(boardPin, INPUT);
     }
 
     int InputPin::getState()
     {
-        return pinControl.digitalRead(boardPin);
+        return pinControl->digitalRead(boardPin);
     }
 } // namespace hardware

@@ -39,15 +39,17 @@ namespace hardware_tests
     {
         EXPECT_CALL(pinControl, pinMode(boardPin, OUTPUT)).Times(Exactly(1));
 
-        hardware::OutputPin sut{pinControl, boardPin};
+        hardware::OutputPin sut{&pinControl, boardPin};
     }
 
-    TEST_F(hardware_OutputPin, setState_GivenPinControlAndNewState_SetsStateForPin)
+    TEST_F(hardware_OutputPin,
+           setState_GivenPinControlAndNewState_SetsStateForPin)
     {
         auto state = 10;
-        EXPECT_CALL(pinControl, digitalWrite(boardPin, state)).Times(Exactly(1));
+        EXPECT_CALL(pinControl, digitalWrite(boardPin, state))
+        .Times(Exactly(1));
 
-        hardware::OutputPin sut{pinControl, boardPin};
+        hardware::OutputPin sut{&pinControl, boardPin};
         sut.setState(state);
     }
 } // namespace hardware_tests

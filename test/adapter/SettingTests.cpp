@@ -39,7 +39,7 @@ namespace adapter_tests
 
         EXPECT_CALL(inputPin, getState()).Times(Exactly(1));
 
-        adapter::Setting sut{inputPin};
+        adapter::Setting sut{&inputPin};
 
         EXPECT_EQ(sut.isOn(), false);
     }
@@ -50,7 +50,7 @@ namespace adapter_tests
 
         EXPECT_CALL(inputPin, getState()).Times(Exactly(1));
 
-        adapter::Setting sut{inputPin};
+        adapter::Setting sut{&inputPin};
 
         EXPECT_EQ(sut.isOn(), true);
     }

@@ -18,17 +18,20 @@
 
 #include "SerialPort.h"
 
-#include <SoftwareSerial.h>
-#include <memory>
+#include <arduino-platform.h>
 
 namespace hardware
 {
+    SerialPort::SerialPort(uint8_t receivePin, uint8_t transmitPin) :
+        SerialPort(receivePin, transmitPin, false)
+    {
+    }
+
     SerialPort::SerialPort(uint8_t receivePin,
                            uint8_t transmitPin,
-                           bool inverse_logic = false)
+                           bool inverse_logic)
     {
-        serial = std::make_unique<SoftwareSerial>(
-        receivePin, transmitPin, inverse_logic);
+        serial = new SoftwareSerial{receivePin, transmitPin, inverse_logic};
     }
 
     int SerialPort::read()

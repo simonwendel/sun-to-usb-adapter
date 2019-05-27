@@ -25,14 +25,14 @@
 
 namespace hardware
 {
-    OutputPin::OutputPin(IPinControl &pinControl, int boardPin) :
+    OutputPin::OutputPin(IPinControl *pinControl, int boardPin) :
         pinControl(pinControl), boardPin(boardPin)
     {
-        pinControl.pinMode(boardPin, OUTPUT);
+        pinControl->pinMode(boardPin, OUTPUT);
     }
 
     void OutputPin::setState(uint8_t state)
     {
-        pinControl.digitalWrite(boardPin, state);
+        pinControl->digitalWrite(boardPin, state);
     }
 } // namespace hardware

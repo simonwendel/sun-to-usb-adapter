@@ -26,11 +26,11 @@ namespace hardware
     class InputPin : public IInputPin
     {
     private:
-        IPinControl &pinControl;
+        IPinControl *pinControl;
         int boardPin;
 
     public:
-        InputPin(IPinControl &pinControl, int boardPin);
+        InputPin(IPinControl *pinControl, int boardPin);
         int getState() override;
     };
 } // namespace hardware

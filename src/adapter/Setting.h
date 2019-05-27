@@ -26,10 +26,10 @@ namespace adapter
     class Setting : public ISetting
     {
     private:
-        hardware::IInputPin &inputPin;
+        hardware::IInputPin *inputPin;
 
     public:
-        Setting(hardware::IInputPin &inputPin);
+        Setting(hardware::IInputPin *inputPin);
         bool isOn() override;
     };
 } // namespace adapter
