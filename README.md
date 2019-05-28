@@ -78,11 +78,19 @@ Serial.write() can only pass a single value, so using 2 in sequence is a bit hit
 
 The effect of this is that you must keep the state of the LEDs in your controller, and therefore re-initialize the LEDs on each load in setup() to a known state.
 
+# Structure and Makefile
+
+As a software developer I value both modeling constructs and hierachies. To this end I created a somewhat complex root Makefile, allowing me to include subfolders and source files into my final AVR binary, based on the awesome work from the [Arduino Makefile] project.
+
 # Unit Testing
+
+Of course, I also want to unit test my main logic.
 
 The ```test``` folder contains a bunch of unit tests and a ```Makefile``` that will compile the tests using [GTest and GMock][gtest] on the non-AVR development host. That means that the hardware running the tests is the machine I develop on, not the actual board.
 
 This might of course produce slight deviations, f.x. on an x86 system the size of an ```int``` is probably not 16 bits. However, the tests do give opportunity to make sure the vital logic is in place before even uploading to an Arduino-compatible board.
+
+For this to work a bunch of stubbing needs to be done to remove the dependency on the ```Arduino.h``` and accompanying header files, but with minimal impact on my code. Look to the ```lib``` folder for those headers.
 
 # Modifications to the original source
 
@@ -160,3 +168,5 @@ from the project root.
 
 [Fritzing]: http://fritzing.org/home/
 [Fritzing parts]: https://github.com/adafruit/Fritzing-Library
+
+[arduino makefile]: https://github.com/sudar/Arduino-Makefile
