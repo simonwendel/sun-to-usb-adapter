@@ -38,7 +38,7 @@ There is however a nasty little bug hiding on line 37 of the [the original imple
 char c = sunSerial.read();
 ```
 
-Looks totally innocent, but notice that the serial read method returns an ```int``` which is stored in a ```char```. On the 8-bit AVR the size of a char is 8 bits, but the size of an ```int``` is 16 bits, thus causing an overflow when assigned to the signed char ```c```.
+Looks totally innocent, but notice that the serial read method returns an ```int``` which is stored in a ```char```. On the 8-bit AVR the size of a char is 8 bits, but the size of an ```int``` is 16 bits, thus causing an overflow when assigned to the signed char ```c```. GCC will even throw a ```-Wtype-limits``` warning in the console.
 
 Reading from the official [specification], the example of the 'A' button in the US Scan Set has in fact a "make code" of 0x42 = 77, but the "break code" (what [benr] calls "key release" or "key up") is 0xCD = 205. If you put that in a signed char it will overflow to 205-2^8 = -51.
 
