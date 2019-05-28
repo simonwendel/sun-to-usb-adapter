@@ -26,9 +26,10 @@ MONITOR_PORT			= /dev/ttyACM0
 
 # this should be the dir of this Project.mk file
 ROOT_DIR				:= $(dir $(lastword $(MAKEFILE_LIST)))
-BUILD_DIR				= $(ROOT_DIR)build
 
 CURRENT_DIR				= $(shell basename $(CURDIR))
+
+BUILD_DIR				= $(ROOT_DIR)build
 OBJDIR					= $(BUILD_DIR)
 
 # check out the Arduino-Makefile RPM from my config github repo at
