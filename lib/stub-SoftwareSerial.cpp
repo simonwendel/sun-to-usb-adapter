@@ -20,6 +20,7 @@
 
 #include <stdint.h>
 
+#ifdef STUB_ARDUINO
 SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin)
 {
 }
@@ -43,3 +44,4 @@ size_t SoftwareSerial::write(const uint8_t *buffer, size_t size)
 {
     return -1;
 }
+#endif

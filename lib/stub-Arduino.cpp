@@ -20,6 +20,7 @@
 
 #include <stdint.h>
 
+#ifdef STUB_ARDUINO
 void pinMode(uint8_t pin, uint8_t mode)
 {
 }
@@ -32,3 +33,4 @@ int digitalRead(uint8_t pin)
 {
     return -1;
 }
+#endif
