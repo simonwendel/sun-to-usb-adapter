@@ -21,6 +21,10 @@
 #include <stdint.h>
 
 #ifdef STUB_ARDUINO
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
 void pinMode(uint8_t pin, uint8_t mode)
 {
 }
@@ -31,6 +35,8 @@ void digitalWrite(uint8_t pin, uint8_t state)
 
 int digitalRead(uint8_t pin)
 {
-    return -1;
 }
+
+#pragma GCC diagnostic pop
+
 #endif

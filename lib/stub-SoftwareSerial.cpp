@@ -21,6 +21,10 @@
 #include <stdint.h>
 
 #ifdef STUB_ARDUINO
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
 SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin)
 {
 }
@@ -37,11 +41,12 @@ int SoftwareSerial::read()
 
 size_t SoftwareSerial::write(uint8_t byte)
 {
-    return -1;
 }
 
 size_t SoftwareSerial::write(const uint8_t *buffer, size_t size)
 {
-    return -1;
 }
+
+#pragma GCC diagnostic pop
+
 #endif
