@@ -30,6 +30,7 @@ OBJECTS				= \
 					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard *.cpp)) \
 					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard **/*.cpp)) \
 					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../lib/*.cpp)) \
+					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../src/*.cpp)) \
 					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../src/**/*.cpp))
 
 TARGET				= $(OBJDIR)/test_runner.bin
