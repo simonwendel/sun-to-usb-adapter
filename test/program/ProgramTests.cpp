@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../src/Program.h"
-#include "../src/adapter/ISetting.h"
+#include "../../src/program/Program.h"
+#include "../../src/adapter/ISetting.h"
 #include "mocks/MockIKeyboardCommander.h"
 #include "mocks/MockISetting.h"
 

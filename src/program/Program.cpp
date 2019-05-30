@@ -18,7 +18,7 @@
 
 #include "Program.h"
 
-#include "adapter/ISetting.h"
+#include "../adapter/ISetting.h"
 
 namespace program
 {

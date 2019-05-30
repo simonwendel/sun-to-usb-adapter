@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include "adapter/IKeyboardCommander.h"
-#include "adapter/ISetting.h"
+#include "../adapter/IKeyboardCommander.h"
+#include "../adapter/ISetting.h"
 
 namespace program
 {
