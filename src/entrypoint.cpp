@@ -17,7 +17,7 @@
  */
 
 #include <arduino-platform.h>
-#include "Program.h"
+#include "program/Program.h"
 
 void setup()
 {
