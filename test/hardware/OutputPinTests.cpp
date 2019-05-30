@@ -17,7 +17,7 @@
  */
 
 #include "../../src/hardware/OutputPin.h"
-#include "MockIPinControl.h"
+#include "mocks/MockIPinControl.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>

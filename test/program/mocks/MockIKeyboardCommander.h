@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "../src/adapter/IKeyboardCommander.h"
+#include "../../../src/adapter/IKeyboardCommander.h"
 
 #include <gmock/gmock.h>
 

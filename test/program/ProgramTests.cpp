@@ -18,8 +18,8 @@
 
 #include "../src/Program.h"
 #include "../src/adapter/ISetting.h"
-#include "MockIKeyboardCommander.h"
-#include "MockISetting.h"
+#include "mocks/MockIKeyboardCommander.h"
+#include "mocks/MockISetting.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>

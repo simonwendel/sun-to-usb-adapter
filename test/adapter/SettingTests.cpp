@@ -17,7 +17,7 @@
  */
 
 #include "../../src/adapter/Setting.h"
-#include "MockIInputPin.h"
+#include "mocks/MockIInputPin.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>

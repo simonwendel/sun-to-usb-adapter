@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "../../src/hardware/IInputPin.h"
+#include "../../../src/hardware/IInputPin.h"
 
 #include <gmock/gmock.h>
 

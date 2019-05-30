@@ -18,15 +18,17 @@
 
 #pragma once
 
-#include "../src/adapter/ISetting.h"
+#include "../../../src/hardware/IPinControl.h"
 
 #include <gmock/gmock.h>
 
-namespace program_tests
+namespace hardware_tests
 {
-    class MockISetting : public adapter::ISetting
+    class MockIPinControl : public hardware::IPinControl
     {
     public:
-        MOCK_METHOD0(isOn, bool());
+        MOCK_METHOD2(pinMode, void(uint8_t, uint8_t));
+        MOCK_METHOD2(digitalWrite, void(uint8_t, uint8_t));
+        MOCK_METHOD1(digitalRead, int(uint8_t));
     };
-} // namespace program_tests
+} // namespace hardware_tests
