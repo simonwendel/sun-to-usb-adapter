@@ -36,7 +36,6 @@ namespace adapter_tests
     TEST_F(adapter_Setting, isOn_WhenInputPinIsLow_ReturnsFalse)
     {
         ON_CALL(inputPin, getState()).WillByDefault(Return(LOW));
-
         EXPECT_CALL(inputPin, getState()).Times(Exactly(1));
 
         adapter::Setting sut{&inputPin};
@@ -47,7 +46,6 @@ namespace adapter_tests
     TEST_F(adapter_Setting, isOn_WhenInputPinIsHigh_ReturnsTrue)
     {
         ON_CALL(inputPin, getState()).WillByDefault(Return(HIGH));
-
         EXPECT_CALL(inputPin, getState()).Times(Exactly(1));
 
         adapter::Setting sut{&inputPin};

@@ -38,7 +38,6 @@ namespace hardware_tests
            constructor_GivenPinControl_SetsSuppliedPinAsOutput)
     {
         EXPECT_CALL(pinControl, pinMode(boardPin, OUTPUT)).Times(Exactly(1));
-
         hardware::OutputPin sut{&pinControl, boardPin};
     }
 

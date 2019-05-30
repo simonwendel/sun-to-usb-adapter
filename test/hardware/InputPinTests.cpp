@@ -38,7 +38,6 @@ namespace hardware_tests
            constructor_GivenPinControl_SetsSuppliedPinAsInput)
     {
         EXPECT_CALL(pinControl, pinMode(boardPin, INPUT)).Times(Exactly(1));
-
         hardware::InputPin sut{&pinControl, boardPin};
     }
 
@@ -47,7 +46,7 @@ namespace hardware_tests
         auto expected = 10;
         ON_CALL(pinControl, digitalRead(boardPin))
         .WillByDefault(Return(expected));
-
+        
         EXPECT_CALL(pinControl, pinMode(boardPin, INPUT)).Times(Exactly(1));
 
         hardware::InputPin sut{&pinControl, boardPin};
