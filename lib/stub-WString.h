@@ -18,11 +18,10 @@
 
 #pragma once
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-WString.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+class String
+{
+public:
+    String(const char *cstr = "");
+    unsigned char equals(const String &s) const;
+    unsigned char operator==(const String &rhs) const;
+};

@@ -16,13 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "stub-WString.h"
 
 #ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-WString.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
+String::String(const char *cstr)
+{
+}
+
+unsigned char String::operator==(const String &rhs) const
+{
+}
+
+unsigned char String::equals(const String &s) const
+{
+}
+
+#pragma GCC diagnostic pop
+
 #endif
