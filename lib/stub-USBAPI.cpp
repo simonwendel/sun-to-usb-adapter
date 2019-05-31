@@ -16,14 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "stub-USBAPI.h"
 
 #ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
+int Serial_::read()
+{
+}
+
+size_t Serial_::write(uint8_t byte)
+{
+}
+
+size_t Serial_::write(const uint8_t *buffer, size_t size)
+{
+}
+
+#pragma GCC diagnostic pop
+
+Serial_ Serial;
+
 #endif

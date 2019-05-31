@@ -18,12 +18,15 @@
 
 #pragma once
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+#include <stdint.h>
+#include <stdlib.h>
+
+class Serial_
+{
+public:
+    int read();
+    size_t write(uint8_t byte);
+    size_t write(const uint8_t *buffer, size_t size);
+};
+
+extern Serial_ Serial;
