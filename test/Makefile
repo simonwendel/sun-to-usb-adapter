@@ -55,8 +55,6 @@ $(OBJDIR)/%.o : %.cpp
 	$(CXX) $(CXX_FLAGS) $< -o $@
 
 clean:
-	$(info Removing $(BUILD_DIR) if empty...)
-	$(shell rm -rf $(OBJDIR))
-	$(shell rmdir $(BUILD_DIR) &>/dev/null)
+	$(shell rm -rf $(BUILD_DIR))
 
 .PHONY: all clean
