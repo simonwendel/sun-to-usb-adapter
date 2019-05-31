@@ -16,54 +16,60 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FunctionMap.h"
+#pragma once
 
 namespace adapter
 {
-    FunctionMap::FunctionMap(int capacity) : capacity(capacity)
+    template <typename TParam>
+    ActionMap<TParam>::ActionMap(int capacity) : capacity(capacity)
     {
         count = 0;
-        functions = new Function[capacity];
+        actions = new Action<TParam>[capacity];
         for (int index = 0; index < capacity; ++index)
         {
-            functions[index] = nullptr;
+            actions[index] = nullptr;
         }
     }
 
-    int FunctionMap::getCount()
+    template <typename TParam>
+    int ActionMap<TParam>::getCount()
     {
         return count;
     }
 
-    int FunctionMap::getCapacity()
+    template <typename TParam>
+    int ActionMap<TParam>::getCapacity()
     {
         return capacity;
     }
 
-    bool FunctionMap::mapFunction(int key, Function function)
+    template <typename TParam>
+    bool ActionMap<TParam>::mapAction(int key, Action<TParam> action)
     {
         if (key < 0 || key >= capacity)
         {
             return false;
         }
 
-        functions[key] = function;
+        actions[key] = action;
         ++count;
         return true;
     }
 
-    Function FunctionMap::getFunction(int key)
+    template <typename TParam>
+    Action<TParam> ActionMap<TParam>::getAction(int key)
     {
         if (key < 0 || key >= capacity)
         {
             return nullptr;
         }
 
-        return functions[key];
+        return actions[key];
     }
 
-    FunctionMap::~FunctionMap()
+    template <typename TParam>
+    ActionMap<TParam>::~ActionMap()
     {
-        delete[] functions;
+        delete[] actions;
     }
 } // namespace adapter

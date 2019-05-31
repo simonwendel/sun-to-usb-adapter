@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../../src/adapter/Function.h"
-#include "../../src/adapter/FunctionMap.h"
+#include "../../src/adapter/Action.h"
+#include "../../src/adapter/ActionMap.h"
 
 #include <gtest/gtest.h>
 
@@ -25,90 +25,90 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_FunctionMap : public ::testing::Test
+    class adapter_ActionMap : public ::testing::Test
     {
     public:
         int capacity = 100;
         int defaultCapacity = 255;
-        adapter::FunctionMap sut;
+        adapter::ActionMap<int> sut;
     };
 
     namespace
     {
-        void functionToMap(int param)
+        void actionToMap(int param)
         {
         }
     } // namespace
 
-    TEST_F(adapter_FunctionMap,
+    TEST_F(adapter_ActionMap,
            constructor_GivenNoCapacity_AllocatesEmptyWithDefaultCapacity)
     {
         EXPECT_EQ(sut.getCount(), 0);
         EXPECT_EQ(sut.getCapacity(), defaultCapacity);
     }
 
-    TEST_F(adapter_FunctionMap,
+    TEST_F(adapter_ActionMap,
            constructor_GivenCapacity_AllocatesEmptyWithCapacity)
     {
-        adapter::FunctionMap sut{capacity};
+        adapter::ActionMap<int> sut{capacity};
         EXPECT_EQ(sut.getCount(), 0);
         EXPECT_EQ(sut.getCapacity(), capacity);
     }
 
-    TEST_F(adapter_FunctionMap,
-           mapFunction_GivenKeyGreaterThanCapacity_ReturnsFalseAndDoesntAdd)
+    TEST_F(adapter_ActionMap,
+           mapAction_GivenKeyGreaterThanCapacity_ReturnsFalseAndDoesntAdd)
     {
         auto sucessfullyMapped =
-        sut.mapFunction(defaultCapacity + 1, functionToMap);
+        sut.mapAction(defaultCapacity + 1, actionToMap);
 
         EXPECT_FALSE(sucessfullyMapped);
         EXPECT_EQ(sut.getCount(), 0);
     }
 
-    TEST_F(adapter_FunctionMap,
-           mapFunction_GivenKeyLessThanZero_ReturnsFalseAndDoesntAdd)
+    TEST_F(adapter_ActionMap,
+           mapAction_GivenKeyLessThanZero_ReturnsFalseAndDoesntAdd)
     {
-        auto sucessfullyMapped = sut.mapFunction(-1, functionToMap);
+        auto sucessfullyMapped = sut.mapAction(-1, actionToMap);
 
         EXPECT_FALSE(sucessfullyMapped);
         EXPECT_EQ(sut.getCount(), 0);
     }
 
-    TEST_F(adapter_FunctionMap,
-           mapFunction_GivenKeyAndFunction_AddsFunctionToMap)
+    TEST_F(adapter_ActionMap,
+           mapAction_GivenKeyAndAction_AddsActionToMap)
     {
-        auto sucessfullyMapped = sut.mapFunction(10, functionToMap);
+        auto sucessfullyMapped = sut.mapAction(10, actionToMap);
 
         EXPECT_TRUE(sucessfullyMapped);
         EXPECT_EQ(sut.getCount(), 1);
     }
 
-    TEST_F(adapter_FunctionMap,
-           getFunction_GivenNonExistantKey_ReturnsEmptyFunction)
+    TEST_F(adapter_ActionMap,
+           getAction_GivenNonExistantKey_ReturnsNullptr)
     {
-        auto function = sut.getFunction(1);
-        EXPECT_EQ(function, nullptr);
+        auto action = sut.getAction(1);
+        EXPECT_EQ(action, nullptr);
     }
 
-    TEST_F(adapter_FunctionMap,
-           getFunction_GivenKeyLessThanZero_ReturnsEmptyFunction)
+    TEST_F(adapter_ActionMap,
+           getAction_GivenKeyLessThanZero_ReturnsNullptr)
     {
-        auto function = sut.getFunction(-1);
-        EXPECT_EQ(function, nullptr);
+        auto action = sut.getAction(-1);
+        EXPECT_EQ(action, nullptr);
     }
 
-    TEST_F(adapter_FunctionMap,
-           getFunction_GivenKeyGreaterThanCapacity_ReturnsEmptyFunction)
+    TEST_F(adapter_ActionMap,
+           getAction_GivenKeyGreaterThanCapacity_ReturnsNullptr)
     {
-        auto function = sut.getFunction(defaultCapacity + 1);
-        EXPECT_EQ(function, nullptr);
+        auto action = sut.getAction(defaultCapacity + 1);
+        EXPECT_EQ(action, nullptr);
     }
 
-    TEST_F(adapter_FunctionMap,
-           getFunction_GivenMappedKey_ReturnsMappedFunction)
+    TEST_F(adapter_ActionMap,
+           getAction_GivenMappedKey_ReturnsMappedAction)
     {
-        sut.mapFunction(11, functionToMap);
-        auto function = sut.getFunction(11);
-        EXPECT_EQ(function, functionToMap);
+        sut.mapAction(11, actionToMap);
+        auto action = sut.getAction(11);
+        EXPECT_EQ(action, actionToMap);
     }
 } // namespace adapter_tests

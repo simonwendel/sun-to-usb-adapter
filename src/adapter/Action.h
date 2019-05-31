@@ -20,5 +20,6 @@
 
 namespace adapter
 {
-    typedef void (*Function)(int);
+    template <typename TParam>
+    using Action = void (*)(TParam);
 } // namespace adapter

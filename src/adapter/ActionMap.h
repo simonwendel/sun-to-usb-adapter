@@ -18,24 +18,27 @@
 
 #pragma once
 
-#include "Function.h"
+#include "Action.h"
 
 namespace adapter
 {
-    class FunctionMap
+    template <typename TParam>
+    class ActionMap
     {
     private:
         int capacity;
         int count;
-        Function *functions;
+        Action<TParam> *actions;
 
     public:
-        FunctionMap(int capacity = 255);
-        virtual ~FunctionMap();
+        ActionMap(int capacity = 255);
+        virtual ~ActionMap();
 
         int getCount();
         int getCapacity();
-        bool mapFunction(int key, Function function);
-        Function getFunction(int key);
+        bool mapAction(int key, Action<TParam> action);
+        Action<TParam> getAction(int key);
     };
 } // namespace adapter
+
+#include "ActionMap.tpp"
