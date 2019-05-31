@@ -19,9 +19,14 @@ GOOGLE_MOCK_LIB		= gmock
 GOOGLE_TEST_INCLUDE	= /usr/include
 
 CXX					= g++
+
 CXX_FLAGS			= -c -Wall -I $(GOOGLE_TEST_INCLUDE) -I ../lib
 CXX_FLAGS			+= -DSTUB_ARDUINO
-LD_FLAGS			= -L /usr/local/lib -l $(GOOGLE_TEST_LIB) -l $(GOOGLE_MOCK_LIB) -l pthread
+
+LD_FLAGS			= -L /usr/local/lib 
+LD_FLAGS			+= -l $(GOOGLE_TEST_LIB) 
+LD_FLAGS			+= -l $(GOOGLE_MOCK_LIB) 
+LD_FLAGS			+= -l pthread
 
 BUILD_DIR			= ../build
 OBJDIR				= $(BUILD_DIR)/test
