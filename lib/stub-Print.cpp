@@ -16,19 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "stub-Print.h"
 
-#include "stub-Stream.h"
+#ifdef STUB_ARDUINO
 
-#include <stdint.h>
-#include <stdlib.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
 
-class SoftwareSerial : public Stream
+size_t Print::print(const String &)
 {
-public:
-    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin);
-    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverseLogic);
-    int read();
-    size_t write(uint8_t byte);
-    size_t write(const uint8_t *buffer, size_t size);
-};
+}
+
+size_t Print::println(const String &)
+{
+}
+
+#pragma GCC diagnostic pop
+
+#endif

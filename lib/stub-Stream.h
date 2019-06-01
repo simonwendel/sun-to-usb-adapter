@@ -18,17 +18,10 @@
 
 #pragma once
 
-#include "stub-Stream.h"
+#include "stub-Print.h"
 
-#include <stdint.h>
 #include <stdlib.h>
 
-class SoftwareSerial : public Stream
+class Stream : public Print
 {
-public:
-    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin);
-    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverseLogic);
-    int read();
-    size_t write(uint8_t byte);
-    size_t write(const uint8_t *buffer, size_t size);
 };

@@ -18,10 +18,12 @@
 
 #pragma once
 
+#include "stub-Stream.h"
+
 #include <stdint.h>
 #include <stdlib.h>
 
-class Serial_
+class Serial_ : public Stream
 {
 public:
     int read();
