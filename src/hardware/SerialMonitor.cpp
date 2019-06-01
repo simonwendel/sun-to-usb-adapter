@@ -37,4 +37,14 @@ namespace hardware
     {
         return Serial.write(buffer, size);
     }
+
+    size_t SerialMonitor::print(const String &s)
+    {
+        return Serial.print(s);
+    }
+
+    size_t SerialMonitor::println(const String &s)
+    {
+        return Serial.println(s);
+    }
 } // namespace hardware

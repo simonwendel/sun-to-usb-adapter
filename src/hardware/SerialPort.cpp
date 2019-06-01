@@ -48,4 +48,14 @@ namespace hardware
     {
         return serial->write(buffer, size);
     }
+
+    size_t SerialPort::print(const String &s)
+    {
+        return serial->print(s);
+    }
+
+    size_t SerialPort::println(const String &s)
+    {
+        return serial->println(s);
+    }
 } // namespace hardware

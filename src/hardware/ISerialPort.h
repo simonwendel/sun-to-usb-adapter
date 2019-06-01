@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <arduino-platform.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -27,7 +28,11 @@ namespace hardware
     {
     public:
         virtual int read() = 0;
+
         virtual size_t write(uint8_t byte) = 0;
         virtual size_t write(const uint8_t *buffer, size_t size) = 0;
+        
+        virtual size_t print(const String &s) = 0;
+        virtual size_t println(const String &s) = 0;
     };
 } // namespace hardware
