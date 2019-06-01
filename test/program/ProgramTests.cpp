@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../../src/program/Program.h"
 #include "../../src/adapter/ISetting.h"
-#include "mocks/MockIKeyboardCommander.h"
-#include "mocks/MockISetting.h"
+#include "../../src/program/Program.h"
+#include "../mocks/adapter/MockIKeyboardCommander.h"
+#include "../mocks/adapter/MockISetting.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -32,8 +32,8 @@ namespace program_tests
     class program_Program : public ::testing::Test
     {
     public:
-        MockISetting keyboardClicks;
-        MockIKeyboardCommander keyboardCommander;
+        adapter_mocks::MockISetting keyboardClicks;
+        adapter_mocks::MockIKeyboardCommander keyboardCommander;
 
         program::Program sut{&keyboardClicks, &keyboardCommander};
     };

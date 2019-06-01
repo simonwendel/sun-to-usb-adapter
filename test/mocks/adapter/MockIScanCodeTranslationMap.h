@@ -18,15 +18,15 @@
 
 #pragma once
 
-#include "../../../src/adapter/ISetting.h"
+#include "../../../src/adapter/IScanCodeTranslationMap.h"
 
 #include <gmock/gmock.h>
 
-namespace program_tests
+namespace adapter_mocks
 {
-    class MockISetting : public adapter::ISetting
+    class MockIScanCodeTranslationMap : public adapter::IScanCodeTranslationMap
     {
     public:
-        MOCK_METHOD0(isOn, bool());
+        MOCK_METHOD1(getUsageId, int(int));
     };
-} // namespace program_tests
+} // namespace adapter_tests

@@ -18,15 +18,15 @@
 
 #pragma once
 
-#include "../../../src/hardware/IInputPin.h"
+#include "../../../src/adapter/IKeyboardCommander.h"
 
 #include <gmock/gmock.h>
 
-namespace adapter_tests
+namespace adapter_mocks
 {
-    class MockIInputPin : public hardware::IInputPin
+    class MockIKeyboardCommander : public adapter::IKeyboardCommander
     {
     public:
-        MOCK_METHOD0(getState, int());
+        MOCK_METHOD0(turnOnClicks, void());
     };
-} // namespace adapter_tests
+} // namespace adapter_mocks

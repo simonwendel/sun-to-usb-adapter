@@ -17,7 +17,7 @@
  */
 
 #include "../../src/hardware/OutputPin.h"
-#include "mocks/MockIPinControl.h"
+#include "../mocks/hardware/MockIPinControl.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -31,7 +31,7 @@ namespace hardware_tests
     {
     public:
         int boardPin = 14;
-        MockIPinControl pinControl;
+        hardware_mocks::MockIPinControl pinControl;
     };
 
     TEST_F(hardware_OutputPin,

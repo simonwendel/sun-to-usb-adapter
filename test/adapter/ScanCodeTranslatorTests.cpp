@@ -17,7 +17,7 @@
  */
 
 #include "../../src/adapter/ScanCodeTranslator.h"
-#include "mocks/MockIScanCodeTranslationMap.h"
+#include "../mocks/adapter/MockIScanCodeTranslationMap.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -34,7 +34,7 @@ namespace adapter_tests
         int breakCodeA = 205;
         int usageIdA = 4;
 
-        MockIScanCodeTranslationMap translationMap;
+        adapter_mocks::MockIScanCodeTranslationMap translationMap;
         adapter::ScanCodeTranslator sut{&translationMap};
 
         adapter_ScanCodeTranslator()

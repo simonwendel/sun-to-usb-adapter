@@ -17,7 +17,7 @@
  */
 
 #include "../../src/adapter/Setting.h"
-#include "mocks/MockIInputPin.h"
+#include "../mocks/hardware/MockIInputPin.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -30,7 +30,7 @@ namespace adapter_tests
     class adapter_Setting : public ::testing::Test
     {
     public:
-        MockIInputPin inputPin;
+        hardware_mocks::MockIInputPin inputPin;
     };
 
     TEST_F(adapter_Setting, isOn_WhenInputPinIsLow_ReturnsFalse)

@@ -18,15 +18,15 @@
 
 #pragma once
 
-#include "../../../src/adapter/IKeyboardCommander.h"
+#include "../../../src/adapter/ISetting.h"
 
 #include <gmock/gmock.h>
 
-namespace program_tests
+namespace adapter_mocks
 {
-    class MockIKeyboardCommander : public adapter::IKeyboardCommander
+    class MockISetting : public adapter::ISetting
     {
     public:
-        MOCK_METHOD0(turnOnClicks, void());
+        MOCK_METHOD0(isOn, bool());
     };
-} // namespace program_tests
+} // namespace adapter_mocks

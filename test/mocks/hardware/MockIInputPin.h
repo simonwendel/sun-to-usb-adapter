@@ -18,15 +18,15 @@
 
 #pragma once
 
-#include "../../../src/adapter/IScanCodeTranslationMap.h"
+#include "../../../src/hardware/IInputPin.h"
 
 #include <gmock/gmock.h>
 
-namespace adapter_tests
+namespace hardware_mocks
 {
-    class MockIScanCodeTranslationMap : public adapter::IScanCodeTranslationMap
+    class MockIInputPin : public hardware::IInputPin
     {
     public:
-        MOCK_METHOD1(getUsageId, int(int));
+        MOCK_METHOD0(getState, int());
     };
 } // namespace adapter_tests

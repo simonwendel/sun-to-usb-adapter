@@ -22,7 +22,7 @@
 
 #include <gmock/gmock.h>
 
-namespace hardware_tests
+namespace hardware_mocks
 {
     class MockIPinControl : public hardware::IPinControl
     {
