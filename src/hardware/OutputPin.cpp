@@ -18,9 +18,9 @@
 
 #include "OutputPin.h"
 
-#include "../../lib/arduino-platform.h"
 #include "IPinControl.h"
 
+#include <arduino-platform.h>
 #include <stdint.h>
 
 namespace hardware
