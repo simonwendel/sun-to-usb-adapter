@@ -18,12 +18,19 @@
 
 #pragma once
 
+#include <stdint.h>
+
 namespace adapter
 {
-    class IKeyboardCommander
+    class Command
     {
     public:
-        virtual void turnOnClicks() = 0;
-        virtual void turnOffClicks() = 0;
+        static const uint8_t RESET = 0x01;
+
+        static const uint8_t DISABLE_CLICK = 0x0B;
+        static const uint8_t ENABLE_CLICK = 0x0A;
+
+        static const uint8_t ENABLE_BELL = 0x02;
+        static const uint8_t DISABLE_BELL = 0x03;
     };
 } // namespace adapter

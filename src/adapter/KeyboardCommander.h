@@ -18,12 +18,18 @@
 
 #pragma once
 
+#include "../hardware/ISerialPort.h"
+#include "IKeyboardCommander.h"
+
 namespace adapter
 {
-    class IKeyboardCommander
+    class KeyboardCommander : public IKeyboardCommander
     {
+        hardware::ISerialPort *serialPort;
+
     public:
-        virtual void turnOnClicks() = 0;
-        virtual void turnOffClicks() = 0;
+        KeyboardCommander(hardware::ISerialPort *serialPort);
+        void turnOnClicks() override;
+        void turnOffClicks() override;
     };
 } // namespace adapter

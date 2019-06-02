@@ -16,14 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "KeyboardCommander.h"
+
+#include "../hardware/ISerialPort.h"
+#include "Command.h"
 
 namespace adapter
 {
-    class IKeyboardCommander
+    KeyboardCommander::KeyboardCommander(hardware::ISerialPort *serialPort) :
+        serialPort(serialPort)
     {
-    public:
-        virtual void turnOnClicks() = 0;
-        virtual void turnOffClicks() = 0;
-    };
+    }
+
+    void KeyboardCommander::turnOnClicks()
+    {
+        serialPort->write(Command::ENABLE_CLICK);
+    }
+
+    void KeyboardCommander::turnOffClicks()
+    {
+        serialPort->write(Command::DISABLE_CLICK);
+    }
 } // namespace adapter
