@@ -4,6 +4,16 @@ I am totally a UNIX nerd and one day I decided to get myself an old Sun keybard.
 
 I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood][benr] and [Sven Guenther][sven] by forking from the latter. Check those repos out, I owe it all to them.
 
+# Philosophy
+
+I am a software developer with quite a few years of experience within a range of frameworks and platforms, from desktop applications to networking and streaming to web development and large SQL databases. I have even written my fair share of VB for Applications, shrug.
+
+Because of this I wanted to prove to myself that I could accomplish a few key points on this Arduino build:
+
+1. Abstract away from the actual hardware (nuts right?)
+2. Structure the project better (I don't like the Arduino Sketchbook thing)
+3. Develop in a Test Driven fashion (unit tests first on as much code as possible)
+
 # How Sun Keyboards Work
 
 It's actually gloriously simple, thanks to the cleverness of the original Sun engineers!
