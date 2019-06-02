@@ -23,7 +23,6 @@
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <stdint.h>
 
 namespace adapter_tests
 {
