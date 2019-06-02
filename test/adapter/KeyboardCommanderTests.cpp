@@ -51,4 +51,20 @@ namespace adapter_tests
         EXPECT_CALL(serialPort, write(expectedCommand));
         sut.turnOffClicks();
     }
+
+    TEST_F(adapter_KeyboardCommander,
+           turnOnBell_GivenSerialPort_SendsEnableBellCommand)
+    {
+        auto expectedCommand = adapter::Command::ENABLE_BELL;
+        EXPECT_CALL(serialPort, write(expectedCommand));
+        sut.turnOnBell();
+    }
+
+    TEST_F(adapter_KeyboardCommander,
+           turnOffBell_GivenSerialPort_SendsDisableBellCommand)
+    {
+        auto expectedCommand = adapter::Command::DISABLE_BELL;
+        EXPECT_CALL(serialPort, write(expectedCommand));
+        sut.turnOffBell();
+    }
 } // namespace adapter_tests

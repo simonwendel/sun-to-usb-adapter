@@ -25,5 +25,8 @@ namespace adapter
     public:
         virtual void turnOnClicks() = 0;
         virtual void turnOffClicks() = 0;
+
+        virtual void turnOnBell() = 0;
+        virtual void turnOffBell() = 0;
     };
 } // namespace adapter

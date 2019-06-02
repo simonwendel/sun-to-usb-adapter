@@ -29,7 +29,11 @@ namespace adapter
 
     public:
         KeyboardCommander(hardware::ISerialPort *serialPort);
+
         void turnOnClicks() override;
         void turnOffClicks() override;
+
+        void turnOnBell() override;
+        void turnOffBell() override;
     };
 } // namespace adapter

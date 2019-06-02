@@ -37,4 +37,14 @@ namespace adapter
     {
         serialPort->write(Command::DISABLE_CLICK);
     }
+
+    void KeyboardCommander::turnOnBell()
+    {
+        serialPort->write(Command::ENABLE_BELL);
+    }
+
+    void KeyboardCommander::turnOffBell()
+    {
+        serialPort->write(Command::DISABLE_BELL);
+    }
 } // namespace adapter
