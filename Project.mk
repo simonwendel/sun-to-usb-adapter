@@ -60,7 +60,7 @@ define find_cpp_files
 	$(shell find $(1) -maxdepth 1 -type f -name '*.cpp')
 endef
 
-SOURCE_FOLDERS = lib/ src/hardware src/adapter
+SOURCE_FOLDERS = lib/ src/hardware src/adapter src/hardware/timers
 
 SRCS			= $(foreach dir, $(SOURCE_FOLDERS), $(call find_cpp_files, $(ROOT_DIR)$(dir)))
 LOCAL_CPP_SRCS  += $(subst $(ROOT_DIR),,$(SRCS))
