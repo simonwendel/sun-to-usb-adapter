@@ -31,12 +31,14 @@ LD_FLAGS			+= -l pthread
 BUILD_DIR			= ../build
 OBJDIR				= $(BUILD_DIR)/test
 
-OBJECTS				= \
-					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard *.cpp)) \
-					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard **/*.cpp)) \
-					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../lib/*.cpp)) \
-					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../src/*.cpp)) \
-					$(patsubst %.cpp,$(OBJDIR)/%.o,$(wildcard ../src/**/*.cpp))
+define find_cpp_files
+	$(shell find $(1) -type f -name '*.cpp')
+endef
+
+SOURCE_FOLDERS 		= ../lib/ ../src/ ./
+
+SRCS			= $(foreach dir, $(SOURCE_FOLDERS), $(call find_cpp_files, $(dir)))
+OBJECTS			= $(patsubst %.cpp,$(OBJDIR)/%.o,$(SRCS))
 
 TARGET				= $(OBJDIR)/test_runner.bin
 
