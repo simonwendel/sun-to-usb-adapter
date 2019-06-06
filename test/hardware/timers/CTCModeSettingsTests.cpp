@@ -52,48 +52,42 @@ namespace hardware_timers_tests
     TEST_F(hardware_timers_CTCModeSettings,
            getPrescalerRegister_GivenPS1_Returns001)
     {
-        hardware::timers::CTCModeSettings sut{compareMatchRegister,
-                                              Prescaler::PS_1};
+        sut = {compareMatchRegister, Prescaler::PS_1};
         EXPECT_EQ(sut.getPrescalerRegister(), 0b001);
     }
 
     TEST_F(hardware_timers_CTCModeSettings,
            getPrescalerRegister_GivenPS8_Returns010)
     {
-        hardware::timers::CTCModeSettings sut{compareMatchRegister,
-                                              Prescaler::PS_8};
+        sut = {compareMatchRegister, Prescaler::PS_8};
         EXPECT_EQ(sut.getPrescalerRegister(), 0b010);
     }
 
     TEST_F(hardware_timers_CTCModeSettings,
            getPrescalerRegister_GivenPS64_Returns011)
     {
-        hardware::timers::CTCModeSettings sut{compareMatchRegister,
-                                              Prescaler::PS_64};
+        sut = {compareMatchRegister, Prescaler::PS_64};
         EXPECT_EQ(sut.getPrescalerRegister(), 0b011);
     }
 
     TEST_F(hardware_timers_CTCModeSettings,
            getPrescalerRegister_GivenPS256_Returns100)
     {
-        hardware::timers::CTCModeSettings sut{compareMatchRegister,
-                                              Prescaler::PS_256};
+        sut = {compareMatchRegister, Prescaler::PS_256};
         EXPECT_EQ(sut.getPrescalerRegister(), 0b100);
     }
 
     TEST_F(hardware_timers_CTCModeSettings,
            getPrescalerRegister_GivenPS1024_Returns101)
     {
-        hardware::timers::CTCModeSettings sut{compareMatchRegister,
-                                              Prescaler::PS_1024};
+        sut = {compareMatchRegister, Prescaler::PS_1024};
         EXPECT_EQ(sut.getPrescalerRegister(), 0b101);
     }
 
     TEST_F(hardware_timers_CTCModeSettings,
            getPrescalerRegister_GivenUnmappedPrescaler_Returns000)
     {
-        hardware::timers::CTCModeSettings sut{compareMatchRegister,
-                                              (Prescaler)0};
+        sut = {compareMatchRegister, (Prescaler)0};
         EXPECT_EQ(sut.getPrescalerRegister(), 0b000);
 
         sut = {compareMatchRegister, (Prescaler)2};

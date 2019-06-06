@@ -31,14 +31,13 @@ namespace adapter_tests
     {
     public:
         hardware_mocks::MockIInputPin inputPin;
+        adapter::Setting sut{&inputPin};
     };
 
     TEST_F(adapter_Setting, isOn_WhenInputPinIsLow_ReturnsFalse)
     {
         ON_CALL(inputPin, getState()).WillByDefault(Return(LOW));
         EXPECT_CALL(inputPin, getState()).Times(Exactly(1));
-
-        adapter::Setting sut{&inputPin};
 
         EXPECT_EQ(sut.isOn(), false);
     }
@@ -47,8 +46,6 @@ namespace adapter_tests
     {
         ON_CALL(inputPin, getState()).WillByDefault(Return(HIGH));
         EXPECT_CALL(inputPin, getState()).Times(Exactly(1));
-
-        adapter::Setting sut{&inputPin};
 
         EXPECT_EQ(sut.isOn(), true);
     }
