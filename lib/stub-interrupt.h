@@ -18,15 +18,5 @@
 
 #pragma once
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-Print.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-Stream.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#include "stub-interrupt.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+#define cli()
+#define sei()

@@ -16,17 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "InterruptsControl.h"
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-Print.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-Stream.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#include "stub-interrupt.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+#include <arduino-platform.h>
+
+namespace hardware
+{
+    void InterruptsControl::disableInterrupts()
+    {
+        cli();
+    }
+
+    void InterruptsControl::enableInterrupts()
+    {
+        sei();
+    }
+} // namespace hardware

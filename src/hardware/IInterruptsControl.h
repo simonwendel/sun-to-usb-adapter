@@ -18,15 +18,12 @@
 
 #pragma once
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-Print.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-Stream.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#include "stub-interrupt.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+namespace hardware
+{
+    class IInterruptsControl
+    {
+    public:
+        virtual void disableInterrupts() = 0;
+        virtual void enableInterrupts() = 0;
+    };
+} // namespace hardware
