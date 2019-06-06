@@ -28,6 +28,10 @@ namespace hardware_timers_tests
     class hardware_timers_CTCModeSettings : public ::testing::Test
     {
     public:
+        const int CS12 = 2;
+        const int CS11 = 1;
+        const int CS10 = 0;
+
         Prescaler prescaler = Prescaler::PS_256;
         int compareMatchRegister = 23123;
         hardware::timers::CTCModeSettings sut{compareMatchRegister, prescaler};
@@ -43,5 +47,56 @@ namespace hardware_timers_tests
            constructor_GivenPrescaler_SetsPrescaler)
     {
         ASSERT_EQ(sut.getCompareMatchRegister(), compareMatchRegister);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           getPrescalerRegister_GivenPS1_Returns001)
+    {
+        hardware::timers::CTCModeSettings sut{compareMatchRegister,
+                                              Prescaler::PS_1};
+        EXPECT_EQ(sut.getPrescalerRegister(), 0b001);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           getPrescalerRegister_GivenPS8_Returns010)
+    {
+        hardware::timers::CTCModeSettings sut{compareMatchRegister,
+                                              Prescaler::PS_8};
+        EXPECT_EQ(sut.getPrescalerRegister(), 0b010);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           getPrescalerRegister_GivenPS64_Returns011)
+    {
+        hardware::timers::CTCModeSettings sut{compareMatchRegister,
+                                              Prescaler::PS_64};
+        EXPECT_EQ(sut.getPrescalerRegister(), 0b011);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           getPrescalerRegister_GivenPS256_Returns100)
+    {
+        hardware::timers::CTCModeSettings sut{compareMatchRegister,
+                                              Prescaler::PS_256};
+        EXPECT_EQ(sut.getPrescalerRegister(), 0b100);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           getPrescalerRegister_GivenPS1024_Returns101)
+    {
+        hardware::timers::CTCModeSettings sut{compareMatchRegister,
+                                              Prescaler::PS_1024};
+        EXPECT_EQ(sut.getPrescalerRegister(), 0b101);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           getPrescalerRegister_GivenUnmappedPrescaler_Returns000)
+    {
+        hardware::timers::CTCModeSettings sut{compareMatchRegister,
+                                              (Prescaler)0};
+        EXPECT_EQ(sut.getPrescalerRegister(), 0b000);
+
+        sut = {compareMatchRegister, (Prescaler)2};
+        EXPECT_EQ(sut.getPrescalerRegister(), 0b000);
     }
 } // namespace hardware_timers_tests

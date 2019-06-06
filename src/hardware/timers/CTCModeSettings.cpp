@@ -34,6 +34,43 @@ namespace hardware::timers
         return compareMatchRegister;
     }
 
+    int CTCModeSettings::getPrescalerRegister()
+    {
+        /*
+            |CS12|CS11|CS10|Prescaler|
+            +------------------------+
+            |  0 |  0 |  1 | PS_1    |
+            |  0 |  1 |  0 | PS_8    |
+            |  0 |  1 |  1 | PS_64   |
+            |  1 |  0 |  0 | PS_256  |
+            |  1 |  0 |  1 | PS_1024 |
+        */
+
+        // let's do this the simplest possible way
+        switch (prescaler)
+        {
+            case Prescaler::PS_1:
+                return 1;
+
+            case Prescaler::PS_8:
+                return 2;
+
+            case Prescaler::PS_64:
+                return 3;
+
+            case Prescaler::PS_256:
+                return 4;
+
+            case Prescaler::PS_1024:
+                return 5;
+
+            default:
+                // setting all to zero will effectively
+                // stop the clock
+                return 0;
+        }
+    }
+
     Prescaler CTCModeSettings::getPrescaler()
     {
         return prescaler;

@@ -31,6 +31,7 @@ namespace hardware::timers
     public:
         CTCModeSettings(int compareMatchRegister, Prescaler prescaler);
         int getCompareMatchRegister();
+        int getPrescalerRegister();
         Prescaler getPrescaler();
     };
 } // namespace hardware::timers
