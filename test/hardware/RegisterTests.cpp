@@ -28,12 +28,12 @@ namespace hardware_tests
     class hardware_Register : public ::testing::Test
     {
     public:
-        uint16_t backingRegister = 0b1000000110100001;
+        const int InitialValue = 0b1000000110100001;
+        uint16_t backingRegister = InitialValue;
         hardware::Register<uint16_t> sut{&backingRegister};
     };
 
-    TEST_F(hardware_Register,
-           constructor_GivenRegiser_RetainsInitialValue)
+    TEST_F(hardware_Register, constructor_GivenRegister_RetainsInitialValue)
     {
         auto initialValue = 33185;
         EXPECT_EQ(backingRegister, initialValue);
@@ -46,8 +46,7 @@ namespace hardware_tests
         EXPECT_EQ(sut.readRegister(), initialValue);
     }
 
-    TEST_F(hardware_Register,
-           clearRegister_GivenRegister_ZerosOutRegister)
+    TEST_F(hardware_Register, clearRegister_GivenRegister_ZerosOutRegister)
     {
         auto cleared = 0;
 
@@ -57,8 +56,7 @@ namespace hardware_tests
         EXPECT_EQ(backingRegister, cleared);
     }
 
-    TEST_F(hardware_Register,
-           turnOnBits_GivenValue_TurnsOnBitsInRegister)
+    TEST_F(hardware_Register, turnOnBits_GivenValue_TurnsOnBitsInRegister)
     {
         auto bits = 0b0010101010101010;
         auto expected = 0b1010101110101011;
@@ -69,8 +67,7 @@ namespace hardware_tests
         EXPECT_EQ(backingRegister, expected);
     }
 
-    TEST_F(hardware_Register,
-           setRegister_GivenValue_SetsWholeRegister)
+    TEST_F(hardware_Register, setRegister_GivenValue_SetsWholeRegister)
     {
         auto value = 16573;
         auto expected = 16573;
@@ -80,4 +77,25 @@ namespace hardware_tests
         EXPECT_EQ(sut.readRegister(), expected);
         EXPECT_EQ(backingRegister, expected);
     }
-} // namespace hardware_registers_tests
+
+    TEST_F(hardware_Register,
+           operatorEquals_GivenNullptr_ReturnsFalse)
+    {
+        EXPECT_FALSE(sut == (hardware::Register<uint16_t>)nullptr);
+    }
+
+    TEST_F(hardware_Register,
+           operatorEquals_GivenOtherRegisterAddress_ReturnsFalse)
+    {
+        uint16_t otherBackingRegister = InitialValue;
+        hardware::Register<uint16_t> otherRegister{&otherBackingRegister};
+        EXPECT_FALSE(sut == otherRegister);
+    }
+
+    TEST_F(hardware_Register,
+           operatorEquals_GivenSameRegisterAddress_ReturnsTrue)
+    {
+        hardware::Register<uint16_t> otherRegister{&backingRegister};
+        EXPECT_TRUE(sut == otherRegister);
+    }
+} // namespace hardware_tests

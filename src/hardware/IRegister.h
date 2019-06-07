@@ -30,5 +30,7 @@ namespace hardware
         virtual void setRegister(R value) = 0;
         virtual void turnOnBits(R bits) = 0;
         virtual R readRegister() = 0;
+
+        virtual bool operator==(const IRegister<R> &theOther) const = 0;
     };
 } // namespace hardware

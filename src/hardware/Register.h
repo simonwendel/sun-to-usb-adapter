@@ -32,10 +32,12 @@ namespace hardware
     public:
         Register(volatile R *reg);
 
-        void clearRegister();
-        void setRegister(R value);
-        void turnOnBits(R bits);
-        R readRegister();
+        void clearRegister() override;
+        void setRegister(R value) override;
+        void turnOnBits(R bits) override;
+        R readRegister() override;
+
+        bool operator==(const IRegister<R> &theOther) const override;
     };
 } // namespace hardware
 
