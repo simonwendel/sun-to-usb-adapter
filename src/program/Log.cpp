@@ -24,7 +24,7 @@
 
 namespace program
 {
-    Log::Log(hardware::ISerialPort *serialPort) : serialPort(serialPort)
+    Log::Log(hardware::ISerialPort *serialPort) : serialPort{serialPort}
     {
     }
 

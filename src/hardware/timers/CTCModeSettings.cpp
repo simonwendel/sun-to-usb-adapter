@@ -24,8 +24,8 @@ namespace hardware::timers
 {
     CTCModeSettings::CTCModeSettings(int compareMatchRegister,
                                      Prescaler prescaler) :
-        compareMatchRegister(compareMatchRegister),
-        prescaler(prescaler)
+        compareMatchRegister{compareMatchRegister},
+        prescaler{prescaler}
     {
     }
 

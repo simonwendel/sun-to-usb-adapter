@@ -24,8 +24,8 @@ namespace program
 {
     Program::Program(adapter::ISetting *keyboardClicks,
                      adapter::IKeyboardCommander *keyboardCommander) :
-        keyboardClicks(keyboardClicks),
-        keyboardCommander(keyboardCommander)
+        keyboardClicks{keyboardClicks},
+        keyboardCommander{keyboardCommander}
     {
     }
 

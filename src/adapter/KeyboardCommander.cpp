@@ -24,7 +24,7 @@
 namespace adapter
 {
     KeyboardCommander::KeyboardCommander(hardware::ISerialPort *serialPort) :
-        serialPort(serialPort)
+        serialPort{serialPort}
     {
     }
 

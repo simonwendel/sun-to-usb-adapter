@@ -22,7 +22,7 @@
 
 namespace adapter
 {
-    Setting::Setting(hardware::IInputPin *inputPin) : inputPin(inputPin)
+    Setting::Setting(hardware::IInputPin *inputPin) : inputPin{inputPin}
     {
     }
 

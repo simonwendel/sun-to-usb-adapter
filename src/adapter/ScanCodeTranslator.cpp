@@ -25,7 +25,7 @@ namespace adapter
 {
     ScanCodeTranslator::ScanCodeTranslator(
     IScanCodeTranslationMap *translationMap) :
-        translationMap(translationMap)
+        translationMap{translationMap}
     {
     }
 

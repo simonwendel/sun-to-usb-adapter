@@ -21,7 +21,7 @@
 namespace adapter
 {
     template <typename TParam>
-    ActionMap<TParam>::ActionMap(int capacity) : capacity(capacity)
+    ActionMap<TParam>::ActionMap(int capacity) : capacity{capacity}
     {
         count = 0;
         actions = new Action<TParam>[capacity];

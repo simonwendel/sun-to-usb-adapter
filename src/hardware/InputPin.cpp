@@ -25,7 +25,7 @@
 namespace hardware
 {
     InputPin::InputPin(IPinControl *pinControl, int boardPin) :
-        pinControl(pinControl), boardPin(boardPin)
+        pinControl{pinControl}, boardPin{boardPin}
     {
         pinControl->pinMode(boardPin, INPUT);
     }

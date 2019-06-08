@@ -23,7 +23,7 @@
 namespace hardware
 {
     template <typename R>
-    Register<R>::Register(volatile R *reg) : reg(reg)
+    Register<R>::Register(volatile R *reg) : reg{reg}
     {
     }
 

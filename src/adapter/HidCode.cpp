@@ -21,7 +21,7 @@
 namespace adapter
 {
     HidCode::HidCode(int usageId, bool breakCode) :
-        usageId(usageId), breakCode(breakCode)
+        usageId{usageId}, breakCode{breakCode}
     {
     }
 
