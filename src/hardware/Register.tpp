@@ -30,7 +30,7 @@ namespace hardware
     template <typename R>
     bool Register<R>::operator==(const IRegister<R> &theOther) const
     {
-        const Register<R> *that = dynamic_cast<const Register<R> *>(&theOther);
+        const Register<R> *that = static_cast<const Register<R> *>(&theOther);
         return that != nullptr && reg == that->reg;
     }
 
