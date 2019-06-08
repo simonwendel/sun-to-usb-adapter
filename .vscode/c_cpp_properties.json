@@ -11,7 +11,8 @@
             ],
             "defines": [
                 "ARDUINO=10805",
-                "USBCON"
+                "USBCON",
+                "STUB_ARDUINO"
             ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
