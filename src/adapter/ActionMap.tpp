@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "ActionMap.h"
+
 namespace adapter
 {
     template <typename TParam>
