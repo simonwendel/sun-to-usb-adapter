@@ -18,16 +18,11 @@
 
 #pragma once
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-Print.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-Stream.h"
-#include "stub-Timer1.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#include "stub-interrupt.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+#include <stdint.h>
+
+uint8_t TCCR1A;
+uint8_t TCCR1B;
+uint8_t TIMSK1;
+
+uint16_t TCNT1;
+uint16_t OCR1A;
