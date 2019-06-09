@@ -30,8 +30,11 @@ namespace hardware::timers
         auto registerLimit = pow(2, TimerBits);
 
         auto currentRegister = registerLimit;
+
         Prescaler currentPrescaler;
-        for (int index = 0; index < numberOfPrescalers; ++index)
+        
+        int index = 0;
+        do
         {
             currentPrescaler = Prescalers[index];
             auto scalerFactor = (int)currentPrescaler;
@@ -42,7 +45,7 @@ namespace hardware::timers
             {
                 break;
             }
-        }
+        } while (index++ < numberOfPrescalers);
 
         auto valid = currentRegister < registerLimit && currentRegister >= 0;
         return {valid, CTCModeSettings(currentRegister, currentPrescaler)};
