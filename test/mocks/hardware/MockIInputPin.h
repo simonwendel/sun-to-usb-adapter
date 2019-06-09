@@ -29,4 +29,4 @@ namespace hardware_mocks
     public:
         MOCK_METHOD0(getState, int());
     };
-} // namespace adapter_tests
+} // namespace hardware_mocks

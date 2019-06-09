@@ -31,4 +31,4 @@ namespace hardware_mocks
         MOCK_METHOD2(digitalWrite, void(uint8_t, uint8_t));
         MOCK_METHOD1(digitalRead, int(uint8_t));
     };
-} // namespace hardware_tests
+} // namespace hardware_mocks
