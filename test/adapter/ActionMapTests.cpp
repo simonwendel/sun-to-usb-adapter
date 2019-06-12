@@ -33,12 +33,17 @@ namespace adapter_tests
         adapter::ActionMap<int> sut;
     };
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
     namespace
     {
         void actionToMap(int param)
         {
         }
     } // namespace
+
+#pragma GCC diagnostic pop
 
     TEST_F(adapter_ActionMap,
            constructor_GivenNoCapacity_AllocatesEmptyWithDefaultCapacity)
@@ -74,8 +79,7 @@ namespace adapter_tests
         EXPECT_EQ(sut.getCount(), 0);
     }
 
-    TEST_F(adapter_ActionMap,
-           mapAction_GivenKeyAndAction_AddsActionToMap)
+    TEST_F(adapter_ActionMap, mapAction_GivenKeyAndAction_AddsActionToMap)
     {
         auto sucessfullyMapped = sut.mapAction(10, actionToMap);
 
@@ -83,15 +87,13 @@ namespace adapter_tests
         EXPECT_EQ(sut.getCount(), 1);
     }
 
-    TEST_F(adapter_ActionMap,
-           getAction_GivenNonExistantKey_ReturnsNullptr)
+    TEST_F(adapter_ActionMap, getAction_GivenNonExistantKey_ReturnsNullptr)
     {
         auto action = sut.getAction(1);
         EXPECT_EQ(action, nullptr);
     }
 
-    TEST_F(adapter_ActionMap,
-           getAction_GivenKeyLessThanZero_ReturnsNullptr)
+    TEST_F(adapter_ActionMap, getAction_GivenKeyLessThanZero_ReturnsNullptr)
     {
         auto action = sut.getAction(-1);
         EXPECT_EQ(action, nullptr);
@@ -104,8 +106,7 @@ namespace adapter_tests
         EXPECT_EQ(action, nullptr);
     }
 
-    TEST_F(adapter_ActionMap,
-           getAction_GivenMappedKey_ReturnsMappedAction)
+    TEST_F(adapter_ActionMap, getAction_GivenMappedKey_ReturnsMappedAction)
     {
         sut.mapAction(11, actionToMap);
         auto action = sut.getAction(11);
