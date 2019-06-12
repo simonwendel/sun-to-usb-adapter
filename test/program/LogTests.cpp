@@ -18,6 +18,7 @@
 
 #include "../../src/program/Log.h"
 #include "../mocks/hardware/MockISerialPort.h"
+#include "../mocks/program/MockIErrorIndicator.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -31,20 +32,42 @@ namespace program_tests
     class program_Log : public ::testing::Test
     {
     public:
+        String prefix{"ERROR: "};
+        String message{"This is an error!"};
+
+        program_mocks::MockIErrorIndicator errorIndicator;
         hardware_mocks::MockISerialPort serialPort;
-        program::Log sut{&serialPort};
+
+        program::Log sut{&serialPort, &errorIndicator};
     };
+
+    TEST_F(program_Log, error_GivenErrorIndicator_ChecksStatusOfIndicator)
+    {
+        EXPECT_CALL(errorIndicator, isSet()).Times(1);
+        sut.error(message);
+    }
+
+    TEST_F(program_Log, error_WhenErrorIndicatorIsNotSet_SetsIndicator)
+    {
+        ON_CALL(errorIndicator, isSet()).WillByDefault(Return(false));
+        EXPECT_CALL(errorIndicator, set()).Times(1);
+
+        sut.error(message);
+    }
+
+    TEST_F(program_Log, error_WhenErrorIndicatorIsSet_DoesntSetIndicator)
+    {
+        ON_CALL(errorIndicator, isSet()).WillByDefault(Return(true));
+        EXPECT_CALL(errorIndicator, set()).Times(0);
+
+        sut.error(message);
+    }
 
     TEST_F(program_Log, error_GivenSerialPort_WritesToSerialPort)
     {
-        String prefix{"ERROR: "};
-        String message{"This is an error!"};
-        {
-            InSequence seq;
-
-            EXPECT_CALL(serialPort, print(prefix));
-            EXPECT_CALL(serialPort, println(message));
-        }
+        InSequence seq;
+        EXPECT_CALL(serialPort, print(prefix));
+        EXPECT_CALL(serialPort, println(message));
 
         sut.error(message);
     }

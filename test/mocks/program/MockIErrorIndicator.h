@@ -18,23 +18,16 @@
 
 #pragma once
 
-#include "../hardware/ISerialPort.h"
-#include "IErrorIndicator.h"
-#include "ILog.h"
+#include "../../../src/program/IErrorIndicator.h"
 
-#include <arduino-platform.h>
+#include <gmock/gmock.h>
 
-namespace program
+namespace program_mocks
 {
-    class Log : public ILog
+    class MockIErrorIndicator : public program::IErrorIndicator
     {
-        hardware::ISerialPort *serialPort;
-        program::IErrorIndicator *errorIndicator;
-
     public:
-        Log(hardware::ISerialPort *serialPort,
-            program::IErrorIndicator *errorIndicator);
-
-        void error(String message) override;
+        MOCK_METHOD0(isSet, bool());
+        MOCK_METHOD0(set, void());
     };
-} // namespace program
+} // namespace program_mocks

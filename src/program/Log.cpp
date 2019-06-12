@@ -19,18 +19,27 @@
 #include "Log.h"
 
 #include "../hardware/ISerialPort.h"
+#include "IErrorIndicator.h"
 
 #include <arduino-platform.h>
 
 namespace program
 {
-    Log::Log(hardware::ISerialPort *serialPort) : serialPort{serialPort}
+    Log::Log(hardware::ISerialPort *serialPort,
+             program::IErrorIndicator *errorIndicator) :
+        serialPort{serialPort},
+        errorIndicator{errorIndicator}
     {
     }
 
     void Log::error(String message)
     {
-        serialPort->print((String)"ERROR: ");
+        serialPort->print((String) "ERROR: ");
         serialPort->println(message);
+
+        if (errorIndicator->isSet() == false)
+        {
+            errorIndicator->set();
+        }
     }
 } // namespace program
