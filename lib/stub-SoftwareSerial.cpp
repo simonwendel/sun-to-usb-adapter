@@ -24,6 +24,7 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreturn-type"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin)
 {
