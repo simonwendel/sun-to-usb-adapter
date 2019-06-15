@@ -47,3 +47,15 @@ extern uint8_t TIMSK1;
 #define OCIE1B 2
 #define OCIE1A 1
 #define TOIE1 0
+
+#ifndef _VECTOR
+#define _VECTOR(N) __vector_##N
+#endif
+
+#define TIMER1_COMPA_vect_num 17
+#define TIMER1_COMPA_vect _VECTOR(17) /* Timer/Counter1 Compare Match A */
+
+#define ISR(vector, ...)                                                       \
+    extern "C" void vector(void) __attribute__((signal, __INTR_ATTRS))         \
+    __VA_ARGS__;                                                               \
+    void vector(void)
