@@ -38,10 +38,6 @@ namespace hardware
         R readRegister() override;
 
         bool operator==(const IRegister<R> &theOther) const override;
-
-        virtual ~Register()
-        {
-        }
     };
 } // namespace hardware
 
