@@ -37,6 +37,7 @@ namespace hardware_timers_tests
     {
     public:
         int shouldBeCleared = 0;
+        hardware::timers::TimerFunction timerFunction{[]() {}};
 
         hardware_mocks::MockIInterruptsControl interruptsControl;
         hardware::timers::CTCModeSettings settings{19999, Prescaler::PS_8};
@@ -53,27 +54,27 @@ namespace hardware_timers_tests
         EXPECT_CALL(interruptsControl, disableInterrupts());
         EXPECT_CALL(interruptsControl, enableInterrupts());
 
-        setup(settings);
+        setup(settings, timerFunction);
     }
 
     TEST_F(hardware_timers_CTCTimer1,
            setup_GivenCTCModeSettings_ShouldClearControlRegisterA)
     {
-        setup(settings);
+        setup(settings, timerFunction);
         EXPECT_EQ(ControlRegisterA->readRegister(), shouldBeCleared);
     }
 
     TEST_F(hardware_timers_CTCTimer1,
            setup_GivenCTCModeSettings_ShouldClearCounterRegister)
     {
-        setup(settings);
+        setup(settings, timerFunction);
         EXPECT_EQ(CounterRegister->readRegister(), shouldBeCleared);
     }
 
     TEST_F(hardware_timers_CTCTimer1,
            setup_GivenCTCModeSettings_ShouldSetCompareMatchRegister)
     {
-        setup(settings);
+        setup(settings, timerFunction);
         EXPECT_EQ(CompareMatchRegister->readRegister(),
                   settings.getCompareMatchRegister());
     }
@@ -81,7 +82,7 @@ namespace hardware_timers_tests
     TEST_F(hardware_timers_CTCTimer1,
            setup_GivenCTCModeSettings_SetsUpCTCInControlRegisterB)
     {
-        setup(settings);
+        setup(settings, timerFunction);
 
         // CTCMode set on bit 3 in TCCR1B
         EXPECT_TRUE(CHECK_BIT(ControlRegisterB->readRegister(), 3));
@@ -90,7 +91,7 @@ namespace hardware_timers_tests
     TEST_F(hardware_timers_CTCTimer1,
            setup_GivenCTCModeSettings_SetsUpAppropriatePrescalerInRegisterB)
     {
-        setup(settings);
+        setup(settings, timerFunction);
 
         // Prescaler 8 is TCCR1B | 0b010
         EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 0));
@@ -101,7 +102,7 @@ namespace hardware_timers_tests
     TEST_F(hardware_timers_CTCTimer1,
            setup_GivenCTCModeSettings_ShouldSetControlRegisterB)
     {
-        setup(settings);
+        setup(settings, timerFunction);
 
         // redundant, but to make sure
         EXPECT_EQ(ControlRegisterB->readRegister(), 0b1010);
@@ -110,13 +111,13 @@ namespace hardware_timers_tests
     TEST_F(hardware_timers_CTCTimer1,
            setup_GivenCTCModeSettings_DoesntEnableTimerCompareInterrupt)
     {
-        setup(settings);
+        setup(settings, timerFunction);
         EXPECT_FALSE(CHECK_BIT(InterruptMaskRegister->readRegister(), 1));
     }
 
     TEST_F(hardware_timers_CTCTimer1, start_WhenTimerSetUp_StartsCTCTimer)
     {
-        setup(settings);
+        setup(settings, timerFunction);
         Mock::VerifyAndClear(&interruptsControl);
 
         InSequence seq;

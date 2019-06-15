@@ -22,17 +22,22 @@
 
 namespace hardware::timers
 {
+    bool started = false;
+    TimerFunction timerF;
+
     CTCTimer1::CTCTimer1(hardware::IInterruptsControl *interruptsControl) :
         CTCTimer(&TCCR1A, &TCCR1B, &TIMSK1, &TCNT1, &OCR1A)
     {
         this->interruptsControl = interruptsControl;
     }
 
-    void CTCTimer1::setup(CTCModeSettings settings)
+    void CTCTimer1::setup(CTCModeSettings settings, TimerFunction timerFunction)
     {
         // because of low-level bullshit, the order here is important
 
         interruptsControl->disableInterrupts();
+
+        timerF = timerFunction;
 
         ControlRegisterA->clearRegister();
         ControlRegisterB->clearRegister();
@@ -49,7 +54,18 @@ namespace hardware::timers
     void CTCTimer1::start()
     {
         interruptsControl->disableInterrupts();
+
         InterruptMaskRegister->turnOnBits(1 << OCIE1A);
+        started = true;
+
         interruptsControl->enableInterrupts();
+    }
+
+    ISR(TIMER1_COMPA_vect)
+    {
+        if (started)
+        {
+            timerF();
+        }
     }
 } // namespace hardware::timers

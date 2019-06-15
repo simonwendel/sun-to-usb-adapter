@@ -22,10 +22,12 @@
 
 namespace hardware::timers
 {
+    using TimerFunction = void (*)();
+
     class ICTCTimer
     {
     public:
-        virtual void setup(CTCModeSettings settings) = 0;
+        virtual void setup(CTCModeSettings settings, TimerFunction timerFunction) = 0;
         virtual void start() = 0;
     };
 } // namespace hardware::timers

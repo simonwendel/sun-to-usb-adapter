@@ -21,6 +21,7 @@
 #include "../IInterruptsControl.h"
 #include "CTCModeSettings.h"
 #include "CTCTimer.h"
+#include "ICTCTimer.h"
 
 #include <stdint.h>
 
@@ -32,7 +33,7 @@ namespace hardware::timers
 
     public:
         CTCTimer1(hardware::IInterruptsControl *interruptsControl);
-        void setup(CTCModeSettings settings) override;
+        void setup(CTCModeSettings settings, TimerFunction timerFunction) override;
         void start() override;
     };
 } // namespace hardware::timers
