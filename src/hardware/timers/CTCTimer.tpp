@@ -33,14 +33,4 @@ namespace hardware::timers
         CompareMatchRegister{new hardware::Register<R>{ocra}}
     {
     }
-
-    template <typename R>
-    CTCTimer<R>::~CTCTimer()
-    {
-        delete ControlRegisterA;
-        delete ControlRegisterB;
-        delete InterruptMaskRegister;
-        delete CounterRegister;
-        delete CompareMatchRegister;
-    }
 } // namespace hardware::timers

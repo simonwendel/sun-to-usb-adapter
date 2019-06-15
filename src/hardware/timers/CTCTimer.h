@@ -50,9 +50,6 @@ namespace hardware::timers
                  volatile uint8_t *timsk,
                  volatile R *tcnt,
                  volatile R *ocra);
-
-    public:
-        virtual ~CTCTimer();
     };
 } // namespace hardware::timers
 
