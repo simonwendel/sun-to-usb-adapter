@@ -36,6 +36,10 @@ size_t Serial_::write(const uint8_t *buffer, size_t size)
 {
 }
 
+void Serial_::begin(long speed)
+{
+}
+
 #pragma GCC diagnostic pop
 
 Serial_ Serial;

@@ -48,6 +48,10 @@ size_t SoftwareSerial::write(const uint8_t *buffer, size_t size)
 {
 }
 
+void SoftwareSerial::begin(long speed)
+{
+}
+
 #pragma GCC diagnostic pop
 
 #endif

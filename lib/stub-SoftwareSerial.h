@@ -31,4 +31,5 @@ public:
     int read();
     size_t write(uint8_t byte);
     size_t write(const uint8_t *buffer, size_t size);
+    void begin(long speed);
 };
