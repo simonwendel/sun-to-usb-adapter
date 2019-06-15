@@ -29,30 +29,47 @@
 #include <arduino-platform.h>
 
 int ledPin = 13;
-int switchPin = 8;
+int switchPin1 = 8;
+int switchPin2 = 7;
+
 bool lightOn = false;
 
 hardware::PinControl pinControl;
-hardware::InputPin input{&pinControl, switchPin};
+
+hardware::InputPin input1{&pinControl, switchPin1};
 hardware::OutputPin output{&pinControl, ledPin};
-adapter::Setting dipSwitch{&input};
+
+hardware::InputPin input2{&pinControl, switchPin2};
+
+adapter::Setting dipSwitch1{&input1};
+adapter::Setting dipSwitch2{&input2};
 
 void setup()
 {
+    Serial.begin(9600);
 }
 
 void loop()
 {
-    if(dipSwitch.isOn() && !lightOn)
+    if (dipSwitch1.isOn() && !lightOn)
     {
         output.setState(HIGH);
         lightOn = true;
     }
-    else if (!dipSwitch.isOn() && lightOn)
+    else if (!dipSwitch1.isOn() && lightOn)
     {
         output.setState(LOW);
         lightOn = false;
     }
-    
-    delay(100);
+
+    if (dipSwitch2.isOn())
+    {
+        Serial.println("dip2 on");
+    }
+    else
+    {
+        Serial.println("dip2 off");
+    }
+
+    delay(500);
 }
