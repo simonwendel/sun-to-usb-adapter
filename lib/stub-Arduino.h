@@ -30,3 +30,4 @@
 void pinMode(uint8_t pin, uint8_t mode);
 void digitalWrite(uint8_t pin, uint8_t state);
 int digitalRead(uint8_t pin);
+void delay(unsigned long ms);

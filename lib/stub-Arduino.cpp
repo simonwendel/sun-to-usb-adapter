@@ -38,6 +38,10 @@ int digitalRead(uint8_t pin)
 {
 }
 
+void delay(unsigned long ms)
+{
+}
+
 #pragma GCC diagnostic pop
 
 #endif
