@@ -22,6 +22,12 @@ SOFTWARE.
 
 ***
 
+Commands from kdb to system:
+
+IDLE = 127
+LAYOUT = 254 xxxx xxxx
+RESET = 255 0x04 0x7F
+
 Ascii  Sun    Meaning
 ----------------------
 177     29     Esc
