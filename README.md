@@ -146,6 +146,8 @@ I also want to have a configurable key tone, via the keyboard click on and off c
 
 The pull-down resistor is actually connected to a ground pin G physically located in the ItsyBitsy between EN and D8, however in the [parts library][Fritzing parts] from Adafruit the ItsyBitsy part only includes one ground pin, GND.
 
+The other channel of the 2-channel DIP-switch is similarly connected between 3V and pin 7, with a 10k&#8486; resistor pulling pin 7 down to ground. Don't know what to do with this yet, but I'll wire it up for future proofing (soldering is fun).
+
 Wire it up and, assuming the pins on your board matches my setup, just do
 
 ```
