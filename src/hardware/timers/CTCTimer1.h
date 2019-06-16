@@ -27,6 +27,10 @@
 
 namespace hardware::timers
 {
+    /*
+        Because of how timer interrupts work, creating more than one instance 
+        of this class will not work. Much static-ness ahead!
+    */
     class CTCTimer1 : public CTCTimer<uint16_t>
     {
         hardware::IInterruptsControl *interruptsControl;
