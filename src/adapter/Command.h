@@ -32,5 +32,7 @@ namespace adapter
 
         static const uint8_t ENABLE_BELL = 0x02;
         static const uint8_t DISABLE_BELL = 0x03;
+
+        static const uint8_t SET_LEDS = 0x0E;
     };
 } // namespace adapter
