@@ -17,7 +17,7 @@
  */
 
 #include "../../src/adapter/KeyboardCommander.h"
-#include "../../src/adapter/LedCommandPayload.h"
+#include "../../src/adapter/LedCommand.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -26,70 +26,70 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_LedCommandPayload : public ::testing::Test
+    class adapter_LedCommand : public ::testing::Test
     {
     public:
-        adapter::LedCommandPayload sutInitiallyZeros;
-        adapter::LedCommandPayload sutInitiallyOnes{0b11111111};
+        adapter::LedCommand sutInitiallyZeros;
+        adapter::LedCommand sutInitiallyOnes{0b11111111};
     };
 
-    TEST_F(adapter_LedCommandPayload,
+    TEST_F(adapter_LedCommand,
            constructor_GivenNoInitialPayload_SetsEmptyPayload)
     {
         EXPECT_EQ(sutInitiallyZeros, 0);
     }
 
-    TEST_F(adapter_LedCommandPayload,
+    TEST_F(adapter_LedCommand,
            constructor_GivenInitialPayload_SetsPayload)
     {
-        adapter::LedCommandPayload sutSomeNumber{0b10101010};
+        adapter::LedCommand sutSomeNumber{0b10101010};
         EXPECT_EQ(sutSomeNumber, 170);
         EXPECT_EQ(sutInitiallyOnes, 255);
     }
 
-    TEST_F(adapter_LedCommandPayload, setNumLock_SetsBitZero)
+    TEST_F(adapter_LedCommand, setNumLock_SetsBitZero)
     {
         sutInitiallyZeros.setNumLock();
         EXPECT_EQ(sutInitiallyZeros, 0b00000001);
     }
 
-    TEST_F(adapter_LedCommandPayload, setNumLock_UnsetsBitZero)
+    TEST_F(adapter_LedCommand, setNumLock_UnsetsBitZero)
     {
         sutInitiallyOnes.unsetNumLock();
         EXPECT_EQ(sutInitiallyOnes, 0b11111110);
     }
 
-    TEST_F(adapter_LedCommandPayload, setCompose_SetsBitOne)
+    TEST_F(adapter_LedCommand, setCompose_SetsBitOne)
     {
         sutInitiallyZeros.setCompose();
         EXPECT_EQ(sutInitiallyZeros, 0b00000010);
     }
 
-    TEST_F(adapter_LedCommandPayload, unsetCompose_UnsetsBitOne)
+    TEST_F(adapter_LedCommand, unsetCompose_UnsetsBitOne)
     {
         sutInitiallyOnes.unsetCompose();
         EXPECT_EQ(sutInitiallyOnes, 0b11111101);
     }
 
-    TEST_F(adapter_LedCommandPayload, setScrollLock_SetsBitTwo)
+    TEST_F(adapter_LedCommand, setScrollLock_SetsBitTwo)
     {
         sutInitiallyZeros.setScrollLock();
         EXPECT_EQ(sutInitiallyZeros, 0b00000100);
     }
 
-    TEST_F(adapter_LedCommandPayload, unsetScrollLock_UnsetsBitTwo)
+    TEST_F(adapter_LedCommand, unsetScrollLock_UnsetsBitTwo)
     {
         sutInitiallyOnes.unsetScrollLock();
         EXPECT_EQ(sutInitiallyOnes, 0b11111011);
     }
 
-    TEST_F(adapter_LedCommandPayload, setCapsLock_SetsBitThree)
+    TEST_F(adapter_LedCommand, setCapsLock_SetsBitThree)
     {
         sutInitiallyZeros.setCapsLock();
         EXPECT_EQ(sutInitiallyZeros, 0b00001000);
     }
 
-    TEST_F(adapter_LedCommandPayload, unsetCapsLock_unsetsBitThree)
+    TEST_F(adapter_LedCommand, unsetCapsLock_unsetsBitThree)
     {
         sutInitiallyOnes.unsetCapsLock();
         EXPECT_EQ(sutInitiallyOnes, 0b11110111);

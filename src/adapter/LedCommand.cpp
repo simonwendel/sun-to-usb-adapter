@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "LedCommandPayload.h"
+#include "LedCommand.h"
 
 #include <stdint.h>
 
@@ -25,66 +25,66 @@ namespace adapter
     static void setBit(uint8_t &value, int bit);
     static void unsetBit(uint8_t &value, int bit);
 
-    LedCommandPayload::LedCommandPayload() : payload{0}
+    LedCommand::LedCommand() : payload{0}
     {
     }
 
-    LedCommandPayload::LedCommandPayload(uint8_t initialPayload) :
+    LedCommand::LedCommand(uint8_t initialPayload) :
         payload{initialPayload}
     {
     }
 
-    bool LedCommandPayload::operator==(const int rhs) const
+    bool LedCommand::operator==(const int rhs) const
     {
         return payload == rhs;
     }
 
-    bool LedCommandPayload::operator==(const uint8_t rhs) const
+    bool LedCommand::operator==(const uint8_t rhs) const
     {
         return payload == rhs;
     }
 
-    LedCommandPayload::operator uint8_t()
+    LedCommand::operator uint8_t()
     {
         return payload;
     }
 
-    void LedCommandPayload::setNumLock()
+    void LedCommand::setNumLock()
     {
         setBit(payload, 0);
     }
 
-    void LedCommandPayload::unsetNumLock()
+    void LedCommand::unsetNumLock()
     {
         unsetBit(payload, 0);
     }
 
-    void LedCommandPayload::setCompose()
+    void LedCommand::setCompose()
     {
         setBit(payload, 1);
     }
 
-    void LedCommandPayload::unsetCompose()
+    void LedCommand::unsetCompose()
     {
         unsetBit(payload, 1);
     }
 
-    void LedCommandPayload::setScrollLock()
+    void LedCommand::setScrollLock()
     {
         setBit(payload, 2);
     }
 
-    void LedCommandPayload::unsetScrollLock()
+    void LedCommand::unsetScrollLock()
     {
         unsetBit(payload, 2);
     }
 
-    void LedCommandPayload::setCapsLock()
+    void LedCommand::setCapsLock()
     {
         setBit(payload, 3);
     }
 
-    void LedCommandPayload::unsetCapsLock()
+    void LedCommand::unsetCapsLock()
     {
         unsetBit(payload, 3);
     }

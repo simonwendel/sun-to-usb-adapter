@@ -22,14 +22,14 @@
 
 namespace adapter
 {
-    class LedCommandPayload
+    class LedCommand
     {
     private:
         uint8_t payload;
 
     public:
-        LedCommandPayload();
-        LedCommandPayload(uint8_t initialPayload);
+        LedCommand();
+        LedCommand(uint8_t initialPayload);
 
         void setNumLock();
         void unsetNumLock();
