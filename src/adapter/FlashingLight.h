@@ -19,18 +19,18 @@
 #pragma once
 
 #include "../hardware/timers/ICTCTimer.h"
-#include "IErrorIndicator.h"
+#include "IFlashingLight.h"
 
-namespace program
+namespace adapter
 {
-    class ErrorIndicator : public program::IErrorIndicator
+    class FlashingLight : public adapter::IFlashingLight
     {
         bool timerStarted{false};
         hardware::timers::ICTCTimer *blinkTimer;
 
     public:
-        ErrorIndicator(hardware::timers::ICTCTimer *blinkTimer);
-        bool isSet() override;
-        void set() override;
+        FlashingLight(hardware::timers::ICTCTimer *blinkTimer);
+        bool isFlashing() override;
+        void startFlashing() override;
     };
-} // namespace program
+} // namespace adapter

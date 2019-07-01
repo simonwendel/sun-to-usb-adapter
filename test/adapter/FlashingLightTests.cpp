@@ -16,45 +16,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../../src/program/ErrorIndicator.h"
+#include "../../src/adapter/FlashingLight.h"
 #include "../mocks/hardware/timers/MockICTCTimer.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace program_tests
+namespace adapter_tests
 {
     using namespace testing;
 
-    class program_ErrorIndicator : public ::testing::Test
+    class adapter_FlashingLight : public ::testing::Test
     {
     public:
         hardware_timers_mocks::MockICTCTimer blinkTimer;
-        program::ErrorIndicator sut{&blinkTimer};
+        adapter::FlashingLight sut{&blinkTimer};
     };
 
-    TEST_F(program_ErrorIndicator, isSet_BeforeCallingSet_ReturnsFalse)
+    TEST_F(adapter_FlashingLight, isFlashing_BeforeCallingStartFlashing_ReturnsFalse)
     {
-        EXPECT_FALSE(sut.isSet());
+        EXPECT_FALSE(sut.isFlashing());
     }
 
-    TEST_F(program_ErrorIndicator, isSet_AfterCallingSet_ReturnsTrue)
+    TEST_F(adapter_FlashingLight, isFlashing_AfterCallingStartFlashing_ReturnsTrue)
     {
-        sut.set();
-        EXPECT_TRUE(sut.isSet());
+        sut.startFlashing();
+        EXPECT_TRUE(sut.isFlashing());
     }
 
-    TEST_F(program_ErrorIndicator, set_WhenCalledFirstTime_StartsBlinkTimer)
+    TEST_F(adapter_FlashingLight, startFlashing_WhenCalledFirstTime_StartsBlinkTimer)
     {
         EXPECT_CALL(blinkTimer, start()).Times(1);
-        sut.set();
+        sut.startFlashing();
     }
 
-    TEST_F(program_ErrorIndicator,
-           set_WhenCalledMoreThanOnce_OnlyStartsBlinkTimerOnce)
+    TEST_F(adapter_FlashingLight,
+           startFlashing_WhenCalledMoreThanOnce_OnlyStartsBlinkTimerOnce)
     {
         EXPECT_CALL(blinkTimer, start()).Times(1);
-        sut.set();
-        sut.set();
+        sut.startFlashing();
+        sut.startFlashing();
     }
-} // namespace program_tests
+} // namespace adapter_tests

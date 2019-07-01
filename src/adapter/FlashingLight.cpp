@@ -16,23 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ErrorIndicator.h"
+#include "FlashingLight.h"
 
 #include "../hardware/timers/ICTCTimer.h"
 
-namespace program
+namespace adapter
 {
-    ErrorIndicator::ErrorIndicator(hardware::timers::ICTCTimer *blinkTimer) :
+    FlashingLight::FlashingLight(hardware::timers::ICTCTimer *blinkTimer) :
         blinkTimer(blinkTimer)
     {
     }
 
-    bool ErrorIndicator::isSet()
+    bool FlashingLight::isFlashing()
     {
         return timerStarted;
     }
 
-    void ErrorIndicator::set()
+    void FlashingLight::startFlashing()
     {
         if (timerStarted == false)
         {
@@ -40,4 +40,4 @@ namespace program
             timerStarted = true;
         }
     }
-} // namespace program
+} // namespace adapter

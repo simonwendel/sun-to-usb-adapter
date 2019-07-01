@@ -18,12 +18,12 @@
 
 #pragma once
 
-namespace program
+namespace adapter
 {
-    class IErrorIndicator
+    class IFlashingLight
     {
     public:
-        virtual bool isSet() = 0;
-        virtual void set() = 0;
-    };    
-} // namespace program
+        virtual bool isFlashing() = 0;
+        virtual void startFlashing() = 0;
+    };
+} // namespace adapter
