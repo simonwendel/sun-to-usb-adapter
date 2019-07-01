@@ -19,7 +19,6 @@
 #pragma once
 
 #include "../hardware/ISerialPort.h"
-#include "IErrorIndicator.h"
 #include "ILog.h"
 
 #include <arduino-platform.h>
@@ -29,11 +28,9 @@ namespace program
     class Log : public ILog
     {
         hardware::ISerialPort *serialPort;
-        program::IErrorIndicator *errorIndicator;
 
     public:
-        Log(hardware::ISerialPort *serialPort,
-            program::IErrorIndicator *errorIndicator);
+        Log(hardware::ISerialPort *serialPort);
 
         void error(String message) override;
     };
