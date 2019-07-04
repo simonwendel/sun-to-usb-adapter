@@ -61,6 +61,9 @@ namespace hardware::timers
         interruptsControl->enableInterrupts();
     }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
+
     ISR(TIMER1_COMPA_vect)
     {
         if (started)
@@ -68,4 +71,6 @@ namespace hardware::timers
             timerF();
         }
     }
+
+#pragma GCC diagnostic pop
 } // namespace hardware::timers
