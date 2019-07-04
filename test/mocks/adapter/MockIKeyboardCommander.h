@@ -19,6 +19,7 @@
 #pragma once
 
 #include "../../../src/adapter/IKeyboardCommander.h"
+#include "../../../src/adapter/LedCommand.h"
 
 #include <gmock/gmock.h>
 
@@ -32,5 +33,7 @@ namespace adapter_mocks
 
         MOCK_METHOD0(turnOnBell, void());
         MOCK_METHOD0(turnOffBell, void());
+
+        MOCK_METHOD1(setLeds, void(adapter::LedCommand));
     };
 } // namespace adapter_mocks

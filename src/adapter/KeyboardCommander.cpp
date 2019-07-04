@@ -20,6 +20,7 @@
 
 #include "../hardware/ISerialPort.h"
 #include "Command.h"
+#include "LedCommand.h"
 
 namespace adapter
 {
@@ -46,5 +47,11 @@ namespace adapter
     void KeyboardCommander::turnOffBell()
     {
         serialPort->write(Command::DISABLE_BELL);
+    }
+
+    void KeyboardCommander::setLeds(LedCommand leds)
+    {
+        uint8_t compoundCommand[2] = {Command::SET_LEDS, (uint8_t)leds};
+        serialPort->write(compoundCommand, 2);
     }
 } // namespace adapter

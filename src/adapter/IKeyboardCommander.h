@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "LedCommand.h"
+
 namespace adapter
 {
     class IKeyboardCommander
@@ -28,5 +30,7 @@ namespace adapter
 
         virtual void turnOnBell() = 0;
         virtual void turnOffBell() = 0;
+
+        virtual void setLeds(LedCommand leds) = 0;
     };
 } // namespace adapter

@@ -20,6 +20,7 @@
 
 #include "../hardware/ISerialPort.h"
 #include "IKeyboardCommander.h"
+#include "LedCommand.h"
 
 namespace adapter
 {
@@ -35,5 +36,7 @@ namespace adapter
 
         void turnOnBell() override;
         void turnOffBell() override;
+
+        void setLeds(LedCommand leds) override;
     };
 } // namespace adapter

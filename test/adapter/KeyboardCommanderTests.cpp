@@ -18,6 +18,7 @@
 
 #include "../../src/adapter/Command.h"
 #include "../../src/adapter/KeyboardCommander.h"
+#include "../../src/adapter/LedCommand.h"
 #include "../mocks/hardware/MockISerialPort.h"
 
 #include <arduino-platform.h>
@@ -65,5 +66,29 @@ namespace adapter_tests
         auto expectedCommand = adapter::Command::DISABLE_BELL;
         EXPECT_CALL(serialPort, write(expectedCommand));
         sut.turnOffBell();
+    }
+
+    TEST_F(adapter_KeyboardCommander,
+           setLeds_GivenLedCommandPayload_WritesSequenceToSerialPort)
+    {
+        adapter::LedCommand leds;
+        leds.setNumLock();
+        leds.setScrollLock();
+
+        uint8_t expectedSequence[] = {adapter::Command::SET_LEDS, leds};
+
+        auto verifySequence = [expectedSequence](const uint8_t *actualSequence,
+                                                 const uint8_t size) {
+            EXPECT_EQ(size, 2);
+            for (size_t i = 0; i < size; ++i)
+            {
+                EXPECT_EQ(expectedSequence[i], actualSequence[i]);
+            }
+        };
+
+        EXPECT_CALL(serialPort, write(_, 2))
+        .WillOnce(DoAll(Invoke(verifySequence), Return(2)));
+
+        sut.setLeds(leds);
     }
 } // namespace adapter_tests
