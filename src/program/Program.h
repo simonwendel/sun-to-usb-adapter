@@ -32,6 +32,8 @@ namespace program
         adapter::ISetting *numLockSetting;
         adapter::IKeyboardCommander *keyboardCommander;
 
+        bool started;
+
     public:
         Program(ILog *log,
                 adapter::ISetting *keyboardClicksSetting,

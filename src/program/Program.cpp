@@ -30,8 +30,8 @@ namespace program
                      adapter::IKeyboardCommander *keyboardCommander) :
         log{log},
         keyboardClicksSetting{keyboardClicksSetting},
-        numLockSetting{numLockSetting},
-        keyboardCommander{keyboardCommander}
+        numLockSetting{numLockSetting}, keyboardCommander{keyboardCommander},
+        started{false}
     {
     }
 
@@ -54,5 +54,10 @@ namespace program
 
     void Program::loop()
     {
+        if (started == false)
+        {
+            log->info("Adapter started.");
+            started = true;
+        }
     }
 } // namespace program

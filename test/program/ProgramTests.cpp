@@ -101,4 +101,21 @@ namespace program_tests
 
         sut.setup();
     }
+
+    TEST_F(program_Program, loop_WhenFirstCalled_LogsInfoMessage)
+    {
+        String message{"Adapter started."};
+        EXPECT_CALL(log, info(message));
+        sut.loop();
+    }
+
+    TEST_F(program_Program, loop_WhenLaterCalled_DoesntLogInfoMessageAgain)
+    {
+        EXPECT_CALL(log, info(_)).Times(1);
+        
+        sut.loop();
+        sut.loop();
+        sut.loop();
+        sut.loop();
+    }
 } // namespace program_tests
