@@ -29,8 +29,7 @@ namespace adapter
     {
     }
 
-    LedCommand::LedCommand(uint8_t initialPayload) :
-        payload{initialPayload}
+    LedCommand::LedCommand(uint8_t initialPayload) : payload{initialPayload}
     {
     }
 
@@ -42,6 +41,11 @@ namespace adapter
     bool LedCommand::operator==(const uint8_t rhs) const
     {
         return payload == rhs;
+    }
+
+    bool LedCommand::operator==(const LedCommand &rhs) const
+    {
+        return payload == rhs.payload;
     }
 
     LedCommand::operator uint8_t()

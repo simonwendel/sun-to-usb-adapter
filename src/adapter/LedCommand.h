@@ -45,6 +45,7 @@ namespace adapter
 
         bool operator==(const int rhs) const;
         bool operator==(const uint8_t rhs) const;
+        bool operator==(const LedCommand &rhs) const;
 
         operator uint8_t();
     };
