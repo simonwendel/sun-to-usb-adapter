@@ -94,10 +94,10 @@ namespace program_tests
     {
         String message{"Setup completed."};
 
-        Expectation setup1 = EXPECT_CALL(keyboardClicks, isOn());
-        Expectation setup2 = EXPECT_CALL(numLock, isOn());
+        Expectation clicksSetup = EXPECT_CALL(keyboardClicks, isOn());
+        Expectation numLockSetup = EXPECT_CALL(numLock, isOn());
 
-        EXPECT_CALL(log, info(message)).After(setup1, setup2);
+        EXPECT_CALL(log, info(message)).After(clicksSetup, numLockSetup);
 
         sut.setup();
     }
