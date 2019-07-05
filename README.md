@@ -6,7 +6,7 @@ I didn't want to pass the opportunity up though. Who knows when I would find a S
 
 # Philosophy
 
-I am a software developer with quite a few years of experience within a range of frameworks and platforms, from desktop applications to networking and streaming to web development and large SQL databases. I have even written my fair share of VB for Applications, shrug.
+I am a software developer with quite a few years of experience within a range of frameworks and platforms, from desktop applications to networking and streaming to web development and large SQL databases. I have even written my fair share of VB for Applications *\*shrug\**.
 
 Because of this I wanted to prove to myself that I could accomplish a few key points on this Arduino build:
 
