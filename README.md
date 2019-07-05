@@ -111,7 +111,7 @@ My version is a bit different, both regarding the fixes to the serial protocol a
 
 If some error state occurs, I want to be able to blink the onboard LED attached to D13. In order to get a smooth blink I use a timed interrupt in CTC Mode when toggling. My board has a 16Mhz clock, so if I want to blink every 500ms I choose a pre-scaler of 1024 and get a compare match value of ```31249```, which we can only use with the 16-bit timer1. 
 
-I don't want to calculate this choice compare match value and prescaler every time I change my mind on the frequency, so some abstractions around timers and the calculation of settings are nice to have.
+I don't want to calculate this choice compare match value and prescaler every time I change my mind on the frequency, so some abstractions around timers and the calculation of settings are included as they're "nice to have".
 
 # Building the hardware
 
