@@ -32,6 +32,7 @@ namespace program
     public:
         Log(hardware::ISerialPort *serialPort);
 
+        void info(String message) override;
         void error(String message) override;
     };
 } // namespace program

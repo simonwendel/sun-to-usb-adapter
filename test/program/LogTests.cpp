@@ -31,16 +31,27 @@ namespace program_tests
     class program_Log : public ::testing::Test
     {
     public:
-        String prefix{"ERROR: "};
-        String message{"This is an error!"};
-
         hardware_mocks::MockISerialPort serialPort;
-
         program::Log sut{&serialPort};
     };
 
-    TEST_F(program_Log, error_GivenSerialPort_WritesToSerialPort)
+    TEST_F(program_Log, info_GivenMessage_WritesToSerialPort)
     {
+        String prefix{"INFO: "};
+        String message{"This is an info message!"};
+
+        InSequence seq;
+        EXPECT_CALL(serialPort, print(prefix));
+        EXPECT_CALL(serialPort, println(message));
+
+        sut.info(message);
+    }
+
+    TEST_F(program_Log, error_GivenMessage_WritesToSerialPort)
+    {
+        String prefix{"ERROR: "};
+        String message{"This is an error message!"};
+
         InSequence seq;
         EXPECT_CALL(serialPort, print(prefix));
         EXPECT_CALL(serialPort, println(message));

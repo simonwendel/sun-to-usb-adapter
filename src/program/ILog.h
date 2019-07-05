@@ -25,6 +25,7 @@ namespace program
     class ILog
     {
     public:
+        virtual void info(String message) = 0;
         virtual void error(String message) = 0;
     };
 } // namespace program

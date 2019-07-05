@@ -24,14 +24,29 @@
 
 namespace program
 {
-    Log::Log(hardware::ISerialPort *serialPort) :
-        serialPort{serialPort}
+    static void write(hardware::ISerialPort *serialPort,
+                      String logLevel,
+                      String message);
+
+    Log::Log(hardware::ISerialPort *serialPort) : serialPort{serialPort}
     {
+    }
+
+    void Log::info(String message)
+    {
+        write(serialPort, (String) "INFO: ", message);
     }
 
     void Log::error(String message)
     {
-        serialPort->print((String) "ERROR: ");
+        write(serialPort, (String) "ERROR: ", message);
+    }
+
+    static void write(hardware::ISerialPort *serialPort,
+                      String logLevel,
+                      String message)
+    {
+        serialPort->print(logLevel);
         serialPort->println(message);
     }
 } // namespace program
