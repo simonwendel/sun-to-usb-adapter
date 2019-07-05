@@ -13,6 +13,7 @@ Because of this I wanted to prove to myself that I could accomplish a few key po
 1. Abstract away from the actual hardware (nuts right?)
 2. Structure the project better (I don't like the Arduino Sketchbook thing)
 3. Develop in a Test Driven fashion (unit tests first on as much code as possible)
+4. Don't cut corners, figuratively speaking!
 
 # Structure and Makefile
 
