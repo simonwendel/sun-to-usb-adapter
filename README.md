@@ -141,13 +141,13 @@ I bought my DIN connector from the swedish store [Electrokit](https://www.electr
 
 ![Mini-DIN PCB Connection Pinout](doc/pinout.png)
 
-I also want to have a configurable key tone, via the keyboard click on and off commands we can send. I add a DIP-switch between the 3V and pin 8, and use a 10k&#8486; resistor to pull pin 8 low when the switch is open. Whenever pin 8 is high we can turn the click on and if it's low we turn it off. Super quick sketch in [Fritzing] of the complete circuit:
+I want to have a configurable key tone, via the keyboard click on and off commands we can send. I add a DIP-switch between the 3V and pin 8, and use a 10k&#8486; resistor to pull pin 8 low when the switch is open. Whenever pin 8 is high we can turn the click on and if it's low we turn it off. Super quick sketch in [Fritzing] of the complete circuit:
 
 ![Schematic](doc/schematic.png)
 
 The pull-down resistor is actually connected to a ground pin G physically located in the ItsyBitsy between EN and D8, however in the [parts library][Fritzing parts] from Adafruit the ItsyBitsy part only includes one ground pin, GND.
 
-The other channel of the 2-channel DIP-switch is similarly connected between 3V and pin 7, with a 10k&#8486; resistor pulling pin 7 down to ground. Don't know what to do with this yet, but I'll wire it up for future proofing (soldering is fun).
+The other channel of the 2-channel DIP-switch is similarly connected between 3V and pin 7, with a 10k&#8486; resistor pulling pin 7 down to ground. I will use this to turn Num Lock on and off. Maybe not terribly useful, but soldering is fun.
 
 Wire it up and, assuming the pins on your board matches my setup, just do
 
