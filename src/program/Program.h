@@ -35,5 +35,6 @@ namespace program
                 adapter::IKeyboardCommander *keyboardCommander);
 
         void setup();
+        void loop();
     };
 } // namespace program

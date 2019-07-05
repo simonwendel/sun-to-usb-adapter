@@ -45,4 +45,8 @@ namespace program
             keyboardCommander->setLeds(leds);
         }
     }
+
+    void Program::loop()
+    {
+    }
 } // namespace program
