@@ -18,27 +18,17 @@
 
 #pragma once
 
-#include "../adapter/IKeyboardCommander.h"
-#include "../adapter/ISetting.h"
-#include "ILog.h"
+#include "../../../src/program/ILog.h"
 
-namespace program
+#include <arduino-platform.h>
+#include <gmock/gmock.h>
+
+namespace program_mocks
 {
-    class Program
+    class MockILog : public program::ILog
     {
-        ILog *log;
-
-        adapter::ISetting *keyboardClicksSetting;
-        adapter::ISetting *numLockSetting;
-        adapter::IKeyboardCommander *keyboardCommander;
-
     public:
-        Program(ILog *log,
-                adapter::ISetting *keyboardClicksSetting,
-                adapter::ISetting *numLockSetting,
-                adapter::IKeyboardCommander *keyboardCommander);
-
-        void setup();
-        void loop();
+        MOCK_METHOD1(info, void(String));
+        MOCK_METHOD1(error, void(String));
     };
-} // namespace program
+} // namespace program_mocks

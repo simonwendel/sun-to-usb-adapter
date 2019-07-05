@@ -20,14 +20,18 @@
 
 #include "../adapter/ISetting.h"
 #include "../adapter/LedCommand.h"
+#include "ILog.h"
 
 namespace program
 {
-    Program::Program(adapter::ISetting *keyboardClicksSetting,
+    Program::Program(ILog *log,
+                     adapter::ISetting *keyboardClicksSetting,
                      adapter::ISetting *numLockSetting,
                      adapter::IKeyboardCommander *keyboardCommander) :
+        log{log},
         keyboardClicksSetting{keyboardClicksSetting},
-        numLockSetting{numLockSetting}, keyboardCommander{keyboardCommander}
+        numLockSetting{numLockSetting},
+        keyboardCommander{keyboardCommander}
     {
     }
 
@@ -44,6 +48,8 @@ namespace program
             leds.setNumLock();
             keyboardCommander->setLeds(leds);
         }
+
+        log->info("Setup completed.");
     }
 
     void Program::loop()

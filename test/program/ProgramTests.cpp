@@ -20,6 +20,7 @@
 #include "../../src/program/Program.h"
 #include "../mocks/adapter/MockIKeyboardCommander.h"
 #include "../mocks/adapter/MockISetting.h"
+#include "../mocks/program/MockILog.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -38,7 +39,10 @@ namespace program_tests
         adapter_mocks::MockISetting numLock;
         adapter_mocks::MockIKeyboardCommander keyboardCommander;
 
-        program::Program sut{&keyboardClicks, &numLock, &keyboardCommander};
+        program_mocks::MockILog log;
+
+        program::Program sut{
+        &log, &keyboardClicks, &numLock, &keyboardCommander};
     };
 
     TEST_F(program_Program, setup_GivenKeyboardClickSetting_ReadsSetting)
@@ -83,6 +87,18 @@ namespace program_tests
     {
         ON_CALL(numLock, isOn()).WillByDefault(Return(false));
         EXPECT_CALL(keyboardCommander, setLeds(_)).Times(Exactly(0));
+        sut.setup();
+    }
+
+    TEST_F(program_Program, setup_WhenSetupCompletes_LogsInfoMessage)
+    {
+        String message{"Setup completed."};
+
+        Expectation setup1 = EXPECT_CALL(keyboardClicks, isOn());
+        Expectation setup2 = EXPECT_CALL(numLock, isOn());
+
+        EXPECT_CALL(log, info(message)).After(setup1, setup2);
+
         sut.setup();
     }
 } // namespace program_tests
