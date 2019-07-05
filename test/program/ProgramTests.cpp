@@ -32,10 +32,13 @@ namespace program_tests
     class program_Program : public ::testing::Test
     {
     public:
+        adapter::LedCommand leds;
+
         adapter_mocks::MockISetting keyboardClicks;
+        adapter_mocks::MockISetting numLock;
         adapter_mocks::MockIKeyboardCommander keyboardCommander;
 
-        program::Program sut{&keyboardClicks, &keyboardCommander};
+        program::Program sut{&keyboardClicks, &numLock, &keyboardCommander};
     };
 
     TEST_F(program_Program, setup_GivenKeyboardClickSetting_ReadsSetting)
@@ -57,6 +60,29 @@ namespace program_tests
     {
         ON_CALL(keyboardClicks, isOn()).WillByDefault(Return(false));
         EXPECT_CALL(keyboardCommander, turnOnClicks()).Times(Exactly(0));
+        sut.setup();
+    }
+
+    TEST_F(program_Program, setup_GivenNumLockSetting_ReadsSetting)
+    {
+        EXPECT_CALL(numLock, isOn());
+        sut.setup();
+    }
+
+    TEST_F(program_Program, setup_GivenNumLockSettingIsOn_TurnsOnNumLock)
+    {
+        leds.setNumLock();
+        ON_CALL(numLock, isOn()).WillByDefault(Return(true));
+
+        EXPECT_CALL(keyboardCommander, setLeds(leds));
+
+        sut.setup();
+    }
+
+    TEST_F(program_Program, setup_GivenNumLockSettingIsOff_DoesNotTurnOnNumLock)
+    {
+        ON_CALL(numLock, isOn()).WillByDefault(Return(false));
+        EXPECT_CALL(keyboardCommander, setLeds(_)).Times(Exactly(0));
         sut.setup();
     }
 } // namespace program_tests

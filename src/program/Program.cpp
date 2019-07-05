@@ -19,13 +19,15 @@
 #include "Program.h"
 
 #include "../adapter/ISetting.h"
+#include "../adapter/LedCommand.h"
 
 namespace program
 {
     Program::Program(adapter::ISetting *keyboardClicks,
+                     adapter::ISetting *numLock,
                      adapter::IKeyboardCommander *keyboardCommander) :
         keyboardClicks{keyboardClicks},
-        keyboardCommander{keyboardCommander}
+        numLock{numLock}, keyboardCommander{keyboardCommander}
     {
     }
 
@@ -35,6 +37,14 @@ namespace program
         if (shouldTurnOnClicks)
         {
             keyboardCommander->turnOnClicks();
+        }
+
+        auto shouldTurnOnNumLock = numLock->isOn();
+        if (shouldTurnOnNumLock)
+        {
+            adapter::LedCommand leds;
+            leds.setNumLock();
+            keyboardCommander->setLeds(leds);
         }
     }
 } // namespace program

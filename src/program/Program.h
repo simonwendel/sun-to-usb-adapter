@@ -26,11 +26,14 @@ namespace program
     class Program
     {
         adapter::ISetting *keyboardClicks;
+        adapter::ISetting *numLock;
         adapter::IKeyboardCommander *keyboardCommander;
 
     public:
         Program(adapter::ISetting *keyboardClicks,
+                adapter::ISetting *numLock,
                 adapter::IKeyboardCommander *keyboardCommander);
+
         void setup();
     };
 } // namespace program
