@@ -25,13 +25,13 @@ namespace program
 {
     class Program
     {
-        adapter::ISetting *keyboardClicks;
-        adapter::ISetting *numLock;
+        adapter::ISetting *keyboardClicksSetting;
+        adapter::ISetting *numLockSetting;
         adapter::IKeyboardCommander *keyboardCommander;
 
     public:
-        Program(adapter::ISetting *keyboardClicks,
-                adapter::ISetting *numLock,
+        Program(adapter::ISetting *keyboardClicksSetting,
+                adapter::ISetting *numLockSetting,
                 adapter::IKeyboardCommander *keyboardCommander);
 
         void setup();

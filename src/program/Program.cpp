@@ -23,24 +23,22 @@
 
 namespace program
 {
-    Program::Program(adapter::ISetting *keyboardClicks,
-                     adapter::ISetting *numLock,
+    Program::Program(adapter::ISetting *keyboardClicksSetting,
+                     adapter::ISetting *numLockSetting,
                      adapter::IKeyboardCommander *keyboardCommander) :
-        keyboardClicks{keyboardClicks},
-        numLock{numLock}, keyboardCommander{keyboardCommander}
+        keyboardClicksSetting{keyboardClicksSetting},
+        numLockSetting{numLockSetting}, keyboardCommander{keyboardCommander}
     {
     }
 
     void Program::setup()
     {
-        auto shouldTurnOnClicks = keyboardClicks->isOn();
-        if (shouldTurnOnClicks)
+        if (keyboardClicksSetting->isOn())
         {
             keyboardCommander->turnOnClicks();
         }
 
-        auto shouldTurnOnNumLock = numLock->isOn();
-        if (shouldTurnOnNumLock)
+        if (numLockSetting->isOn())
         {
             adapter::LedCommand leds;
             leds.setNumLock();
