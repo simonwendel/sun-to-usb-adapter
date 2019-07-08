@@ -30,7 +30,7 @@ namespace program_tests
 {
     using namespace testing;
 
-    class program_Program : public ::testing::Test
+    class program_Program : public Test
     {
     public:
         adapter::LedCommand leds;

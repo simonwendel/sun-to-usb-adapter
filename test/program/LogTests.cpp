@@ -28,7 +28,7 @@ namespace program_tests
 {
     using namespace testing;
 
-    class program_Log : public ::testing::Test
+    class program_Log : public Test
     {
     public:
         hardware_mocks::MockISerialPort serialPort;

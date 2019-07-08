@@ -27,7 +27,7 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_Setting : public ::testing::Test
+    class adapter_Setting : public Test
     {
     public:
         hardware_mocks::MockIInputPin inputPin;

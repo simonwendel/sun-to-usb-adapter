@@ -27,7 +27,7 @@ namespace hardware_tests
 {
     using namespace testing;
 
-    class hardware_InputPin : public ::testing::Test
+    class hardware_InputPin : public Test
     {
     public:
         int boardPin = 13;

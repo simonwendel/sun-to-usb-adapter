@@ -24,7 +24,7 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_HidCode : public ::testing::TestWithParam<bool>
+    class adapter_HidCode : public TestWithParam<bool>
     {
     public:
         int expectedUsageId = 13;

@@ -25,7 +25,7 @@ namespace hardware_tests
 {
     using namespace testing;
 
-    class hardware_Register : public ::testing::Test
+    class hardware_Register : public Test
     {
     public:
         const int InitialValue = 0b1000000110100001;

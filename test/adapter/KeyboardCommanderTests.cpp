@@ -29,7 +29,7 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_KeyboardCommander : public ::testing::Test
+    class adapter_KeyboardCommander : public Test
     {
     public:
         hardware_mocks::MockISerialPort serialPort;

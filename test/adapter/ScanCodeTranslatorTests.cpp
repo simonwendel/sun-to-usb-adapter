@@ -27,7 +27,7 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_ScanCodeTranslator : public ::testing::Test
+    class adapter_ScanCodeTranslator : public Test
     {
     public:
         int makeCodeA = 77;

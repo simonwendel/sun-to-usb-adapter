@@ -26,7 +26,7 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_FlashingLight : public ::testing::Test
+    class adapter_FlashingLight : public Test
     {
     public:
         hardware_timers_mocks::MockICTCTimer blinkTimer;

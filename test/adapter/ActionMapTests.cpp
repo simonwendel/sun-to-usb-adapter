@@ -25,7 +25,7 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_ActionMap : public ::testing::Test
+    class adapter_ActionMap : public Test
     {
     public:
         int capacity = 100;

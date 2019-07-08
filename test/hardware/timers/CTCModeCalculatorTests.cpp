@@ -25,7 +25,7 @@ namespace hardware_timers_tests
     using namespace testing;
     using Prescaler = hardware::timers::Prescaler;
 
-    class hardware_timers_CTCModeCalculator : public ::testing::Test
+    class hardware_timers_CTCModeCalculator : public Test
     {
     public:
         Prescaler defaultPrescalers[5] = {Prescaler::PS_1,

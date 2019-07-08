@@ -33,7 +33,7 @@ namespace hardware_timers_tests
 
     class hardware_timers_CTCTimer1
         : public hardware::timers::CTCTimer1
-        , public ::testing::Test
+        , public Test
     {
     public:
         int shouldBeCleared = 0;

@@ -26,7 +26,7 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_LedCommand : public ::testing::Test
+    class adapter_LedCommand : public Test
     {
     public:
         adapter::LedCommand sutInitiallyZeros;
