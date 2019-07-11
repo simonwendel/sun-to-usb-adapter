@@ -20,6 +20,12 @@
 
 namespace adapter
 {
+    const int HidCode::NoEvent = 0;
+
+    HidCode::HidCode() : HidCode(NoEvent, false)
+    {
+    }
+
     HidCode::HidCode(int usageId, bool breakCode) :
         usageId{usageId}, breakCode{breakCode}
     {

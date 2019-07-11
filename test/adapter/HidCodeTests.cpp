@@ -43,6 +43,13 @@ namespace adapter_tests
         EXPECT_EQ(sut.isBreakCode(), expectedBreakFlag);
     }
 
+    TEST_P(adapter_HidCode, constructor_GivenNoValues_SetsDefaultValues)
+    {
+        adapter::HidCode sut;
+        EXPECT_EQ(sut.getUsageId(), adapter::HidCode::NoEvent);
+        EXPECT_FALSE(sut.isBreakCode());
+    }
+    
     TEST_P(adapter_HidCode, operatorEquals_GivenSameProperties_ReturnsTrue)
     {
         adapter::HidCode first{expectedUsageId, expectedBreakFlag};

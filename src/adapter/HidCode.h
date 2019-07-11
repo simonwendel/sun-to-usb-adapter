@@ -26,6 +26,9 @@ namespace adapter
         bool breakCode;
 
     public:
+        static const int NoEvent;
+
+        HidCode();
         HidCode(int usageId, bool breakCode);
 
         bool isBreakCode();
