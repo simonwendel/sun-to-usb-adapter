@@ -34,4 +34,9 @@ namespace adapter
     {
         return usageId;
     }
+
+    bool HidCode::operator==(const HidCode &rhs)
+    {
+        return breakCode == rhs.breakCode && usageId == rhs.usageId;
+    }
 } // namespace adapter

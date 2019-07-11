@@ -30,5 +30,7 @@ namespace adapter
 
         bool isBreakCode();
         int getUsageId();
+
+        bool operator==(const HidCode &rhs);
     };
 } // namespace adapter

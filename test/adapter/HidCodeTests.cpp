@@ -43,5 +43,26 @@ namespace adapter_tests
         EXPECT_EQ(sut.isBreakCode(), expectedBreakFlag);
     }
 
+    TEST_P(adapter_HidCode, operatorEquals_GivenSameProperties_ReturnsTrue)
+    {
+        adapter::HidCode first{expectedUsageId, expectedBreakFlag};
+        adapter::HidCode second{expectedUsageId, expectedBreakFlag};
+        EXPECT_TRUE(first == second);
+    }
+
+    TEST_P(adapter_HidCode, operatorEquals_GivenDiffereingUsageIdProperties_ReturnsFalse)
+    {
+        adapter::HidCode first{expectedUsageId, expectedBreakFlag};
+        adapter::HidCode second{expectedUsageId + 1, expectedBreakFlag};
+        EXPECT_FALSE(first == second);
+    }
+
+    TEST_P(adapter_HidCode, operatorEquals_GivenDiffereingBreakFlagProperties_ReturnsFalse)
+    {
+        adapter::HidCode first{expectedUsageId, expectedBreakFlag};
+        adapter::HidCode second{expectedUsageId, !expectedBreakFlag};
+        EXPECT_FALSE(first == second);
+    }
+
     INSTANTIATE_TEST_CASE_P(adapter_HidCode_params, adapter_HidCode, Bool());
 } // namespace adapter_tests
