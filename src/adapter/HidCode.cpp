@@ -41,7 +41,7 @@ namespace adapter
         return usageId;
     }
 
-    bool HidCode::operator==(const HidCode &rhs)
+    bool HidCode::operator==(const HidCode &rhs) const
     {
         return breakCode == rhs.breakCode && usageId == rhs.usageId;
     }
