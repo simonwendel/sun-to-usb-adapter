@@ -18,14 +18,21 @@
 
 #pragma once
 
+#include "../hardware/ISerialPort.h"
+#include "ILog.h"
+
 #include <arduino-platform.h>
 
-namespace program
+namespace adapter
 {
-    class ILog
+    class Log : public ILog
     {
+        hardware::ISerialPort *serialPort;
+
     public:
-        virtual void info(String message) = 0;
-        virtual void error(String message) = 0;
+        Log(hardware::ISerialPort *serialPort);
+
+        void info(String message) override;
+        void error(String message) override;
     };
-} // namespace program
+} // namespace adapter

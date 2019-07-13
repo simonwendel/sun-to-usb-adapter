@@ -16,37 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Log.h"
-
-#include "../hardware/ISerialPort.h"
+#pragma once
 
 #include <arduino-platform.h>
 
-namespace program
+namespace adapter
 {
-    static void write(hardware::ISerialPort *serialPort,
-                      String logLevel,
-                      String message);
-
-    Log::Log(hardware::ISerialPort *serialPort) : serialPort{serialPort}
+    class ILog
     {
-    }
-
-    void Log::info(String message)
-    {
-        write(serialPort, (String) "INFO: ", message);
-    }
-
-    void Log::error(String message)
-    {
-        write(serialPort, (String) "ERROR: ", message);
-    }
-
-    static void write(hardware::ISerialPort *serialPort,
-                      String logLevel,
-                      String message)
-    {
-        serialPort->print(logLevel);
-        serialPort->println(message);
-    }
-} // namespace program
+    public:
+        virtual void info(String message) = 0;
+        virtual void error(String message) = 0;
+    };
+} // namespace adapter

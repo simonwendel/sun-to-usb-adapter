@@ -22,16 +22,16 @@
 #include "../adapter/LedCommand.h"
 #include "ILog.h"
 
-namespace program
+namespace adapter
 {
     Program::Program(ILog *log,
-                     adapter::ISetting *keyboardClicksSetting,
-                     adapter::ISetting *numLockSetting,
-                     adapter::IKeyboardCommander *keyboardCommander) :
+                     ISetting *keyboardClicksSetting,
+                     ISetting *numLockSetting,
+                     IKeyboardCommander *keyboardCommander) :
         log{log},
         keyboardClicksSetting{keyboardClicksSetting},
-        numLockSetting{numLockSetting}, keyboardCommander{keyboardCommander},
-        started{false}
+        numLockSetting{numLockSetting},
+        keyboardCommander{keyboardCommander}, started{false}
     {
     }
 
@@ -44,7 +44,7 @@ namespace program
 
         if (numLockSetting->isOn())
         {
-            adapter::LedCommand leds;
+            LedCommand leds;
             leds.setNumLock();
             keyboardCommander->setLeds(leds);
         }
@@ -60,4 +60,4 @@ namespace program
             started = true;
         }
     }
-} // namespace program
+} // namespace adapter

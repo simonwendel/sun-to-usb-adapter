@@ -17,20 +17,20 @@
  */
 
 #include "../../src/adapter/ISetting.h"
-#include "../../src/program/Program.h"
+#include "../../src/adapter/Program.h"
 #include "../mocks/adapter/MockIKeyboardCommander.h"
 #include "../mocks/adapter/MockISetting.h"
-#include "../mocks/program/MockILog.h"
+#include "../mocks/adapter/MockILog.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace program_tests
+namespace adapter_tests
 {
     using namespace testing;
 
-    class program_Program : public Test
+    class adapter_Program : public Test
     {
     public:
         adapter::LedCommand leds;
@@ -38,20 +38,19 @@ namespace program_tests
         adapter_mocks::MockISetting keyboardClicks;
         adapter_mocks::MockISetting numLock;
         adapter_mocks::MockIKeyboardCommander keyboardCommander;
+        adapter_mocks::MockILog log;
 
-        program_mocks::MockILog log;
-
-        program::Program sut{
+        adapter::Program sut{
         &log, &keyboardClicks, &numLock, &keyboardCommander};
     };
 
-    TEST_F(program_Program, setup_GivenKeyboardClickSetting_ReadsSetting)
+    TEST_F(adapter_Program, setup_GivenKeyboardClickSetting_ReadsSetting)
     {
         EXPECT_CALL(keyboardClicks, isOn());
         sut.setup();
     }
 
-    TEST_F(program_Program,
+    TEST_F(adapter_Program,
            setup_GivenKeyboardClickSettingIsOn_TurnsOnKeyboardClicks)
     {
         ON_CALL(keyboardClicks, isOn()).WillByDefault(Return(true));
@@ -59,7 +58,7 @@ namespace program_tests
         sut.setup();
     }
 
-    TEST_F(program_Program,
+    TEST_F(adapter_Program,
            setup_GivenKeyboardClickSettingIsOff_DoesNotTurnOnKeyboardClicks)
     {
         ON_CALL(keyboardClicks, isOn()).WillByDefault(Return(false));
@@ -67,13 +66,13 @@ namespace program_tests
         sut.setup();
     }
 
-    TEST_F(program_Program, setup_GivenNumLockSetting_ReadsSetting)
+    TEST_F(adapter_Program, setup_GivenNumLockSetting_ReadsSetting)
     {
         EXPECT_CALL(numLock, isOn());
         sut.setup();
     }
 
-    TEST_F(program_Program, setup_GivenNumLockSettingIsOn_TurnsOnNumLock)
+    TEST_F(adapter_Program, setup_GivenNumLockSettingIsOn_TurnsOnNumLock)
     {
         leds.setNumLock();
         ON_CALL(numLock, isOn()).WillByDefault(Return(true));
@@ -83,14 +82,14 @@ namespace program_tests
         sut.setup();
     }
 
-    TEST_F(program_Program, setup_GivenNumLockSettingIsOff_DoesNotTurnOnNumLock)
+    TEST_F(adapter_Program, setup_GivenNumLockSettingIsOff_DoesNotTurnOnNumLock)
     {
         ON_CALL(numLock, isOn()).WillByDefault(Return(false));
         EXPECT_CALL(keyboardCommander, setLeds(_)).Times(Exactly(0));
         sut.setup();
     }
 
-    TEST_F(program_Program, setup_WhenSetupCompletes_LogsInfoMessage)
+    TEST_F(adapter_Program, setup_WhenSetupCompletes_LogsInfoMessage)
     {
         String message{"Setup completed."};
 
@@ -102,20 +101,20 @@ namespace program_tests
         sut.setup();
     }
 
-    TEST_F(program_Program, loop_WhenFirstCalled_LogsInfoMessage)
+    TEST_F(adapter_Program, loop_WhenFirstCalled_LogsInfoMessage)
     {
         String message{"Adapter started."};
         EXPECT_CALL(log, info(message));
         sut.loop();
     }
 
-    TEST_F(program_Program, loop_WhenLaterCalled_DoesntLogInfoMessageAgain)
+    TEST_F(adapter_Program, loop_WhenLaterCalled_DoesntLogInfoMessageAgain)
     {
         EXPECT_CALL(log, info(_)).Times(1);
-        
+
         sut.loop();
         sut.loop();
         sut.loop();
         sut.loop();
     }
-} // namespace program_tests
+} // namespace adapter_tests

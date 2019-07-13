@@ -22,25 +22,25 @@
 #include "../adapter/ISetting.h"
 #include "ILog.h"
 
-namespace program
+namespace adapter
 {
     class Program
     {
         ILog *log;
 
-        adapter::ISetting *keyboardClicksSetting;
-        adapter::ISetting *numLockSetting;
-        adapter::IKeyboardCommander *keyboardCommander;
+        ISetting *keyboardClicksSetting;
+        ISetting *numLockSetting;
+        IKeyboardCommander *keyboardCommander;
 
         bool started;
 
     public:
         Program(ILog *log,
-                adapter::ISetting *keyboardClicksSetting,
-                adapter::ISetting *numLockSetting,
-                adapter::IKeyboardCommander *keyboardCommander);
+                ISetting *keyboardClicksSetting,
+                ISetting *numLockSetting,
+                IKeyboardCommander *keyboardCommander);
 
         void setup();
         void loop();
     };
-} // namespace program
+} // namespace adapter

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../../src/program/Log.h"
+#include "../../src/adapter/Log.h"
 #include "../mocks/hardware/MockISerialPort.h"
 
 #include <arduino-platform.h>
@@ -24,18 +24,18 @@
 #include <gtest/gtest.h>
 #include <stdint.h>
 
-namespace program_tests
+namespace adapter_tests
 {
     using namespace testing;
 
-    class program_Log : public Test
+    class adapter_Log : public Test
     {
     public:
         hardware_mocks::MockISerialPort serialPort;
-        program::Log sut{&serialPort};
+        adapter::Log sut{&serialPort};
     };
 
-    TEST_F(program_Log, info_GivenMessage_WritesToSerialPort)
+    TEST_F(adapter_Log, info_GivenMessage_WritesToSerialPort)
     {
         String prefix{"INFO: "};
         String message{"This is an info message!"};
@@ -47,7 +47,7 @@ namespace program_tests
         sut.info(message);
     }
 
-    TEST_F(program_Log, error_GivenMessage_WritesToSerialPort)
+    TEST_F(adapter_Log, error_GivenMessage_WritesToSerialPort)
     {
         String prefix{"ERROR: "};
         String message{"This is an error message!"};
@@ -58,4 +58,4 @@ namespace program_tests
 
         sut.error(message);
     }
-} // namespace program_tests
+} // namespace adapter_tests

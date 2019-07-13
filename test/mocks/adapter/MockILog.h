@@ -18,21 +18,17 @@
 
 #pragma once
 
-#include "../hardware/ISerialPort.h"
-#include "ILog.h"
+#include "../../../src/adapter/ILog.h"
 
 #include <arduino-platform.h>
+#include <gmock/gmock.h>
 
-namespace program
+namespace adapter_mocks
 {
-    class Log : public ILog
+    class MockILog : public adapter::ILog
     {
-        hardware::ISerialPort *serialPort;
-
     public:
-        Log(hardware::ISerialPort *serialPort);
-
-        void info(String message) override;
-        void error(String message) override;
+        MOCK_METHOD1(info, void(String));
+        MOCK_METHOD1(error, void(String));
     };
-} // namespace program
+} // namespace adapter_mocks

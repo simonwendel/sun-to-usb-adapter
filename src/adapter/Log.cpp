@@ -16,19 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "Log.h"
 
-#include "../../../src/program/ILog.h"
+#include "../hardware/ISerialPort.h"
 
 #include <arduino-platform.h>
-#include <gmock/gmock.h>
 
-namespace program_mocks
+namespace adapter
 {
-    class MockILog : public program::ILog
+    static void write(hardware::ISerialPort *serialPort,
+                      String logLevel,
+                      String message);
+
+    Log::Log(hardware::ISerialPort *serialPort) : serialPort{serialPort}
     {
-    public:
-        MOCK_METHOD1(info, void(String));
-        MOCK_METHOD1(error, void(String));
-    };
-} // namespace program_mocks
+    }
+
+    void Log::info(String message)
+    {
+        write(serialPort, (String) "INFO: ", message);
+    }
+
+    void Log::error(String message)
+    {
+        write(serialPort, (String) "ERROR: ", message);
+    }
+
+    static void write(hardware::ISerialPort *serialPort,
+                      String logLevel,
+                      String message)
+    {
+        serialPort->print(logLevel);
+        serialPort->println(message);
+    }
+} // namespace adapter
