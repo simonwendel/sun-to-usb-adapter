@@ -24,9 +24,16 @@
 
 namespace adapter
 {
-    static void write(hardware::ISerialPort *serialPort,
-                      String logLevel,
-                      String message);
+    namespace
+    {
+        void write(hardware::ISerialPort *serialPort,
+                   String logLevel,
+                   String message)
+        {
+            serialPort->print(logLevel);
+            serialPort->println(message);
+        }
+    } // namespace
 
     Log::Log(hardware::ISerialPort *serialPort) : serialPort{serialPort}
     {
@@ -40,13 +47,5 @@ namespace adapter
     void Log::error(String message)
     {
         write(serialPort, (String) "ERROR: ", message);
-    }
-
-    static void write(hardware::ISerialPort *serialPort,
-                      String logLevel,
-                      String message)
-    {
-        serialPort->print(logLevel);
-        serialPort->println(message);
     }
 } // namespace adapter
