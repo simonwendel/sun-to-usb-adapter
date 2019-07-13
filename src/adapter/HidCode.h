@@ -31,8 +31,8 @@ namespace adapter
         HidCode();
         HidCode(int usageId, bool breakCode);
 
-        bool isBreakCode();
-        int getUsageId();
+        bool isBreakCode() const;
+        int getUsageId() const;
 
         bool operator==(const HidCode &rhs) const;
     };

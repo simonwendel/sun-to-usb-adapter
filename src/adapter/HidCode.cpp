@@ -31,12 +31,12 @@ namespace adapter
     {
     }
 
-    bool HidCode::isBreakCode()
+    bool HidCode::isBreakCode() const
     {
         return breakCode;
     }
 
-    int HidCode::getUsageId()
+    int HidCode::getUsageId() const
     {
         return usageId;
     }
