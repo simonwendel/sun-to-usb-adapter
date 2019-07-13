@@ -18,13 +18,13 @@
 
 #pragma once
 
-#include "HidCode.h"
+#include "Translation.h"
 
 namespace adapter
 {
     class IScanCodeTranslator
     {
     public:
-        virtual HidCode toHid(int fromSunCode) = 0;
+        virtual Translation translate(int fromSunCode) = 0;
     };
 } // namespace adapter

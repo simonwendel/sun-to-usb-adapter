@@ -23,6 +23,7 @@ namespace adapter
     class IScanCodeTranslationMap
     {
     public:
-        virtual int getUsageId(int fromSunMakeCode) = 0;
+        virtual bool contains(int sunMakeCode) const = 0;
+        virtual int getUsageId(int sunMakeCode) const = 0;
     };
 } // namespace adapter

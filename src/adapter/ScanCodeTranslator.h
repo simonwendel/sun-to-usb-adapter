@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "HidCode.h"
+#include "Translation.h"
 #include "IScanCodeTranslationMap.h"
 #include "IScanCodeTranslator.h"
 
@@ -30,6 +30,6 @@ namespace adapter
 
     public:
         ScanCodeTranslator(IScanCodeTranslationMap *translationMap);
-        HidCode toHid(int fromSun) override;
+        Translation translate(int fromSunCode) override;
     };
 } // namespace adapter

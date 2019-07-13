@@ -29,15 +29,21 @@ namespace adapter
     {
     }
 
-    HidCode ScanCodeTranslator::toHid(int fromSun)
+    Translation ScanCodeTranslator::translate(int fromSunCode)
     {
-        auto isBreakCode = fromSun > 128;
+        auto isBreakCode = fromSunCode > 128;
         if (isBreakCode)
         {
-            fromSun -= 128;
+            fromSunCode -= 128;
         }
 
-        auto usageId = translationMap->getUsageId(fromSun);
-        return HidCode{usageId, isBreakCode};
+        if (!translationMap->contains(fromSunCode))
+        {
+            return Translation{};
+        }
+
+        auto usageId = translationMap->getUsageId(fromSunCode);
+        auto hidCode = HidCode{usageId, isBreakCode};
+        return Translation{hidCode};
     }
 } // namespace adapter

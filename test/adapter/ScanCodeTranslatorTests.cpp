@@ -41,30 +41,51 @@ namespace adapter_tests
         {
             ON_CALL(translationMap, getUsageId(makeCodeA))
             .WillByDefault(Return(usageIdA));
+
+            ON_CALL(translationMap, contains(makeCodeA))
+            .WillByDefault(Return(true));
         }
     };
 
-    TEST_F(adapter_ScanCodeTranslator, toHid_GivenMakeCode_LooksUpMakeCode)
+    TEST_F(adapter_ScanCodeTranslator,
+           translate_GivenNoMappingExists_ReturnsInvalidTranslation)
     {
-        EXPECT_CALL(translationMap, getUsageId(makeCodeA)).Times(Exactly(1));
-        EXPECT_EQ(sut.toHid(makeCodeA).getUsageId(), usageIdA);
-    }
-
-    TEST_F(adapter_ScanCodeTranslator, toHid_GivenBreakCode_LooksUpMakeCode)
-    {
-        EXPECT_CALL(translationMap, getUsageId(makeCodeA)).Times(Exactly(1));
-        EXPECT_EQ(sut.toHid(breakCodeA).getUsageId(), usageIdA);
+        ON_CALL(translationMap, contains(makeCodeA))
+        .WillByDefault(Return(false));
+        auto translation = sut.translate(makeCodeA);
+        EXPECT_FALSE(translation.isValid());
     }
 
     TEST_F(adapter_ScanCodeTranslator,
-           toHid_GivenMakeCode_SetsBreakCodeFlagToFalse)
+           translate_GivenMappingExists_ReturnsValidTranslation)
     {
-        EXPECT_EQ(sut.toHid(makeCodeA).isBreakCode(), false);
+        auto translation = sut.translate(makeCodeA);
+        EXPECT_TRUE(translation.isValid());
+    }
+
+    TEST_F(adapter_ScanCodeTranslator, translate_GivenMakeCode_LooksUpMakeCode)
+    {
+        EXPECT_CALL(translationMap, getUsageId(makeCodeA)).Times(Exactly(1));
+        auto translation = sut.translate(makeCodeA);
+        EXPECT_EQ(translation.getHidCode().getUsageId(), usageIdA);
+    }
+
+    TEST_F(adapter_ScanCodeTranslator, translate_GivenBreakCode_LooksUpCorrespondingMakeCode)
+    {
+        EXPECT_CALL(translationMap, getUsageId(makeCodeA)).Times(Exactly(1));
+        auto translation = sut.translate(makeCodeA);
+        EXPECT_EQ(translation.getHidCode().getUsageId(), usageIdA);
     }
 
     TEST_F(adapter_ScanCodeTranslator,
-           toHid_GivenBreakCode_SetsBreakCodeFlagToTrue)
+           translate_GivenMakeCode_SetsBreakCodeFlagToFalse)
     {
-        EXPECT_EQ(sut.toHid(breakCodeA).isBreakCode(), true);
+        EXPECT_FALSE(sut.translate(makeCodeA).getHidCode().isBreakCode());
+    }
+
+    TEST_F(adapter_ScanCodeTranslator,
+           translate_GivenBreakCode_SetsBreakCodeFlagToTrue)
+    {
+        EXPECT_TRUE(sut.translate(breakCodeA).getHidCode().isBreakCode());
     }
 } // namespace adapter_tests

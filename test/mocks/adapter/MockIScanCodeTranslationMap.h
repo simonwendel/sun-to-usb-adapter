@@ -27,6 +27,7 @@ namespace adapter_mocks
     class MockIScanCodeTranslationMap : public adapter::IScanCodeTranslationMap
     {
     public:
-        MOCK_METHOD1(getUsageId, int(int));
+        MOCK_CONST_METHOD1(contains, bool(int));
+        MOCK_CONST_METHOD1(getUsageId, int(int));
     };
 } // namespace adapter_tests
