@@ -39,11 +39,11 @@ namespace adapter
 
         if (!translationMap->contains(fromSunCode))
         {
-            return Translation{};
+            return Translation::makeInvalid();
         }
 
         auto usageId = translationMap->getUsageId(fromSunCode);
         auto hidCode = HidCode{usageId, isBreakCode};
-        return Translation{hidCode};
+        return Translation::makeValid(hidCode);
     }
 } // namespace adapter

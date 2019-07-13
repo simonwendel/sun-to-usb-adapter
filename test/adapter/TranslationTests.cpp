@@ -31,29 +31,25 @@ namespace adapter_tests
         adapter::HidCode hidCode{17, true};
     };
 
-    TEST_F(adapter_Translation,
-           constructor_GivenNoHidCode_ConstructsInvalidObject)
+    TEST_F(adapter_Translation, makeInvalid_ConstructsInvalidObject)
     {
-        adapter::Translation sut;
-        EXPECT_FALSE(sut.isValid());
+        EXPECT_FALSE(adapter::Translation::makeInvalid().isValid());
     }
 
-    TEST_F(adapter_Translation,
-           constructor_GivenNoHidCode_SetsDefaultHidCodeValue)
+    TEST_F(adapter_Translation, makeInvalid_SetsDefaultHidCodeValue)
     {
-        adapter::Translation sut;
-        EXPECT_EQ(sut.getHidCode(), defaultHidCode);
+        EXPECT_EQ(adapter::Translation::makeInvalid().getHidCode(),
+                  defaultHidCode);
     }
 
-    TEST_F(adapter_Translation, constructor_GivenHidCode_ConstructsValidObject)
+    TEST_F(adapter_Translation, makeValid_GivenHidCode_ConstructsValidObject)
     {
-        adapter::Translation sut{hidCode};
-        EXPECT_TRUE(sut.isValid());
+        EXPECT_TRUE(adapter::Translation::makeValid(hidCode).isValid());
     }
 
-    TEST_F(adapter_Translation, constructor_GivenHidCode_SetsHidCodeValue)
+    TEST_F(adapter_Translation, makeValid_GivenHidCode_SetsHidCodeValue)
     {
-        adapter::Translation sut{hidCode};
-        EXPECT_EQ(sut.getHidCode(), hidCode);
+        EXPECT_EQ(adapter::Translation::makeValid(hidCode).getHidCode(),
+                  hidCode);
     }
 } // namespace adapter_tests

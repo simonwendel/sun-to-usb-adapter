@@ -30,6 +30,16 @@ namespace adapter
     {
     }
 
+    Translation Translation::makeInvalid()
+    {
+        return Translation{};
+    }
+
+    Translation Translation::makeValid(HidCode hidCode)
+    {
+        return Translation{hidCode};
+    }
+
     bool Translation::isValid() const
     {
         return valid;

@@ -27,9 +27,12 @@ namespace adapter
         bool valid;
         HidCode hidCode;
 
-    public:
         Translation();
         Translation(HidCode hidCode);
+
+    public:
+        static Translation makeInvalid();
+        static Translation makeValid(HidCode hidCode);
 
         bool isValid() const;
         HidCode getHidCode() const;
