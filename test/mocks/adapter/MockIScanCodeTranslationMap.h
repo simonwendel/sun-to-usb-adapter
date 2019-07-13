@@ -30,4 +30,4 @@ namespace adapter_mocks
         MOCK_CONST_METHOD1(contains, bool(int));
         MOCK_CONST_METHOD1(getUsageId, int(int));
     };
-} // namespace adapter_tests
+} // namespace adapter_mocks
