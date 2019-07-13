@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "../../src/adapter/HidCode.h"
 #include "../../src/adapter/ISetting.h"
 #include "../../src/adapter/Program.h"
+#include "../../src/adapter/Translation.h"
+#include "../mocks/adapter/MockIFlashingLight.h"
 #include "../mocks/adapter/MockIKeyboardCommander.h"
-#include "../mocks/adapter/MockISetting.h"
 #include "../mocks/adapter/MockILog.h"
+#include "../mocks/adapter/MockIScanCodeTranslator.h"
+#include "../mocks/adapter/MockISetting.h"
+#include "../mocks/hardware/MockISerialPort.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -33,15 +38,41 @@ namespace adapter_tests
     class adapter_Program : public Test
     {
     public:
+        int invalidCode = 137;
+        adapter::Translation invalidTranslation =
+        adapter::Translation::makeInvalid();
+
+        int validCode = 110;
+        adapter::Translation validTranslation =
+        adapter::Translation::makeValid(adapter::HidCode{});
+
         adapter::LedCommand leds;
 
         adapter_mocks::MockISetting keyboardClicks;
         adapter_mocks::MockISetting numLock;
         adapter_mocks::MockIKeyboardCommander keyboardCommander;
         adapter_mocks::MockILog log;
+        adapter_mocks::MockIScanCodeTranslator translator;
+        adapter_mocks::MockIFlashingLight errorIndicator;
 
-        adapter::Program sut{
-        &log, &keyboardClicks, &numLock, &keyboardCommander};
+        hardware_mocks::MockISerialPort serialPort;
+
+        adapter::Program sut{&log,
+                             &keyboardClicks,
+                             &numLock,
+                             &keyboardCommander,
+                             &serialPort,
+                             &translator,
+                             &errorIndicator};
+
+        adapter_Program()
+        {
+            ON_CALL(translator, translate(invalidCode))
+            .WillByDefault(Return(invalidTranslation));
+
+            ON_CALL(translator, translate(validCode))
+            .WillByDefault(Return(validTranslation));
+        }
     };
 
     TEST_F(adapter_Program, setup_GivenKeyboardClickSetting_ReadsSetting)
@@ -115,6 +146,44 @@ namespace adapter_tests
         sut.loop();
         sut.loop();
         sut.loop();
+        sut.loop();
+    }
+
+    TEST_F(adapter_Program, loop_WhenReadingFromSerialPort_AttemptsTranslation)
+    {
+        EXPECT_CALL(serialPort, read()).WillOnce(Return(validCode));
+        EXPECT_CALL(translator, translate(validCode));
+        sut.loop();
+    }
+
+    TEST_F(adapter_Program, loop_WhenTranslationFails_LogsAnError)
+    {
+        String message{"Failed to translate, invalid code."};
+        EXPECT_CALL(log, error(message));
+
+        ON_CALL(serialPort, read()).WillByDefault(Return(invalidCode));
+
+        sut.loop();
+    }
+
+    TEST_F(
+    adapter_Program,
+    loop_WhenTranslationFailsAndErrorIndicatorFlashing_DoesNotStartFlashing)
+    {
+        ON_CALL(errorIndicator, isFlashing()).WillByDefault(Return(true));
+        ON_CALL(serialPort, read()).WillByDefault(Return(invalidCode));
+        EXPECT_CALL(errorIndicator, startFlashing()).Times(0);
+
+        sut.loop();
+    }
+
+    TEST_F(adapter_Program,
+           loop_WhenTranslationFailsAndErrorIndicatorNotFlashing_StartsFlashing)
+    {
+        ON_CALL(serialPort, read()).WillByDefault(Return(invalidCode));
+        ON_CALL(errorIndicator, isFlashing()).WillByDefault(Return(false));
+        EXPECT_CALL(errorIndicator, startFlashing());
+
         sut.loop();
     }
 } // namespace adapter_tests

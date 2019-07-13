@@ -18,20 +18,22 @@
 
 #include "Program.h"
 
-#include "../adapter/ISetting.h"
 #include "../adapter/LedCommand.h"
-#include "ILog.h"
 
 namespace adapter
 {
     Program::Program(ILog *log,
                      ISetting *keyboardClicksSetting,
                      ISetting *numLockSetting,
-                     IKeyboardCommander *keyboardCommander) :
+                     IKeyboardCommander *keyboardCommander,
+                     hardware::ISerialPort *serialPort,
+                     IScanCodeTranslator *translator,
+                     IFlashingLight *errorIndicator) :
         log{log},
         keyboardClicksSetting{keyboardClicksSetting},
-        numLockSetting{numLockSetting},
-        keyboardCommander{keyboardCommander}, started{false}
+        numLockSetting{numLockSetting}, keyboardCommander{keyboardCommander},
+        serialPort{serialPort}, translator{translator},
+        errorIndicator{errorIndicator}, started{false}
     {
     }
 
@@ -52,12 +54,27 @@ namespace adapter
         log->info("Setup completed.");
     }
 
+    // here's all the meaty bits!
     void Program::loop()
     {
-        if (started == false)
+        if (!started)
         {
             log->info("Adapter started.");
             started = true;
+        }
+
+        auto next = serialPort->read();
+        if (next > 0 && next < 256)
+        {
+            auto translation = translator->translate(next);
+            if (!translation.isValid())
+            {
+                log->error("Failed to translate, invalid code.");
+                if (!errorIndicator->isFlashing())
+                {
+                    errorIndicator->startFlashing();
+                }
+            }
         }
     }
 } // namespace adapter

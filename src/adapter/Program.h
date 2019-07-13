@@ -18,9 +18,12 @@
 
 #pragma once
 
-#include "../adapter/IKeyboardCommander.h"
-#include "../adapter/ISetting.h"
+#include "../hardware/ISerialPort.h"
+#include "IFlashingLight.h"
+#include "IKeyboardCommander.h"
 #include "ILog.h"
+#include "IScanCodeTranslator.h"
+#include "ISetting.h"
 
 namespace adapter
 {
@@ -31,14 +34,19 @@ namespace adapter
         ISetting *keyboardClicksSetting;
         ISetting *numLockSetting;
         IKeyboardCommander *keyboardCommander;
-
+        hardware::ISerialPort *serialPort;
+        IScanCodeTranslator *translator;
+        IFlashingLight *errorIndicator;
         bool started;
 
     public:
         Program(ILog *log,
                 ISetting *keyboardClicksSetting,
                 ISetting *numLockSetting,
-                IKeyboardCommander *keyboardCommander);
+                IKeyboardCommander *keyboardCommander,
+                hardware::ISerialPort *serialPort,
+                IScanCodeTranslator *translator,
+                IFlashingLight *errorIndicator);
 
         void setup();
         void loop();
