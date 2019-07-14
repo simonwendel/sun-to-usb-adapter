@@ -18,19 +18,22 @@
 
 #pragma once
 
-#include "LedCommand.h"
+#include "../../../src/adapter/ISunKeyboard.h"
+#include "../../../src/adapter/LedCommand.h"
 
-namespace adapter
+#include <gmock/gmock.h>
+
+namespace adapter_mocks
 {
-    class IKeyboardCommander
+    class MockISunKeyboard : public adapter::ISunKeyboard
     {
     public:
-        virtual void turnOnClicks() = 0;
-        virtual void turnOffClicks() = 0;
+        MOCK_METHOD0(turnOnClicks, void());
+        MOCK_METHOD0(turnOffClicks, void());
 
-        virtual void turnOnBell() = 0;
-        virtual void turnOffBell() = 0;
+        MOCK_METHOD0(turnOnBell, void());
+        MOCK_METHOD0(turnOffBell, void());
 
-        virtual void setLeds(LedCommand leds) = 0;
+        MOCK_METHOD1(setLeds, void(adapter::LedCommand));
     };
-} // namespace adapter
+} // namespace adapter_mocks

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../../src/adapter/KeyboardCommander.h"
+#include "../../src/adapter/SunKeyboard.h"
 #include "../../src/adapter/LedCommand.h"
 
 #include <gmock/gmock.h>

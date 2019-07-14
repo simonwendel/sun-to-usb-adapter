@@ -18,22 +18,25 @@
 
 #pragma once
 
-#include "../../../src/adapter/IKeyboardCommander.h"
-#include "../../../src/adapter/LedCommand.h"
+#include "../hardware/ISerialPort.h"
+#include "ISunKeyboard.h"
+#include "LedCommand.h"
 
-#include <gmock/gmock.h>
-
-namespace adapter_mocks
+namespace adapter
 {
-    class MockIKeyboardCommander : public adapter::IKeyboardCommander
+    class SunKeyboard : public ISunKeyboard
     {
+        hardware::ISerialPort *serialPort;
+
     public:
-        MOCK_METHOD0(turnOnClicks, void());
-        MOCK_METHOD0(turnOffClicks, void());
+        SunKeyboard(hardware::ISerialPort *serialPort);
 
-        MOCK_METHOD0(turnOnBell, void());
-        MOCK_METHOD0(turnOffBell, void());
+        void turnOnClicks() override;
+        void turnOffClicks() override;
 
-        MOCK_METHOD1(setLeds, void(adapter::LedCommand));
+        void turnOnBell() override;
+        void turnOffBell() override;
+
+        void setLeds(LedCommand leds) override;
     };
-} // namespace adapter_mocks
+} // namespace adapter

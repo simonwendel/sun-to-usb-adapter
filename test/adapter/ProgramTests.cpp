@@ -21,7 +21,7 @@
 #include "../../src/adapter/Program.h"
 #include "../../src/adapter/Translation.h"
 #include "../mocks/adapter/MockIFlashingLight.h"
-#include "../mocks/adapter/MockIKeyboardCommander.h"
+#include "../mocks/adapter/MockISunKeyboard.h"
 #include "../mocks/adapter/MockILog.h"
 #include "../mocks/adapter/MockIScanCodeTranslator.h"
 #include "../mocks/adapter/MockISetting.h"
@@ -50,7 +50,7 @@ namespace adapter_tests
 
         adapter_mocks::MockISetting keyboardClicks;
         adapter_mocks::MockISetting numLock;
-        adapter_mocks::MockIKeyboardCommander keyboardCommander;
+        adapter_mocks::MockISunKeyboard sunKeyboard;
         adapter_mocks::MockILog log;
         adapter_mocks::MockIScanCodeTranslator translator;
         adapter_mocks::MockIFlashingLight errorIndicator;
@@ -60,7 +60,7 @@ namespace adapter_tests
         adapter::Program sut{&log,
                              &keyboardClicks,
                              &numLock,
-                             &keyboardCommander,
+                             &sunKeyboard,
                              &serialPort,
                              &translator,
                              &errorIndicator};
@@ -85,7 +85,7 @@ namespace adapter_tests
            setup_GivenKeyboardClickSettingIsOn_TurnsOnKeyboardClicks)
     {
         ON_CALL(keyboardClicks, isOn()).WillByDefault(Return(true));
-        EXPECT_CALL(keyboardCommander, turnOnClicks());
+        EXPECT_CALL(sunKeyboard, turnOnClicks());
         sut.setup();
     }
 
@@ -93,7 +93,7 @@ namespace adapter_tests
            setup_GivenKeyboardClickSettingIsOff_DoesNotTurnOnKeyboardClicks)
     {
         ON_CALL(keyboardClicks, isOn()).WillByDefault(Return(false));
-        EXPECT_CALL(keyboardCommander, turnOnClicks()).Times(Exactly(0));
+        EXPECT_CALL(sunKeyboard, turnOnClicks()).Times(Exactly(0));
         sut.setup();
     }
 
@@ -108,7 +108,7 @@ namespace adapter_tests
         leds.setNumLock();
         ON_CALL(numLock, isOn()).WillByDefault(Return(true));
 
-        EXPECT_CALL(keyboardCommander, setLeds(leds));
+        EXPECT_CALL(sunKeyboard, setLeds(leds));
 
         sut.setup();
     }
@@ -116,7 +116,7 @@ namespace adapter_tests
     TEST_F(adapter_Program, setup_GivenNumLockSettingIsOff_DoesNotTurnOnNumLock)
     {
         ON_CALL(numLock, isOn()).WillByDefault(Return(false));
-        EXPECT_CALL(keyboardCommander, setLeds(_)).Times(Exactly(0));
+        EXPECT_CALL(sunKeyboard, setLeds(_)).Times(Exactly(0));
         sut.setup();
     }
 

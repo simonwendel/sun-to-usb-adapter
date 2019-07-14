@@ -20,7 +20,7 @@
 
 #include "../hardware/ISerialPort.h"
 #include "IFlashingLight.h"
-#include "IKeyboardCommander.h"
+#include "ISunKeyboard.h"
 #include "ILog.h"
 #include "IScanCodeTranslator.h"
 #include "ISetting.h"
@@ -33,7 +33,7 @@ namespace adapter
 
         ISetting *keyboardClicksSetting;
         ISetting *numLockSetting;
-        IKeyboardCommander *keyboardCommander;
+        ISunKeyboard *sunKeyboard;
         hardware::ISerialPort *serialPort;
         IScanCodeTranslator *translator;
         IFlashingLight *errorIndicator;
@@ -43,7 +43,7 @@ namespace adapter
         Program(ILog *log,
                 ISetting *keyboardClicksSetting,
                 ISetting *numLockSetting,
-                IKeyboardCommander *keyboardCommander,
+                ISunKeyboard *sunKeyboard,
                 hardware::ISerialPort *serialPort,
                 IScanCodeTranslator *translator,
                 IFlashingLight *errorIndicator);

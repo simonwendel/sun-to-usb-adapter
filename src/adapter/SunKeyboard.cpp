@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "KeyboardCommander.h"
+#include "SunKeyboard.h"
 
 #include "../hardware/ISerialPort.h"
 #include "Command.h"
@@ -24,32 +24,32 @@
 
 namespace adapter
 {
-    KeyboardCommander::KeyboardCommander(hardware::ISerialPort *serialPort) :
+    SunKeyboard::SunKeyboard(hardware::ISerialPort *serialPort) :
         serialPort{serialPort}
     {
     }
 
-    void KeyboardCommander::turnOnClicks()
+    void SunKeyboard::turnOnClicks()
     {
         serialPort->write(Command::ENABLE_CLICK);
     }
 
-    void KeyboardCommander::turnOffClicks()
+    void SunKeyboard::turnOffClicks()
     {
         serialPort->write(Command::DISABLE_CLICK);
     }
 
-    void KeyboardCommander::turnOnBell()
+    void SunKeyboard::turnOnBell()
     {
         serialPort->write(Command::ENABLE_BELL);
     }
 
-    void KeyboardCommander::turnOffBell()
+    void SunKeyboard::turnOffBell()
     {
         serialPort->write(Command::DISABLE_BELL);
     }
 
-    void KeyboardCommander::setLeds(LedCommand leds)
+    void SunKeyboard::setLeds(LedCommand leds)
     {
         uint8_t compoundCommand[2] = {Command::SET_LEDS, (uint8_t)leds};
         serialPort->write(compoundCommand, 2);

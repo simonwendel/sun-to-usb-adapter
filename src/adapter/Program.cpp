@@ -25,13 +25,13 @@ namespace adapter
     Program::Program(ILog *log,
                      ISetting *keyboardClicksSetting,
                      ISetting *numLockSetting,
-                     IKeyboardCommander *keyboardCommander,
+                     ISunKeyboard *sunKeyboard,
                      hardware::ISerialPort *serialPort,
                      IScanCodeTranslator *translator,
                      IFlashingLight *errorIndicator) :
         log{log},
         keyboardClicksSetting{keyboardClicksSetting},
-        numLockSetting{numLockSetting}, keyboardCommander{keyboardCommander},
+        numLockSetting{numLockSetting}, sunKeyboard{sunKeyboard},
         serialPort{serialPort}, translator{translator},
         errorIndicator{errorIndicator}, started{false}
     {
@@ -41,14 +41,14 @@ namespace adapter
     {
         if (keyboardClicksSetting->isOn())
         {
-            keyboardCommander->turnOnClicks();
+            sunKeyboard->turnOnClicks();
         }
 
         if (numLockSetting->isOn())
         {
             LedCommand leds;
             leds.setNumLock();
-            keyboardCommander->setLeds(leds);
+            sunKeyboard->setLeds(leds);
         }
 
         log->info("Setup completed.");

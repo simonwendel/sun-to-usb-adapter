@@ -18,25 +18,19 @@
 
 #pragma once
 
-#include "../hardware/ISerialPort.h"
-#include "IKeyboardCommander.h"
 #include "LedCommand.h"
 
 namespace adapter
 {
-    class KeyboardCommander : public IKeyboardCommander
+    class ISunKeyboard
     {
-        hardware::ISerialPort *serialPort;
-
     public:
-        KeyboardCommander(hardware::ISerialPort *serialPort);
+        virtual void turnOnClicks() = 0;
+        virtual void turnOffClicks() = 0;
 
-        void turnOnClicks() override;
-        void turnOffClicks() override;
+        virtual void turnOnBell() = 0;
+        virtual void turnOffBell() = 0;
 
-        void turnOnBell() override;
-        void turnOffBell() override;
-
-        void setLeds(LedCommand leds) override;
+        virtual void setLeds(LedCommand leds) = 0;
     };
 } // namespace adapter

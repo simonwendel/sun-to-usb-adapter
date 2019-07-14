@@ -17,7 +17,7 @@
  */
 
 #include "../../src/adapter/Command.h"
-#include "../../src/adapter/KeyboardCommander.h"
+#include "../../src/adapter/SunKeyboard.h"
 #include "../../src/adapter/LedCommand.h"
 #include "../mocks/hardware/MockISerialPort.h"
 
@@ -29,14 +29,14 @@ namespace adapter_tests
 {
     using namespace testing;
 
-    class adapter_KeyboardCommander : public Test
+    class adapter_SunKeyboard : public Test
     {
     public:
         hardware_mocks::MockISerialPort serialPort;
-        adapter::KeyboardCommander sut{&serialPort};
+        adapter::SunKeyboard sut{&serialPort};
     };
 
-    TEST_F(adapter_KeyboardCommander,
+    TEST_F(adapter_SunKeyboard,
            turnOnClicks_GivenSerialPort_SendsEnableClickCommand)
     {
         auto expectedCommand = adapter::Command::ENABLE_CLICK;
@@ -44,7 +44,7 @@ namespace adapter_tests
         sut.turnOnClicks();
     }
 
-    TEST_F(adapter_KeyboardCommander,
+    TEST_F(adapter_SunKeyboard,
            turnOffClicks_GivenSerialPort_SendsDisableClickCommand)
     {
         auto expectedCommand = adapter::Command::DISABLE_CLICK;
@@ -52,7 +52,7 @@ namespace adapter_tests
         sut.turnOffClicks();
     }
 
-    TEST_F(adapter_KeyboardCommander,
+    TEST_F(adapter_SunKeyboard,
            turnOnBell_GivenSerialPort_SendsEnableBellCommand)
     {
         auto expectedCommand = adapter::Command::ENABLE_BELL;
@@ -60,7 +60,7 @@ namespace adapter_tests
         sut.turnOnBell();
     }
 
-    TEST_F(adapter_KeyboardCommander,
+    TEST_F(adapter_SunKeyboard,
            turnOffBell_GivenSerialPort_SendsDisableBellCommand)
     {
         auto expectedCommand = adapter::Command::DISABLE_BELL;
@@ -68,7 +68,7 @@ namespace adapter_tests
         sut.turnOffBell();
     }
 
-    TEST_F(adapter_KeyboardCommander,
+    TEST_F(adapter_SunKeyboard,
            setLeds_GivenLedCommandPayload_WritesSequenceToSerialPort)
     {
         adapter::LedCommand leds;
