@@ -32,5 +32,7 @@ namespace adapter
         virtual void turnOffBell() = 0;
 
         virtual void setLeds(LedCommand leds) = 0;
+
+        virtual int read() = 0;
     };
 } // namespace adapter

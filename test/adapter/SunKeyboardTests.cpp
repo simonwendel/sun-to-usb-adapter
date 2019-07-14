@@ -17,8 +17,8 @@
  */
 
 #include "../../src/adapter/Command.h"
-#include "../../src/adapter/SunKeyboard.h"
 #include "../../src/adapter/LedCommand.h"
+#include "../../src/adapter/SunKeyboard.h"
 #include "../mocks/hardware/MockISerialPort.h"
 
 #include <arduino-platform.h>
@@ -90,5 +90,30 @@ namespace adapter_tests
         .WillOnce(DoAll(Invoke(verifySequence), Return(2)));
 
         sut.setLeds(leds);
+    }
+
+    TEST_F(adapter_SunKeyboard, read_WhenPortHasValidValue_ReturnsThatValue)
+    {
+        auto expected = 120;
+        EXPECT_CALL(serialPort, read()).WillOnce(Return(expected));
+
+        auto actual = sut.read();
+        EXPECT_EQ(actual, expected);
+    }
+
+    TEST_F(adapter_SunKeyboard,
+           read_WhenPortHasInvalidValues_WaitsUntilValidToReturn)
+    {
+        auto invalidLow = 0;
+        auto invalidHigh = 256;
+        auto expected = 120;
+
+        EXPECT_CALL(serialPort, read())
+        .WillOnce(Return(invalidLow))
+        .WillOnce(Return(invalidHigh))
+        .WillOnce(Return(expected));
+
+        auto actual = sut.read();
+        EXPECT_EQ(actual, expected);
     }
 } // namespace adapter_tests

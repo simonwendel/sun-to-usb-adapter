@@ -38,5 +38,8 @@ namespace adapter
         void turnOffBell() override;
 
         void setLeds(LedCommand leds) override;
+
+        /** Reads one scan code from keyboard, halting until valid. */
+        int read() override;
     };
 } // namespace adapter

@@ -54,4 +54,15 @@ namespace adapter
         uint8_t compoundCommand[2] = {Command::SET_LEDS, (uint8_t)leds};
         serialPort->write(compoundCommand, 2);
     }
+
+    int SunKeyboard::read()
+    {
+        int next;
+        do
+        {
+            next = serialPort->read();
+        } while (next <= 0 || next >= 256);
+
+        return next;
+    }
 } // namespace adapter

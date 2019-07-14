@@ -35,5 +35,7 @@ namespace adapter_mocks
         MOCK_METHOD0(turnOffBell, void());
 
         MOCK_METHOD1(setLeds, void(adapter::LedCommand));
+
+        MOCK_METHOD0(read, int());
     };
 } // namespace adapter_mocks
