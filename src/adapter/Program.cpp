@@ -26,12 +26,14 @@ namespace adapter
                      ISetting *keyboardClicksSetting,
                      ISetting *numLockSetting,
                      ISunKeyboard *sunKeyboard,
+                     IUsbKeyboard *usbKeyboard,
                      IScanCodeTranslator *translator,
                      IFlashingLight *errorIndicator) :
         log{log},
         keyboardClicksSetting{keyboardClicksSetting},
         numLockSetting{numLockSetting}, sunKeyboard{sunKeyboard},
-        translator{translator}, errorIndicator{errorIndicator}, started{false}
+        usbKeyboard{usbKeyboard}, translator{translator},
+        errorIndicator{errorIndicator}, started{false}
     {
     }
 
@@ -63,7 +65,12 @@ namespace adapter
 
         auto next = sunKeyboard->read();
         auto translation = translator->translate(next);
-        if (!translation.isValid())
+
+        if (translation.isValid())
+        {
+            usbKeyboard->emit(translation.getHidCode());
+        }
+        else
         {
             log->error("Failed to translate, invalid code.");
             if (!errorIndicator->isFlashing())

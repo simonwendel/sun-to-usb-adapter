@@ -25,6 +25,7 @@
 #include "../mocks/adapter/MockIScanCodeTranslator.h"
 #include "../mocks/adapter/MockISetting.h"
 #include "../mocks/adapter/MockISunKeyboard.h"
+#include "../mocks/adapter/MockIUsbKeyboard.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -50,6 +51,7 @@ namespace adapter_tests
         adapter_mocks::MockISetting keyboardClicks;
         adapter_mocks::MockISetting numLock;
         adapter_mocks::MockISunKeyboard sunKeyboard;
+        adapter_mocks::MockIUsbKeyboard usbKeyboard;
         adapter_mocks::MockILog log;
         adapter_mocks::MockIScanCodeTranslator translator;
         adapter_mocks::MockIFlashingLight errorIndicator;
@@ -58,6 +60,7 @@ namespace adapter_tests
                              &keyboardClicks,
                              &numLock,
                              &sunKeyboard,
+                             &usbKeyboard,
                              &translator,
                              &errorIndicator};
 
@@ -175,6 +178,19 @@ namespace adapter_tests
     {
         ON_CALL(errorIndicator, isFlashing()).WillByDefault(Return(false));
         EXPECT_CALL(errorIndicator, startFlashing());
+        sut.loop();
+    }
+
+    TEST_F(adapter_Program, loop_WhenTranslationFails_DoesNotEmitHidCode)
+    {
+        EXPECT_CALL(usbKeyboard, emit(_)).Times(0);
+        sut.loop();
+    }
+
+    TEST_F(adapter_Program, loop_WhenTranslationSucceeds_EmitsHidCode)
+    {
+        ON_CALL(sunKeyboard, read()).WillByDefault(Return(validCode));
+        EXPECT_CALL(usbKeyboard, emit(validTranslation.getHidCode()));
         sut.loop();
     }
 } // namespace adapter_tests

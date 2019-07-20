@@ -18,37 +18,13 @@
 
 #pragma once
 
-#include "IFlashingLight.h"
-#include "ISunKeyboard.h"
-#include "ILog.h"
-#include "IScanCodeTranslator.h"
-#include "ISetting.h"
-#include "IUsbKeyboard.h"
+#include "HidCode.h"
 
 namespace adapter
 {
-    class Program
+    class IUsbKeyboard
     {
-        ILog *log;
-
-        ISetting *keyboardClicksSetting;
-        ISetting *numLockSetting;
-        ISunKeyboard *sunKeyboard;
-        IUsbKeyboard *usbKeyboard;
-        IScanCodeTranslator *translator;
-        IFlashingLight *errorIndicator;
-        bool started;
-
     public:
-        Program(ILog *log,
-                ISetting *keyboardClicksSetting,
-                ISetting *numLockSetting,
-                ISunKeyboard *sunKeyboard,
-                IUsbKeyboard *usbKeyboard,
-                IScanCodeTranslator *translator,
-                IFlashingLight *errorIndicator);
-
-        void setup();
-        void loop();
+        virtual void emit(HidCode hidCode) = 0;
     };
 } // namespace adapter
