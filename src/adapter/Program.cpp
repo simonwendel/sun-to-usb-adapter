@@ -26,14 +26,12 @@ namespace adapter
                      ISetting *keyboardClicksSetting,
                      ISetting *numLockSetting,
                      ISunKeyboard *sunKeyboard,
-                     hardware::ISerialPort *serialPort,
                      IScanCodeTranslator *translator,
                      IFlashingLight *errorIndicator) :
         log{log},
         keyboardClicksSetting{keyboardClicksSetting},
         numLockSetting{numLockSetting}, sunKeyboard{sunKeyboard},
-        serialPort{serialPort}, translator{translator},
-        errorIndicator{errorIndicator}, started{false}
+        translator{translator}, errorIndicator{errorIndicator}, started{false}
     {
     }
 
@@ -63,17 +61,14 @@ namespace adapter
             started = true;
         }
 
-        auto next = serialPort->read();
-        if (next > 0 && next < 256)
+        auto next = sunKeyboard->read();
+        auto translation = translator->translate(next);
+        if (!translation.isValid())
         {
-            auto translation = translator->translate(next);
-            if (!translation.isValid())
+            log->error("Failed to translate, invalid code.");
+            if (!errorIndicator->isFlashing())
             {
-                log->error("Failed to translate, invalid code.");
-                if (!errorIndicator->isFlashing())
-                {
-                    errorIndicator->startFlashing();
-                }
+                errorIndicator->startFlashing();
             }
         }
     }

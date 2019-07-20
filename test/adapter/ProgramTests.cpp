@@ -21,11 +21,10 @@
 #include "../../src/adapter/Program.h"
 #include "../../src/adapter/Translation.h"
 #include "../mocks/adapter/MockIFlashingLight.h"
-#include "../mocks/adapter/MockISunKeyboard.h"
 #include "../mocks/adapter/MockILog.h"
 #include "../mocks/adapter/MockIScanCodeTranslator.h"
 #include "../mocks/adapter/MockISetting.h"
-#include "../mocks/hardware/MockISerialPort.h"
+#include "../mocks/adapter/MockISunKeyboard.h"
 
 #include <arduino-platform.h>
 #include <gmock/gmock.h>
@@ -55,18 +54,17 @@ namespace adapter_tests
         adapter_mocks::MockIScanCodeTranslator translator;
         adapter_mocks::MockIFlashingLight errorIndicator;
 
-        hardware_mocks::MockISerialPort serialPort;
-
         adapter::Program sut{&log,
                              &keyboardClicks,
                              &numLock,
                              &sunKeyboard,
-                             &serialPort,
                              &translator,
                              &errorIndicator};
 
         adapter_Program()
         {
+            ON_CALL(sunKeyboard, read()).WillByDefault(Return(invalidCode));
+
             ON_CALL(translator, translate(invalidCode))
             .WillByDefault(Return(invalidTranslation));
 
@@ -151,7 +149,7 @@ namespace adapter_tests
 
     TEST_F(adapter_Program, loop_WhenReadingFromSerialPort_AttemptsTranslation)
     {
-        EXPECT_CALL(serialPort, read()).WillOnce(Return(validCode));
+        ON_CALL(sunKeyboard, read()).WillByDefault(Return(validCode));
         EXPECT_CALL(translator, translate(validCode));
         sut.loop();
     }
@@ -160,9 +158,6 @@ namespace adapter_tests
     {
         String message{"Failed to translate, invalid code."};
         EXPECT_CALL(log, error(message));
-
-        ON_CALL(serialPort, read()).WillByDefault(Return(invalidCode));
-
         sut.loop();
     }
 
@@ -171,19 +166,15 @@ namespace adapter_tests
     loop_WhenTranslationFailsAndErrorIndicatorFlashing_DoesNotStartFlashing)
     {
         ON_CALL(errorIndicator, isFlashing()).WillByDefault(Return(true));
-        ON_CALL(serialPort, read()).WillByDefault(Return(invalidCode));
         EXPECT_CALL(errorIndicator, startFlashing()).Times(0);
-
         sut.loop();
     }
 
     TEST_F(adapter_Program,
            loop_WhenTranslationFailsAndErrorIndicatorNotFlashing_StartsFlashing)
     {
-        ON_CALL(serialPort, read()).WillByDefault(Return(invalidCode));
         ON_CALL(errorIndicator, isFlashing()).WillByDefault(Return(false));
         EXPECT_CALL(errorIndicator, startFlashing());
-
         sut.loop();
     }
 } // namespace adapter_tests

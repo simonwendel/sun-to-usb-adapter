@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "../hardware/ISerialPort.h"
 #include "IFlashingLight.h"
 #include "ISunKeyboard.h"
 #include "ILog.h"
@@ -34,7 +33,6 @@ namespace adapter
         ISetting *keyboardClicksSetting;
         ISetting *numLockSetting;
         ISunKeyboard *sunKeyboard;
-        hardware::ISerialPort *serialPort;
         IScanCodeTranslator *translator;
         IFlashingLight *errorIndicator;
         bool started;
@@ -44,7 +42,6 @@ namespace adapter
                 ISetting *keyboardClicksSetting,
                 ISetting *numLockSetting,
                 ISunKeyboard *sunKeyboard,
-                hardware::ISerialPort *serialPort,
                 IScanCodeTranslator *translator,
                 IFlashingLight *errorIndicator);
 
