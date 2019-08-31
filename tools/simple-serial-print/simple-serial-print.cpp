@@ -21,8 +21,8 @@
  * Simon Wendel <mail@simonwendel.se>
  */
 
-#include "../../src/board_config.h"
-#include "../../src/sun_keyboard_map.h"
+#include "board_config.h"
+#include "sun_keyboard_map.h"
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
