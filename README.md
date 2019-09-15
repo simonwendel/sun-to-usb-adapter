@@ -159,7 +159,7 @@ from the project root.
 
 # If On Windows
 
-During the project moved to Windows from GNU/Linux. I still build this project using GCC on a Fedora Core VM, and will probably not make the build work with any Windows native tools, however I had some issues in attaching the Itsybitsy to the VM during upload, so instead of ```make upload``` i have a LINQPad script in the project root that uses the Windows version of avrdude as packaged by the Arduino platform. It works!
+During the project I moved to Windows from GNU/Linux. I still build the code using GCC on a Fedora Core VM, and will probably not make the build work with any Windows native tools. However, I had some issues in attaching the Itsybitsy to the VM during upload, so instead of ```make upload``` I now have a LINQPad script in the project root that uses the Windows version of avrdude as packaged by the Arduino platform. It works!
 
 # What doesn't work (yet)
 
