@@ -18,7 +18,7 @@
 
 #include "Setting.h"
 
-#include "../../lib/arduino-platform.h"
+#include <arduino-platform.h>
 
 namespace adapter
 {
