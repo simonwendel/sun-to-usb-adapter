@@ -39,7 +39,7 @@ include /usr/share/arduino/Arduino.mk
 CFLAGS_STD				= -std=gnu11
 CPPFLAGS_STD			= -std=gnu++1z
 
-CPPFLAGS				+= -I $(ROOT_DIR)lib
+CPPFLAGS				+= -I $(ROOT_DIR)lib/stubs
 CPPFLAGS				+= -pedantic -Wall -Wextra
 CPPFLAGS				+= $(CPPFLAGS_STD)
 LDFLAGS					+= -fdiagnostics-color

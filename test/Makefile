@@ -20,7 +20,7 @@ GOOGLE_TEST_INCLUDE	= /usr/include
 
 CXX					= g++
 
-CXX_FLAGS			= -c -I $(GOOGLE_TEST_INCLUDE) -I ../lib
+CXX_FLAGS			= -c -I $(GOOGLE_TEST_INCLUDE) -I ../lib/stubs
 CXX_FLAGS			+= -pedantic -Wall -Wextra -std=gnu++1z
 
 CXX_FLAGS			+= -DSTUB_ARDUINO
