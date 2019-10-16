@@ -1,0 +1,19 @@
+{
+	"name": "Arduino Build Environment",
+	"dockerFile": "Dockerfile",
+
+	"runArgs": [
+	],
+
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+
+	"appPort": [],
+	
+	"postCreateCommand": "",
+
+	"extensions": [
+		"ms-vscode.cpptools"
+	]
+}
