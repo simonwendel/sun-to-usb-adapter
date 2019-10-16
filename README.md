@@ -159,7 +159,9 @@ from the project root.
 
 # If On Windows
 
-During the project I moved to Windows from GNU/Linux. I still build the code using GCC on a Fedora Core VM, and will probably not make the build work with any Windows native tools. However, I had some issues in attaching the Itsybitsy to the VM during upload, so instead of ```make upload``` I now have a LINQPad script in the project root that uses the Windows version of avrdude as packaged by the Arduino platform. It works!
+During the project I moved to Windows from GNU/Linux. I still build the code using GCC in a Fedora Core container, and will probably not make the build work with any Windows native tools. However, Instead of ```make upload``` I now have a LINQPad script in the project root that uses the Windows version of avrdude as packaged by the Arduino platform. It works!
+
+The .devcontainer folder has the json file and Dockerfile needed to spin up the build chain container using the [Visual Studio Code Remote Development Extension Pack][dev containers].
 
 # What doesn't work (yet)
 
@@ -191,5 +193,7 @@ During the project I moved to Windows from GNU/Linux. I still build the code usi
 
 [Fritzing]: http://fritzing.org/home/
 [Fritzing parts]: https://github.com/adafruit/Fritzing-Library
+
+[dev containers]: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
 
 [arduino makefile]: https://github.com/sudar/Arduino-Makefile
