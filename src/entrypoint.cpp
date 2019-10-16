@@ -16,8 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "adapter/Program.h"
+
 #include <arduino-platform.h>
-#include "program/Program.h"
 
 void setup()
 {
