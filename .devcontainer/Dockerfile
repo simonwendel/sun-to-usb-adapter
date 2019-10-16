@@ -35,6 +35,7 @@ RUN dnf install -y gcc-c++ gtest-devel gmock-devel
 ARG RPMFILE=arduino-mk-1.6.0-1.fc30.noarch.rpm
 ARG GHLINK=https://github.com/simonwendel/configs/raw/master/Packages/${RPMFILE}
 RUN dnf install -y arduino-core ${GHLINK}
+RUN curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
 
 # adafruit boards
 RUN mkdir -p /usr/share/arduino/hardware/adafruit/avr/
