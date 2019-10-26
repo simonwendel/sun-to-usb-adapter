@@ -57,14 +57,14 @@ namespace adapter_tests
         EXPECT_TRUE(first == second);
     }
 
-    TEST_P(adapter_HidCode, operatorEquals_GivenDiffereingUsageIdProperties_ReturnsFalse)
+    TEST_P(adapter_HidCode, operatorEquals_GivenDifferingUsageIdProperties_ReturnsFalse)
     {
         adapter::HidCode first{expectedUsageId, expectedBreakFlag};
         adapter::HidCode second{expectedUsageId + 1, expectedBreakFlag};
         EXPECT_FALSE(first == second);
     }
 
-    TEST_P(adapter_HidCode, operatorEquals_GivenDiffereingBreakFlagProperties_ReturnsFalse)
+    TEST_P(adapter_HidCode, operatorEquals_GivenDifferingBreakFlagProperties_ReturnsFalse)
     {
         adapter::HidCode first{expectedUsageId, expectedBreakFlag};
         adapter::HidCode second{expectedUsageId, !expectedBreakFlag};
