@@ -25,7 +25,7 @@
 
 namespace hardware::timers
 {
-    class CTCModeCalculator : ICTCModeCalculator
+    class CTCModeCalculator : public ICTCModeCalculator
     {
     private:
         const int numberOfPrescalers = 5;
