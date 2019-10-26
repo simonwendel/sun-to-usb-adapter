@@ -18,19 +18,26 @@
 
 #pragma once
 
+#include "../hardware/timers/ICTCModeCalculator.h"
 #include "../hardware/timers/ICTCTimer.h"
 #include "IFlashingLight.h"
+#include "IToggle.h"
 
 namespace adapter
-{
+{   
     class FlashingLight : public adapter::IFlashingLight
     {
         bool timerStarted{false};
+        IToggle *toggle;
         hardware::timers::ICTCTimer *blinkTimer;
+        hardware::timers::ICTCModeCalculator *calculator;
 
     public:
-        FlashingLight(hardware::timers::ICTCTimer *blinkTimer);
+        FlashingLight(IToggle *toggle,
+                      hardware::timers::ICTCTimer *blinkTimer,
+                      hardware::timers::ICTCModeCalculator *calculator);
+
         bool isFlashing() override;
-        void startFlashing() override;
+        void startFlashing(float frequencyHz) override;   
     };
 } // namespace adapter

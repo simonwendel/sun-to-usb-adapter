@@ -17,6 +17,8 @@
  */
 
 #include "../../src/adapter/FlashingLight.h"
+#include "../mocks/adapter/MockIToggle.h"
+#include "../mocks/hardware/timers/MockICTCModeCalculator.h"
 #include "../mocks/hardware/timers/MockICTCTimer.h"
 
 #include <gmock/gmock.h>
@@ -25,36 +27,97 @@
 namespace adapter_tests
 {
     using namespace testing;
+    using Prescaler = hardware::timers::Prescaler;
+    using CalculationResult = hardware::timers::CalculationResult;
 
     class adapter_FlashingLight : public Test
     {
     public:
-        hardware_timers_mocks::MockICTCTimer blinkTimer;
-        adapter::FlashingLight sut{&blinkTimer};
+        float frequencyHz = 2;
+        hardware::timers::CTCModeSettings settings{31249, Prescaler::PS_256};
+
+        testing::internal::AnythingMatcher anyTimerFunction = _;
+        hardware_timers_mocks::MockICTCTimer timer;
+        hardware_timers_mocks::MockICTCModeCalculator calculator;
+        adapter_mocks::MockIToggle toggle;
+
+        adapter::FlashingLight sut{&toggle, &timer, &calculator};
+
+        adapter_FlashingLight()
+        {
+            CalculationResult calculationResults{true, settings};
+            ON_CALL(calculator, createSettings(frequencyHz))
+            .WillByDefault(Return(calculationResults));
+        }
     };
 
-    TEST_F(adapter_FlashingLight, isFlashing_BeforeCallingStartFlashing_ReturnsFalse)
+    TEST_F(adapter_FlashingLight,
+           isFlashing_BeforeCallingStartFlashing_ReturnsFalse)
     {
         EXPECT_FALSE(sut.isFlashing());
     }
 
-    TEST_F(adapter_FlashingLight, isFlashing_AfterCallingStartFlashing_ReturnsTrue)
+    TEST_F(adapter_FlashingLight,
+           isFlashing_AfterCallingStartFlashing_ReturnsTrue)
     {
-        sut.startFlashing();
+        sut.startFlashing(frequencyHz);
         EXPECT_TRUE(sut.isFlashing());
     }
 
-    TEST_F(adapter_FlashingLight, startFlashing_WhenCalledFirstTime_StartsBlinkTimer)
+    TEST_F(adapter_FlashingLight,
+           startFlashing_WhenCalledFirstTime_CalculatesTimerSettings)
     {
-        EXPECT_CALL(blinkTimer, start()).Times(1);
-        sut.startFlashing();
+        EXPECT_CALL(calculator, createSettings(frequencyHz)).Times(1);
+        sut.startFlashing(frequencyHz);
+    }
+
+    TEST_F(adapter_FlashingLight,
+           startFlashing_WhenCalledFirstTime_SetsUpBlinkTimer)
+    {
+        EXPECT_CALL(timer, setup(settings, anyTimerFunction)).Times(1);
+        sut.startFlashing(frequencyHz);
+    }
+
+    TEST_F(adapter_FlashingLight,
+           startFlashing_WhenCalledFirstTime_StartsBlinkTimer)
+    {
+        EXPECT_CALL(timer, start()).Times(1);
+        sut.startFlashing(frequencyHz);
+    }
+
+    TEST_F(adapter_FlashingLight,
+           startFlashing_WhenCalledMoreThanOnce_OnlyCalculatesTimerSettingsOnce)
+    {
+        EXPECT_CALL(calculator, createSettings(frequencyHz)).Times(1);
+        sut.startFlashing(frequencyHz);
+        sut.startFlashing(frequencyHz);
+    }
+
+    TEST_F(adapter_FlashingLight,
+           startFlashing_WhenCalledMoreThanOnce_OnlySetsUpBlinkTimerOnce)
+    {
+        EXPECT_CALL(timer, setup(settings, anyTimerFunction)).Times(1);
+        sut.startFlashing(frequencyHz);
+        sut.startFlashing(frequencyHz);
     }
 
     TEST_F(adapter_FlashingLight,
            startFlashing_WhenCalledMoreThanOnce_OnlyStartsBlinkTimerOnce)
     {
-        EXPECT_CALL(blinkTimer, start()).Times(1);
-        sut.startFlashing();
-        sut.startFlashing();
+        EXPECT_CALL(timer, start()).Times(1);
+        sut.startFlashing(frequencyHz);
+        sut.startFlashing(frequencyHz);
+    }
+
+    TEST_F(adapter_FlashingLight,
+           startFlashing_WhenSetupCallbackInvoked_TogglesOutput)
+    {
+        // invoke the callback provided to timer setup
+        EXPECT_CALL(timer, setup(settings, anyTimerFunction))
+        .WillRepeatedly(testing::InvokeArgument<1>());
+
+        EXPECT_CALL(toggle, toggle()).Times(1);
+
+        sut.startFlashing(2);
     }
 } // namespace adapter_tests

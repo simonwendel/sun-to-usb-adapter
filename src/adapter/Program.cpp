@@ -75,7 +75,7 @@ namespace adapter
             log->error("Failed to translate, invalid code.");
             if (!errorIndicator->isFlashing())
             {
-                errorIndicator->startFlashing();
+                errorIndicator->startFlashing(2);
             }
         }
     }

@@ -18,24 +18,45 @@
 
 #include "FlashingLight.h"
 
+#include "../hardware/timers/CTCModeCalculator.h"
 #include "../hardware/timers/ICTCTimer.h"
 
 namespace adapter
 {
-    FlashingLight::FlashingLight(hardware::timers::ICTCTimer *blinkTimer) :
-        blinkTimer(blinkTimer)
+    FlashingLight::FlashingLight(
+    IToggle *toggle,
+    hardware::timers::ICTCTimer *blinkTimer,
+    hardware::timers::ICTCModeCalculator *calculator) :
+        toggle(toggle),
+        blinkTimer(blinkTimer), calculator(calculator)
     {
     }
+
+    namespace
+    {
+        // magic needed since capturing lambdas are not compatible with what we
+        // need from TimerFunction
+        IToggle *toggleCapture;
+        void onTimer()
+        {
+            toggleCapture->toggle();
+        }
+    } // namespace
 
     bool FlashingLight::isFlashing()
     {
         return timerStarted;
     }
 
-    void FlashingLight::startFlashing()
+    void FlashingLight::startFlashing(float frequencyHz)
     {
         if (timerStarted == false)
         {
+            auto results = calculator->createSettings(frequencyHz);
+
+            toggleCapture = this->toggle;
+            blinkTimer->setup(results.value, onTimer);
+
             blinkTimer->start();
             timerStarted = true;
         }

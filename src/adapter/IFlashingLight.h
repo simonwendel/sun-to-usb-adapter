@@ -24,6 +24,6 @@ namespace adapter
     {
     public:
         virtual bool isFlashing() = 0;
-        virtual void startFlashing() = 0;
+        virtual void startFlashing(float frequencyHz) = 0;
     };
 } // namespace adapter

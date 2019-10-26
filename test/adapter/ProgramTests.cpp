@@ -46,6 +46,8 @@ namespace adapter_tests
         adapter::Translation validTranslation =
         adapter::Translation::makeValid(adapter::HidCode{});
 
+        float errorFrequencyHz = 2;
+
         adapter::LedCommand leds;
 
         adapter_mocks::MockISetting keyboardClicks;
@@ -169,7 +171,7 @@ namespace adapter_tests
     loop_WhenTranslationFailsAndErrorIndicatorFlashing_DoesNotStartFlashing)
     {
         ON_CALL(errorIndicator, isFlashing()).WillByDefault(Return(true));
-        EXPECT_CALL(errorIndicator, startFlashing()).Times(0);
+        EXPECT_CALL(errorIndicator, startFlashing(errorFrequencyHz)).Times(0);
         sut.loop();
     }
 
@@ -177,7 +179,7 @@ namespace adapter_tests
            loop_WhenTranslationFailsAndErrorIndicatorNotFlashing_StartsFlashing)
     {
         ON_CALL(errorIndicator, isFlashing()).WillByDefault(Return(false));
-        EXPECT_CALL(errorIndicator, startFlashing());
+        EXPECT_CALL(errorIndicator, startFlashing(errorFrequencyHz));
         sut.loop();
     }
 
