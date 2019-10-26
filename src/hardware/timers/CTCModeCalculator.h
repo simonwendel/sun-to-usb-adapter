@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "../../board_config.h"
 #include "CTCModeSettings.h"
 #include "ICTCModeCalculator.h"
 #include "Prescaler.h"
@@ -30,7 +31,7 @@ namespace hardware::timers
         const int numberOfPrescalers = 5;
 
     public:
-        const int CpuFrequencyMhz = 16;
+        const int CpuFrequencyMhz = default_config.cpu_frequency_mhz;
         const int TimerBits = 16;
         const Prescaler Prescalers[5] = {Prescaler::PS_1,
                                          Prescaler::PS_8,

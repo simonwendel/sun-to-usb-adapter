@@ -93,8 +93,8 @@ namespace hardware_timers_tests
     }
 
     TEST_F(hardware_timers_CTCModeCalculator,
-           constant_CpuFrequency_HasDefaultValue)
+           constant_CpuFrequency_HasDefaultValueFromBoardConfig)
     {
-        EXPECT_EQ(sut.CpuFrequencyMhz, 16);
+        EXPECT_EQ(sut.CpuFrequencyMhz, default_config.cpu_frequency_mhz);
     }
 } // namespace hardware_timers_tests
