@@ -32,10 +32,10 @@ namespace adapter
     {
     }
 
+    // magic needed since capturing lambdas are not compatible with what we
+    // need from TimerFunction
     namespace
     {
-        // magic needed since capturing lambdas are not compatible with what we
-        // need from TimerFunction
         IToggle *toggleCapture;
         void onTimer()
         {
