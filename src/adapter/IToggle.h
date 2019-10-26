@@ -24,5 +24,6 @@ namespace adapter
     {
     public:
         virtual void toggle() = 0;
+        virtual void reset() = 0;
     };
 } // namespace adapter

@@ -55,4 +55,20 @@ namespace adapter_tests
         sut.toggle();
         sut.toggle();
     }
+
+    TEST_F(adapter_Toggle, reset_WhenInvokedOnLowState_SetsOutputToLowState)
+    {
+        EXPECT_CALL(output, setState(LOW));
+        sut.reset();
+    }
+
+    TEST_F(adapter_Toggle, reset_WhenInvokedOnHighState_SetsOutputToLowState)
+    {
+        InSequence seq;
+        EXPECT_CALL(output, setState(HIGH));
+        EXPECT_CALL(output, setState(LOW));
+
+        sut.toggle();
+        sut.reset();
+    }
 } // namespace adapter_tests

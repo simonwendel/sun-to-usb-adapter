@@ -31,5 +31,6 @@ namespace adapter
     public:
         Toggle(hardware::IOutputPin *output);
         void toggle() override;
+        void reset() override;
     };
 } // namespace adapter

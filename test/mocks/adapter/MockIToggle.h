@@ -28,5 +28,6 @@ namespace adapter_mocks
     {
     public:
         MOCK_METHOD0(toggle, void());
+        MOCK_METHOD0(reset, void());
     };
 } // namespace adapter_mocks

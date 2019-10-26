@@ -41,4 +41,9 @@ namespace adapter
 
         this->toggled = !this->toggled;
     }
+
+    void Toggle::reset()
+    {
+        output->setState(LOW);
+    }
 } // namespace adapter
