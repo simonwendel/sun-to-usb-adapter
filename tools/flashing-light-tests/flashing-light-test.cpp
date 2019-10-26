@@ -64,5 +64,10 @@ void loop()
         light.startFlashing(4);
     }
 
+    if (!dipSwitch.isOn() && light.isFlashing())
+    {
+        light.stopFlashing();
+    }
+
     delay(500);
 }
