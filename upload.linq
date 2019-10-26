@@ -3,19 +3,21 @@
   <Namespace>System.IO.Ports</Namespace>
 </Query>
 
-public string ResetPort => "COM4";
-public string ProgramPort => "COM3";
+public string ResetPort => "COM8";
+public string ProgramPort => "COM9";
 public string AvrDudeExecutable => @"C:\Program Files (x86)\Arduino\hardware\tools\avr\bin\avrdude.exe";
 public string AvrDudeConfig => @"C:\Program Files (x86)\Arduino\hardware\tools\avr\etc\avrdude.conf";
 
 void Main(string[] args)
 {
 	var filename = GetFilename(args);
+	var resetPort = GetResetPort(args);
+	var programPort = GetProgramPort(args);
 	
-	Reset(ResetPort);
+	Reset(resetPort);
 	Thread.Sleep(1000);
 	
-	Program(ProgramPort, filename);
+	Program(programPort, filename);
 }
 
 void Reset(string port)
@@ -51,13 +53,33 @@ void Program(string port, string file)
 
 string GetFilename(string[] args)
 {
-	if (args.Length != 1)
+	if (args.Length < 1)
 	{
 		Console.WriteLine("Specify file to upload");
 		Environment.Exit(-1);
 	}
-	
+
 	return args.First();
+}
+
+string GetProgramPort(string[] args)
+{
+	if(args.Length == 3)
+	{
+		return args[1];
+	}
+	
+	return ProgramPort;
+}
+
+string GetResetPort(string[] args)
+{
+	if (args.Length == 3)
+	{
+		return args[2];
+	}
+
+	return ResetPort;
 }
 
 void PrintOutput(object sender, DataReceivedEventArgs args)
