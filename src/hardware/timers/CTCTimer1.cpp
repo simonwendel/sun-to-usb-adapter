@@ -61,6 +61,16 @@ namespace hardware::timers
         interruptsControl->enableInterrupts();
     }
 
+    void CTCTimer1::stop()
+    {
+        interruptsControl->disableInterrupts();
+
+        // basically clock source 'none'
+        ControlRegisterB->turnOffBits(1 << CS12 | 1 << CS11 | 1 << CS10);
+        
+        interruptsControl->enableInterrupts();
+    }
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wattributes"
 

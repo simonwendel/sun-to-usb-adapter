@@ -29,6 +29,9 @@ namespace hardware_timers_mocks
     {
     public:
         MOCK_METHOD0(start, void());
-        MOCK_METHOD2(setup, void(hardware::timers::CTCModeSettings, hardware::timers::TimerFunction));
+        MOCK_METHOD0(stop, void());
+        MOCK_METHOD2(setup,
+                     void(hardware::timers::CTCModeSettings,
+                          hardware::timers::TimerFunction));
     };
 } // namespace hardware_timers_mocks

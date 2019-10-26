@@ -127,4 +127,21 @@ namespace hardware_timers_tests
         start();
         EXPECT_TRUE(CHECK_BIT(InterruptMaskRegister->readRegister(), 1));
     }
+
+    TEST_F(hardware_timers_CTCTimer1, stop_WhenTimerSetUp_StopsCTCTimer)
+    {
+        setup(settings, timerFunction);
+        start();
+        Mock::VerifyAndClear(&interruptsControl);
+
+        InSequence seq;
+        EXPECT_CALL(interruptsControl, disableInterrupts());
+        EXPECT_CALL(interruptsControl, enableInterrupts());
+
+        stop();
+
+        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 0));
+        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 1));
+        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 2));
+    }
 } // namespace hardware_timers_tests

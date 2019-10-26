@@ -29,5 +29,6 @@ namespace hardware::timers
     public:
         virtual void setup(CTCModeSettings settings, TimerFunction timerFunction) = 0;
         virtual void start() = 0;
+        virtual void stop() = 0;
     };
 } // namespace hardware::timers

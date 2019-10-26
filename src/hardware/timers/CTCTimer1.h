@@ -39,5 +39,6 @@ namespace hardware::timers
         CTCTimer1(hardware::IInterruptsControl *interruptsControl);
         void setup(CTCModeSettings settings, TimerFunction timerFunction) override;
         void start() override;
+        void stop() override;
     };
 } // namespace hardware::timers
