@@ -25,7 +25,7 @@
 
 namespace adapter
 {   
-    class FlashingLight : public adapter::IFlashingLight
+    class FlashingLight : public IFlashingLight
     {
         bool timerStarted{false};
         IToggle *toggle;
@@ -38,6 +38,7 @@ namespace adapter
                       hardware::timers::ICTCModeCalculator *calculator);
 
         bool isFlashing() override;
-        void startFlashing(float frequencyHz) override;   
+        void startFlashing(float frequencyHz) override;
+        void stopFlashing() override;   
     };
 } // namespace adapter

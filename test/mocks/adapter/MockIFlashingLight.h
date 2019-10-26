@@ -29,5 +29,6 @@ namespace adapter_mocks
     public:
         MOCK_METHOD0(isFlashing, bool());
         MOCK_METHOD1(startFlashing, void(float));
+        MOCK_METHOD0(stopFlashing, void());
     };
 } // namespace adapter_mocks

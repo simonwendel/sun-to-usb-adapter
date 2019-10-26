@@ -120,4 +120,34 @@ namespace adapter_tests
 
         sut.startFlashing(2);
     }
+
+    TEST_F(adapter_FlashingLight,
+           stopFlashing_WhenTimerHasNotStarted_DoesntStopBlinkTimer)
+    {
+        EXPECT_CALL(timer, stop()).Times(0);
+        sut.stopFlashing();
+    }
+
+    TEST_F(adapter_FlashingLight,
+           stopFlashing_WhenTimerHasNotStarted_DoesntResetOutputToggle)
+    {
+        EXPECT_CALL(toggle, reset()).Times(0);
+        sut.stopFlashing();
+    }
+
+    TEST_F(adapter_FlashingLight,
+           stopFlashing_WhenTimerHasStarted_StopsBlinkTimer)
+    {
+        EXPECT_CALL(timer, stop());
+        sut.startFlashing(frequencyHz);
+        sut.stopFlashing();
+    }
+
+    TEST_F(adapter_FlashingLight,
+           stopFlashing_WhenTimerHasStarted_ResetsOutputToggle)
+    {
+        EXPECT_CALL(toggle, reset());
+        sut.startFlashing(frequencyHz);
+        sut.stopFlashing();
+    }
 } // namespace adapter_tests

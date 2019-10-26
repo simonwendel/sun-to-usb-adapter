@@ -61,4 +61,14 @@ namespace adapter
             timerStarted = true;
         }
     }
+
+    void FlashingLight::stopFlashing()
+    {
+        if (timerStarted)
+        {
+            blinkTimer->stop();
+            toggle->reset();
+            timerStarted = false;
+        }
+    }
 } // namespace adapter
