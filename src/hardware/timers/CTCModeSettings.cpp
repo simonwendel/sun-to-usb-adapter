@@ -75,4 +75,10 @@ namespace hardware::timers
     {
         return prescaler;
     }
+
+    bool CTCModeSettings::operator==(const CTCModeSettings &rhs) const
+    {
+        return compareMatchRegister == rhs.compareMatchRegister &&
+               prescaler == rhs.prescaler;
+    }
 } // namespace hardware::timers

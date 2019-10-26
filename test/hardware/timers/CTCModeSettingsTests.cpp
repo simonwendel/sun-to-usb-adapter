@@ -93,4 +93,28 @@ namespace hardware_timers_tests
         sut = {compareMatchRegister, (Prescaler)2};
         EXPECT_EQ(sut.getPrescalerRegister(), 0b000);
     }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           operatorEquals_GivenSameProperties_ReturnsTrue)
+    {
+        hardware::timers::CTCModeSettings first{1337, Prescaler::PS_64};
+        hardware::timers::CTCModeSettings second{1337, Prescaler::PS_64};
+        EXPECT_TRUE(first == second);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           operatorEquals_GivenDifferingRegister_ReturnsFalse)
+    {
+        hardware::timers::CTCModeSettings first{1337, Prescaler::PS_64};
+        hardware::timers::CTCModeSettings second{1338, Prescaler::PS_64};
+        EXPECT_FALSE(first == second);
+    }
+
+    TEST_F(hardware_timers_CTCModeSettings,
+           operatorEquals_GivenDifferingPrescaler_ReturnsFalse)
+    {
+        hardware::timers::CTCModeSettings first{1337, Prescaler::PS_64};
+        hardware::timers::CTCModeSettings second{1338, Prescaler::PS_8};
+        EXPECT_FALSE(first == second);
+    }
 } // namespace hardware_timers_tests

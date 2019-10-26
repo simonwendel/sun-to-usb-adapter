@@ -33,5 +33,6 @@ namespace hardware::timers
         int getCompareMatchRegister();
         int getPrescalerRegister();
         Prescaler getPrescaler();
+        bool operator==(const CTCModeSettings &rhs) const;
     };
 } // namespace hardware::timers
