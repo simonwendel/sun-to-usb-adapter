@@ -28,10 +28,10 @@ namespace hardware
     }
 
     template <typename R>
-    bool Register<R>::operator==(const IRegister<R> &theOther) const
+    bool Register<R>::operator==(const IRegister<R> &rhs) const
     {
-        const Register<R> *that = static_cast<const Register<R> *>(&theOther);
-        return that != nullptr && reg == that->reg;
+        const Register<R> *that = static_cast<const Register<R> *>(&rhs);
+        return that != nullptr && this->reg == that->reg;
     }
 
     template <typename R>
@@ -47,9 +47,15 @@ namespace hardware
     }
 
     template <typename R>
-    void Register<R>::turnOnBits(R bits)
+    void Register<R>::turnOnBits(R mask)
     {
-        *reg |= bits;
+        *reg |= mask;
+    }
+
+    template <typename R>
+    void Register<R>::turnOffBits(R mask)
+    {
+        *reg &= ~mask;
     }
 
     template <typename R>

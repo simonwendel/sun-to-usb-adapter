@@ -28,9 +28,10 @@ namespace hardware
     public:
         virtual void clearRegister() = 0;
         virtual void setRegister(R value) = 0;
-        virtual void turnOnBits(R bits) = 0;
+        virtual void turnOnBits(R mask) = 0;
+        virtual void turnOffBits(R mask) = 0;
         virtual R readRegister() = 0;
 
-        virtual bool operator==(const IRegister<R> &theOther) const = 0;
+        virtual bool operator==(const IRegister<R> &rhs) const = 0;
     };
 } // namespace hardware

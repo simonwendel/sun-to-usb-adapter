@@ -34,10 +34,12 @@ namespace hardware
 
         void clearRegister() override;
         void setRegister(R value) override;
-        void turnOnBits(R bits) override;
+        void turnOnBits(R mask) override;
+        void turnOffBits(R mask) override;
+
         R readRegister() override;
 
-        bool operator==(const IRegister<R> &theOther) const override;
+        bool operator==(const IRegister<R> &rhs) const override;
     };
 } // namespace hardware
 
