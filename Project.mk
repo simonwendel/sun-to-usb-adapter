@@ -38,14 +38,6 @@ CPPFLAGS				+= -pedantic -Wall -Wextra
 CPPFLAGS				+= $(CPPFLAGS_STD)
 LDFLAGS					+= -fdiagnostics-color
 
-# hack to make sure HID-Project.h doesn't throw. should probably match
-# the version of your actual Arduino SDK install
-CPPFLAGS				+= -DARDUINO=10805 # v1.8.5
-
-# hack for us to be able to stub out Arduino.h if needed for testing
-# here we unstub it
-CPPFLAGS				+= -USTUB_ARDUINO
-
 # these need to be evaluated before including Arduino.mk or stuff will break
 _ := $(shell arduino-cli lib update-index)
 _ := $(foreach lib, $(3RD_PARTY_LIBS), $(shell arduino-cli lib install $(lib)))
@@ -55,6 +47,15 @@ _ := $(foreach lib, $(3RD_PARTY_LIBS), $(shell arduino-cli lib install $(lib)))
 ARDUINO_LIBS			+= $(3RD_PARTY_LIBS)
 USER_LIB_PATH			+= $(wildcard ~)/Arduino/libraries
 include /usr/share/arduino/Arduino.mk
+
+# hack to make sure HID-Project.h doesn't throw. should probably match
+# the version of your actual Arduino SDK install
+CFLAGS					+= -DARDUINO=10805 # v1.8.5
+CPPFLAGS				+= -DARDUINO=10805 # v1.8.5
+
+# hack for us to be able to stub out Arduino.h if needed for testing
+# here we unstub it
+CPPFLAGS				+= -USTUB_ARDUINO
 
 # hacks to compile C++ files in some tree structure, instead of 
 # all files directly in src/
