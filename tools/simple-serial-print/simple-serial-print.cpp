@@ -14,15 +14,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 /*
  * Test program to output stuff from the sun_to_ascii map.
  * Simon Wendel <mail@simonwendel.se>
  */
 
-#include "board_config.h"
-#include "sun_keyboard_map.h"
+#include "../../src/board_config.h"
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
@@ -35,13 +34,13 @@ void outputKey(int key);
 
 void setup()
 {
-    Serial.begin(default_config.serial_rate);
+    Serial.begin(9600);
     while (!Serial)
     {
     }
 
     sunSerial.begin(default_config.serial_rate);
-    Serial.println("w00t! debug started, now bash on some keys!");
+    Serial.println("debug started, now bash on some keys!");
 }
 
 void loop()
@@ -57,20 +56,12 @@ void loop()
 
 void outputKey(int key)
 {
-    if (key > 127)
+    if (key < 127)
     {
-        key -= 128;
-        Serial.print("Key Up: ");
-        Serial.println((char)sun_to_ascii[key]);
-    }
-    else if (key == 127)
-    {
-        Serial.println("All Keys Released");
+        Serial.print(key, DEC);
+        Serial.print(", ");
+        Serial.print("0x");
+        Serial.print(key, HEX);
         Serial.println();
-    }
-    else
-    {
-        Serial.print("Key Down: ");
-        Serial.println((char)sun_to_ascii[key]);
     }
 }
