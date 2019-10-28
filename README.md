@@ -4,6 +4,8 @@ I am totally a UNIX nerd and one day I decided to get myself an old Sun keybard.
 
 I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood][benr] and [Sven Guenther][sven] by forking from the latter. Check those repos out, I owe it all to them.
 
+Since I have a Swedish layout on the printed keycaps on my keyboard, I need more than the ASCII codes for printable characters. I map from Sun key codes to USB HID usage codes. Some keys are easy to translate, [some are not][lost key codes]. Further I need to translate the Swedish print on the keycaps to the USB HID Standard codes. Actual translation to Swedish glyphs are done by the operating system, which is a good thing!
+
 # Philosophy
 
 I am a software developer with quite a few years of experience within a range of frameworks and platforms, from desktop applications to networking and streaming to web development and large SQL databases. I have even written my fair share of VB for Applications *\*shrug\**.
@@ -172,6 +174,7 @@ The .devcontainer folder has the json file and Dockerfile needed to spin up the 
 * Ben Rockwood for [the original project]
 * Sven Guenther for [introducing the HID-Project and complex actions][the later project]
 * Alexander Kurz for the [keyboard pin-outs]
+* Marijn Kentie for digging through OpenSolaris source code for the [lost key codes]
 * Adafruit for the [itsybitsy 32u4], an awesome board
 * [Arduino.cc](https://www.arduino.cc/) for, you know, everything
 
@@ -197,3 +200,5 @@ The .devcontainer folder has the json file and Dockerfile needed to spin up the 
 [dev containers]: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
 
 [arduino makefile]: https://github.com/sudar/Arduino-Makefile
+
+[lost key codes]: https://kentie.net/article/sunkbd/sun%20keys.txt
