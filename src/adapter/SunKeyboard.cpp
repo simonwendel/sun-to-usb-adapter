@@ -20,7 +20,7 @@
 
 #include "../hardware/ISerialPort.h"
 #include "Command.h"
-#include "LedCommand.h"
+#include "LedConfiguration.h"
 
 namespace adapter
 {
@@ -50,7 +50,7 @@ namespace adapter
         serialPort->write(Command::DISABLE_BELL);
     }
 
-    void SunKeyboard::setLeds(LedCommand leds)
+    void SunKeyboard::setLeds(LedConfiguration leds)
     {
         uint8_t compoundCommand[2] = {Command::SET_LEDS, (uint8_t)leds};
         serialPort->write(compoundCommand, 2);

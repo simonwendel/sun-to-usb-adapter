@@ -17,7 +17,7 @@
  */
 
 #include "../../src/adapter/Command.h"
-#include "../../src/adapter/LedCommand.h"
+#include "../../src/adapter/LedConfiguration.h"
 #include "../../src/adapter/SunKeyboard.h"
 #include "../mocks/hardware/MockISerialPort.h"
 
@@ -78,9 +78,9 @@ namespace adapter_tests
     }
 
     TEST_F(adapter_SunKeyboard,
-           setLeds_GivenLedCommandPayload_WritesSequenceToSerialPort)
+           setLeds_GivenLedConfiguration_WritesSequenceToSerialPort)
     {
-        adapter::LedCommand leds;
+        adapter::LedConfiguration leds;
         leds.setNumLock();
         leds.setScrollLock();
 

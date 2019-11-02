@@ -48,7 +48,7 @@ namespace adapter_tests
 
         float errorFrequencyHz = 2;
 
-        adapter::LedCommand leds;
+        adapter::LedConfiguration leds;
 
         adapter_mocks::MockISetting keyboardClicks;
         adapter_mocks::MockISetting numLock;

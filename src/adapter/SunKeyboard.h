@@ -20,7 +20,7 @@
 
 #include "../hardware/ISerialPort.h"
 #include "ISunKeyboard.h"
-#include "LedCommand.h"
+#include "LedConfiguration.h"
 
 namespace adapter
 {
@@ -38,7 +38,7 @@ namespace adapter
         void turnOnBell() override;
         void turnOffBell() override;
 
-        void setLeds(LedCommand leds) override;
+        void setLeds(LedConfiguration leds) override;
 
         /** Reads one scan code from keyboard, halting until valid. */
         int read() override;

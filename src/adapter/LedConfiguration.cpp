@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "LedCommand.h"
+#include "LedConfiguration.h"
 
 #include <stdint.h>
 
@@ -25,70 +25,70 @@ namespace adapter
     static void setBit(uint8_t &value, int bit);
     static void unsetBit(uint8_t &value, int bit);
 
-    LedCommand::LedCommand() : payload{0}
+    LedConfiguration::LedConfiguration() : payload{0}
     {
     }
 
-    LedCommand::LedCommand(uint8_t initialPayload) : payload{initialPayload}
+    LedConfiguration::LedConfiguration(uint8_t initialPayload) : payload{initialPayload}
     {
     }
 
-    bool LedCommand::operator==(const int rhs) const
-    {
-        return payload == rhs;
-    }
-
-    bool LedCommand::operator==(const uint8_t rhs) const
+    bool LedConfiguration::operator==(const int rhs) const
     {
         return payload == rhs;
     }
 
-    bool LedCommand::operator==(const LedCommand &rhs) const
+    bool LedConfiguration::operator==(const uint8_t rhs) const
+    {
+        return payload == rhs;
+    }
+
+    bool LedConfiguration::operator==(const LedConfiguration &rhs) const
     {
         return payload == rhs.payload;
     }
 
-    LedCommand::operator uint8_t()
+    LedConfiguration::operator uint8_t()
     {
         return payload;
     }
 
-    void LedCommand::setNumLock()
+    void LedConfiguration::setNumLock()
     {
         setBit(payload, 0);
     }
 
-    void LedCommand::unsetNumLock()
+    void LedConfiguration::unsetNumLock()
     {
         unsetBit(payload, 0);
     }
 
-    void LedCommand::setCompose()
+    void LedConfiguration::setCompose()
     {
         setBit(payload, 1);
     }
 
-    void LedCommand::unsetCompose()
+    void LedConfiguration::unsetCompose()
     {
         unsetBit(payload, 1);
     }
 
-    void LedCommand::setScrollLock()
+    void LedConfiguration::setScrollLock()
     {
         setBit(payload, 2);
     }
 
-    void LedCommand::unsetScrollLock()
+    void LedConfiguration::unsetScrollLock()
     {
         unsetBit(payload, 2);
     }
 
-    void LedCommand::setCapsLock()
+    void LedConfiguration::setCapsLock()
     {
         setBit(payload, 3);
     }
 
-    void LedCommand::unsetCapsLock()
+    void LedConfiguration::unsetCapsLock()
     {
         unsetBit(payload, 3);
     }

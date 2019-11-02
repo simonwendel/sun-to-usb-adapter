@@ -19,7 +19,7 @@
 #pragma once
 
 #include "../../../src/adapter/ISunKeyboard.h"
-#include "../../../src/adapter/LedCommand.h"
+#include "../../../src/adapter/LedConfiguration.h"
 
 #include <gmock/gmock.h>
 
@@ -34,7 +34,7 @@ namespace adapter_mocks
         MOCK_METHOD0(turnOnBell, void());
         MOCK_METHOD0(turnOffBell, void());
 
-        MOCK_METHOD1(setLeds, void(adapter::LedCommand));
+        MOCK_METHOD1(setLeds, void(adapter::LedConfiguration));
 
         MOCK_METHOD0(read, int());
     };

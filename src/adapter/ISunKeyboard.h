@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "LedCommand.h"
+#include "LedConfiguration.h"
 
 namespace adapter
 {
@@ -31,7 +31,7 @@ namespace adapter
         virtual void turnOnBell() = 0;
         virtual void turnOffBell() = 0;
 
-        virtual void setLeds(LedCommand leds) = 0;
+        virtual void setLeds(LedConfiguration leds) = 0;
 
         virtual int read() = 0;
     };

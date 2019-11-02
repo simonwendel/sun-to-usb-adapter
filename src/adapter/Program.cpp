@@ -18,7 +18,7 @@
 
 #include "Program.h"
 
-#include "../adapter/LedCommand.h"
+#include "../adapter/LedConfiguration.h"
 
 namespace adapter
 {
@@ -46,7 +46,7 @@ namespace adapter
 
         if (numLockSetting->isOn())
         {
-            LedCommand leds;
+            LedConfiguration leds;
             leds.setNumLock();
             sunKeyboard->setLeds(leds);
         }

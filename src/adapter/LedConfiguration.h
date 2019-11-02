@@ -22,14 +22,14 @@
 
 namespace adapter
 {
-    class LedCommand
+    class LedConfiguration
     {
     private:
         uint8_t payload;
 
     public:
-        LedCommand();
-        LedCommand(uint8_t initialPayload);
+        LedConfiguration();
+        LedConfiguration(uint8_t initialPayload);
 
         void setNumLock();
         void unsetNumLock();
@@ -45,7 +45,7 @@ namespace adapter
 
         bool operator==(const int rhs) const;
         bool operator==(const uint8_t rhs) const;
-        bool operator==(const LedCommand &rhs) const;
+        bool operator==(const LedConfiguration &rhs) const;
 
         operator uint8_t();
     };
