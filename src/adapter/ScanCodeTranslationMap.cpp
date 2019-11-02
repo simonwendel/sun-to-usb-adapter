@@ -40,20 +40,20 @@ namespace adapter
 
     ScanCodeTranslationMap::ScanCodeTranslationMap()
     {
-        translations[0x1] = HID_KEYBOARD_STOP;
-        translations[0x2] = HID_KEYBOARD_VOLUME_DOWN;
-        translations[0x3] = HID_KEYBOARD_AGAIN;
-        translations[0x4] = HID_KEYBOARD_VOLUME_UP;
-        translations[0x5] = HID_KEYBOARD_F1;
-        translations[0x6] = HID_KEYBOARD_F2;
-        translations[0x7] = HID_KEYBOARD_F10;
-        translations[0x8] = HID_KEYBOARD_F3;
-        translations[0x9] = HID_KEYBOARD_F11;
-        translations[0xA] = HID_KEYBOARD_F4;
-        translations[0xB] = HID_KEYBOARD_F12;
-        translations[0xC] = HID_KEYBOARD_F5;
-        translations[0xD] = HID_KEYBOARD_RIGHT_ALT;
-        translations[0xE] = HID_KEYBOARD_F6;
+        translations[0x01] = HID_KEYBOARD_STOP;
+        translations[0x02] = HID_KEYBOARD_VOLUME_DOWN;
+        translations[0x03] = HID_KEYBOARD_AGAIN;
+        translations[0x04] = HID_KEYBOARD_VOLUME_UP;
+        translations[0x05] = HID_KEYBOARD_F1;
+        translations[0x06] = HID_KEYBOARD_F2;
+        translations[0x07] = HID_KEYBOARD_F10;
+        translations[0x08] = HID_KEYBOARD_F3;
+        translations[0x09] = HID_KEYBOARD_F11;
+        translations[0x0A] = HID_KEYBOARD_F4;
+        translations[0x0B] = HID_KEYBOARD_F12;
+        translations[0x0C] = HID_KEYBOARD_F5;
+        translations[0x0D] = HID_KEYBOARD_RIGHT_ALT;
+        translations[0x0E] = HID_KEYBOARD_F6;
         translations[0x10] = HID_KEYBOARD_F7;
         translations[0x11] = HID_KEYBOARD_F8;
         translations[0x12] = HID_KEYBOARD_F9;
