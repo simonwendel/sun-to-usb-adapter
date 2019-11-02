@@ -17,6 +17,7 @@
 GOOGLE_TEST_LIB		= gtest
 GOOGLE_MOCK_LIB		= gmock
 GOOGLE_TEST_INCLUDE	= /usr/include
+SKIP_FILES			= ScanCodeTranslationMap.cpp
 
 CXX					= g++
 
@@ -34,7 +35,7 @@ BUILD_DIR			= ../build
 OBJDIR				= $(BUILD_DIR)/test
 
 define find_cpp_files
-	$(shell find $(1) -type f -name '*.cpp')
+	$(shell find $(1) -type f -name '*.cpp' $(foreach exc, $(SKIP_FILES), -and -not -name $(exc)))
 endef
 
 SOURCE_FOLDERS 		= ../lib/ ../src/ ./
