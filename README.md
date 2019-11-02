@@ -2,7 +2,7 @@
 
 I am totally a UNIX nerd and one day I decided to get myself an old Sun keybard. Being from Sweden I needed one with a Swedish layout. I was initially looking for a Type 5, but the only one I could find was a Type 6. They do come in a variant with a USB connection, but this one had the old-style proprietary Mini-DIN connection similar to the Type 5.
 
-I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood][benr] and [Sven Guenther][sven] by forking from the latter. Check those repos out, I owe it all to them.
+I didn't want to pass the opportunity up though. Who knows when I would find a Swedish layout Type 5, right? So I bought it and started building myself a Mini-DIN to USB adapter. It is based on the work of [Ben Rockwood][benr] and [Sven Guenther][sven] by forking from the latter. Check those repos out, that's what gave me the idea on how to do this.
 
 Since I have a Swedish layout on the printed keycaps on my keyboard, I need more than the ASCII codes for printable characters. I map from Sun key codes to USB HID usage codes. Some keys are easy to translate, [some are not][lost key codes]. Further I need to translate the Swedish print on the keycaps to the USB HID Standard codes. Actual translation to Swedish glyphs are done by the operating system, which is a good thing!
 
