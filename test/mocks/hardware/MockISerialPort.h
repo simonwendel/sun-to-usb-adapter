@@ -30,6 +30,7 @@ namespace hardware_mocks
     class MockISerialPort : public hardware::ISerialPort
     {
     public:
+        MOCK_METHOD1(begin, void(long));
         MOCK_METHOD0(read, int());
         MOCK_METHOD1(write, size_t(uint8_t));
         MOCK_METHOD2(write, size_t(const uint8_t *, size_t));

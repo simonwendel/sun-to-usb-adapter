@@ -34,6 +34,8 @@ namespace hardware
         SerialPort(uint8_t receivePin, uint8_t transmitPin);
         SerialPort(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic);
 
+        void begin(long speed) override;
+
         int read() override;
 
         size_t write(uint8_t byte) override;

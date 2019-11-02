@@ -34,6 +34,11 @@ namespace hardware
         serial = new SoftwareSerial{receivePin, transmitPin, inverse_logic};
     }
 
+    void SerialPort::begin(long speed)
+    {
+        serial->begin(speed);
+    }
+
     int SerialPort::read()
     {
         return serial->read();
