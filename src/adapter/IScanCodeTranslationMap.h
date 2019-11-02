@@ -18,12 +18,14 @@
 
 #pragma once
 
+#include <stdint.h>
+
 namespace adapter
 {
     class IScanCodeTranslationMap
     {
     public:
         virtual bool contains(int sunMakeCode) const = 0;
-        virtual int getUsageId(int sunMakeCode) const = 0;
+        virtual uint8_t getUsageId(int sunMakeCode) const = 0;
     };
 } // namespace adapter

@@ -21,6 +21,7 @@
 #include "../../../src/adapter/IScanCodeTranslationMap.h"
 
 #include <gmock/gmock.h>
+#include <stdint.h>
 
 namespace adapter_mocks
 {
@@ -28,6 +29,6 @@ namespace adapter_mocks
     {
     public:
         MOCK_CONST_METHOD1(contains, bool(int));
-        MOCK_CONST_METHOD1(getUsageId, int(int));
+        MOCK_CONST_METHOD1(getUsageId, uint8_t(int));
     };
 } // namespace adapter_mocks
