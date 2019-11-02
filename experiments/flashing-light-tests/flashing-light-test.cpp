@@ -17,23 +17,40 @@
  */
 
 /*
- * Test program to test using the dip-switch for settings.
+ * Test program to test using the flashing lights.
  * Simon Wendel <mail@simonwendel.se>
  */
 
+#include "../../src/adapter/FlashingLight.h"
 #include "../../src/adapter/Setting.h"
+#include "../../src/adapter/Toggle.h"
 #include "../../src/hardware/InputPin.h"
+#include "../../src/hardware/InterruptsControl.h"
+#include "../../src/hardware/OutputPin.h"
 #include "../../src/hardware/PinControl.h"
+#include "../../src/hardware/timers/CTCModeCalculator.h"
+#include "../../src/hardware/timers/CTCTimer1.h"
 
-#include <HID-Project.h>
 #include <arduino-platform.h>
 
 const int LED_PIN = 13;
 const int SWITCH_PIN = 8;
 
 hardware::PinControl pinControl;
+
+hardware::OutputPin flashingLedPin{&pinControl, LED_PIN};
+
 hardware::InputPin dipSwitchPin{&pinControl, SWITCH_PIN};
 adapter::Setting dipSwitch{&dipSwitchPin};
+
+hardware::InterruptsControl interruptsControl;
+hardware::timers::CTCTimer1 timer{&interruptsControl};
+
+hardware::timers::CTCModeCalculator calculator;
+
+adapter::Toggle toggle{&flashingLedPin};
+
+adapter::FlashingLight light{&toggle, &timer, &calculator};
 
 void setup()
 {
@@ -42,25 +59,14 @@ void setup()
 
 void loop()
 {
-    if (dipSwitch.isOn())
+    if (dipSwitch.isOn() && !light.isFlashing())
     {
-        Keyboard.press(KEY_L);
-        Keyboard.release(KEY_L);
+        light.startFlashing(4);
+    }
 
-        Keyboard.press(KEY_LEFT_SHIFT);
-
-        Keyboard.press(KEY_E);
-        Keyboard.release(KEY_E);
-
-        Keyboard.press(KEY_E);
-        Keyboard.release(KEY_E);
-
-        Keyboard.release(KEY_LEFT_SHIFT);
-
-        Keyboard.press(KEY_T);
-        Keyboard.release(KEY_T);
-
-        Keyboard.write(KEY_ENTER);
+    if (!dipSwitch.isOn() && light.isFlashing())
+    {
+        light.stopFlashing();
     }
 
     delay(500);

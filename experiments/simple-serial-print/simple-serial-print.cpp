@@ -17,7 +17,7 @@
  */
 
 /*
- * Test program to output stuff from the sun_to_ascii map.
+ * Test program to output stuff Sun key codes to serial monitor.
  * Simon Wendel <mail@simonwendel.se>
  */
 
