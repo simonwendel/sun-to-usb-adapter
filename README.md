@@ -27,7 +27,7 @@ Of course, I also want to unit test my main logic.
 
 The ```test``` folder contains a bunch of unit tests and a ```Makefile``` that will compile the tests using [GTest and GMock][gtest] on the non-AVR development host. That means that the hardware running the tests is the machine I develop on, not the actual board.
 
-This might of course produce slight deviations, f.x. on an x86 system the size of an ```int``` is probably not 16 bits. However, the tests do give opportunity to make sure the vital logic is in place before even uploading to an Arduino-compatible board.
+This might of course produce slight deviations, f.x. on an x86 system the size of an ```int``` is probably not 16 bits. However, the tests do give opportunity to make sure the vital logic is in place before even uploading to an AVR board.
 
 For this to work a bunch of stubbing needs to be done to remove the dependency on the ```Arduino.h``` and accompanying header files, but with minimal impact on my code. Look to the ```lib``` folder for those headers. They may look horrible, but they're only for stubbing and type safety when compiling *without* the original AVR toolchain. They will never go into the final build.
 
