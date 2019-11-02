@@ -32,9 +32,18 @@ namespace adapter_tests
     class adapter_SunKeyboard : public Test
     {
     public:
+        const int SERIAL_RATE = 1200;
         hardware_mocks::MockISerialPort serialPort;
         adapter::SunKeyboard sut{&serialPort};
     };
+
+    TEST_F(adapter_SunKeyboard,
+           constructor_GivenSerialPort_OpensPortWithDefaultSpeed)
+    {
+        Mock::VerifyAndClear(&serialPort);
+        EXPECT_CALL(serialPort, begin(SERIAL_RATE)).Times(1);
+        adapter::SunKeyboard sut{&serialPort};
+    }
 
     TEST_F(adapter_SunKeyboard,
            turnOnClicks_GivenSerialPort_SendsEnableClickCommand)

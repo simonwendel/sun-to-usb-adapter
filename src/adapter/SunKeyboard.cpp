@@ -27,6 +27,7 @@ namespace adapter
     SunKeyboard::SunKeyboard(hardware::ISerialPort *serialPort) :
         serialPort{serialPort}
     {
+        serialPort->begin(SUN_SERIAL_RATE);
     }
 
     void SunKeyboard::turnOnClicks()
