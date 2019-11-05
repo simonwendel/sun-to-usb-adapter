@@ -126,7 +126,7 @@ namespace adapter
         translations[0x56] = HID_KEYBOARD_SEMICOLON_AND_COLON;
         translations[0x57] = HID_KEYBOARD_QUOTE_AND_DOUBLEQUOTE;
         translations[0x58] = HID_KEYBOARD_BACKSLASH_AND_PIPE;
-        translations[0x59] = HID_KEYBOARD_RETURN;
+        translations[0x59] = HID_KEYBOARD_ENTER;
         translations[0x5A] = HID_KEYPAD_ENTER;
         translations[0x5B] = HID_KEYPAD_4_AND_LEFT_ARROW;
         translations[0x5C] = HID_KEYPAD_5;
