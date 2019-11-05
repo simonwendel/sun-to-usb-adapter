@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SOURCE_FOLDERS 			= lib src/hardware src/adapter src/hardware/timers
+SOURCE_FOLDERS 			= lib src/hardware src/adapter src/hardware/timers hid
 3RD_PARTY_LIBS			= HID-Project
 ARDUINO_LIBS			= SoftwareSerial \
 						  HID
