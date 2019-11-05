@@ -26,7 +26,7 @@ namespace adapter
 {
     class SunKeyboard : public ISunKeyboard
     {
-        const int SUN_SERIAL_RATE = 1200;
+        static const int SUN_SERIAL_RATE = 1200;
         hardware::ISerialPort *serialPort;
 
     public:
