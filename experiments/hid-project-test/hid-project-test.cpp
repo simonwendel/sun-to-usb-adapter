@@ -21,47 +21,82 @@
  * Simon Wendel <mail@simonwendel.se>
  */
 
-#include "../../src/adapter/Setting.h"
-#include "../../src/hardware/InputPin.h"
+#include "../../src/adapter/FlashingLight.h"
+#include "../../src/adapter/ScanCodeTranslationMap.h"
+#include "../../src/adapter/ScanCodeTranslator.h"
+#include "../../src/adapter/SunKeyboard.h"
+#include "../../src/adapter/Toggle.h"
+#include "../../src/board_config.h"
+#include "../../src/hardware/InterruptsControl.h"
+#include "../../src/hardware/OutputPin.h"
 #include "../../src/hardware/PinControl.h"
+#include "../../src/hardware/SerialPort.h"
+#include "../../src/hardware/timers/CTCModeCalculator.h"
+#include "../../src/hardware/timers/CTCTimer1.h"
 
 #include <HID-Project.h>
 #include <arduino-platform.h>
 
 const int LED_PIN = 13;
-const int SWITCH_PIN = 8;
 
 hardware::PinControl pinControl;
-hardware::InputPin dipSwitchPin{&pinControl, SWITCH_PIN};
-adapter::Setting dipSwitch{&dipSwitchPin};
+
+hardware::OutputPin flashingLedPin{&pinControl, LED_PIN};
+
+hardware::InterruptsControl interruptsControl;
+hardware::timers::CTCTimer1 timer{&interruptsControl};
+
+hardware::timers::CTCModeCalculator calculator;
+
+adapter::Toggle toggle{&flashingLedPin};
+
+adapter::FlashingLight light{&toggle, &timer, &calculator};
+
+hardware::SerialPort sunSerialPort{
+default_config.serial_rx, default_config.serial_tx, true};
+
+adapter::SunKeyboard sunKeyboard{&sunSerialPort};
+
+adapter::ScanCodeTranslationMap translationMap;
+adapter::ScanCodeTranslator translator{&translationMap};
 
 void setup()
 {
     Serial.begin(9600);
+
+    Keyboard.begin();
+    Keyboard.releaseAll();
+
+    sunKeyboard.turnOffClicks();
 }
 
 void loop()
 {
-    if (dipSwitch.isOn())
+    auto next = sunKeyboard.read();
+    if (next == 127)
     {
-        Keyboard.press(KEY_L);
-        Keyboard.release(KEY_L);
-
-        Keyboard.press(KEY_LEFT_SHIFT);
-
-        Keyboard.press(KEY_E);
-        Keyboard.release(KEY_E);
-
-        Keyboard.press(KEY_E);
-        Keyboard.release(KEY_E);
-
-        Keyboard.release(KEY_LEFT_SHIFT);
-
-        Keyboard.press(KEY_T);
-        Keyboard.release(KEY_T);
-
-        Keyboard.write(KEY_ENTER);
+        light.flashOnce(2400);
+        Keyboard.releaseAll();
+        return;
     }
 
-    delay(500);
+    auto translation = translator.translate(next);
+    if (translation.isValid())
+    {
+        auto hidCode = translation.getHidCode();
+        auto usageId = hidCode.getUsageId();
+
+        if (hidCode.isBreakCode())
+        {
+            Keyboard.release(KeyboardKeycode(usageId));
+        }
+        else
+        {
+            Keyboard.press(KeyboardKeycode(usageId));
+        }
+    }
+    else
+    {
+        Serial.println("Ooopsie, translation failed!");
+    }
 }
