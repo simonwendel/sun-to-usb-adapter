@@ -52,6 +52,7 @@ include /usr/share/arduino/Arduino.mk
 # the version of your actual Arduino SDK install
 CFLAGS					+= -DARDUINO=10805 # v1.8.5
 CPPFLAGS				+= -DARDUINO=10805 # v1.8.5
+CPPFLAGS				+= -DUSBCON
 
 # hack for us to be able to stub out Arduino.h if needed for testing
 # here we unstub it
