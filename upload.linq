@@ -11,10 +11,19 @@ public string AvrDudeConfig => @"C:\Program Files (x86)\Arduino\hardware\tools\a
 void Main(string[] args)
 {
 	var filename = GetFilename(args);
-	var resetPort = GetResetPort(args);
 	var programPort = GetProgramPort(args);
+	if (programPort == null)
+	{
+		Console.WriteLine("Specify program port to upload");
+		Environment.Exit(-2);
+	}
+
+	var resetPort = GetResetPort(args);
+	if (resetPort != null)
+	{
+		Reset(resetPort);
+	}
 	
-	Reset(resetPort);
 	Thread.Sleep(1000);
 	
 	Program(programPort, filename);
@@ -64,12 +73,12 @@ string GetFilename(string[] args)
 
 string GetProgramPort(string[] args)
 {
-	if(args.Length == 3)
+	if(args.Length >= 2)
 	{
 		return args[1];
 	}
 	
-	return ProgramPort;
+	return null;
 }
 
 string GetResetPort(string[] args)
@@ -79,7 +88,7 @@ string GetResetPort(string[] args)
 		return args[2];
 	}
 
-	return ResetPort;
+	return null;
 }
 
 void PrintOutput(object sender, DataReceivedEventArgs args)
