@@ -30,5 +30,6 @@ namespace adapter_mocks
         MOCK_METHOD0(isFlashing, bool());
         MOCK_METHOD1(startFlashing, void(float));
         MOCK_METHOD0(stopFlashing, void());
+        MOCK_METHOD1(flashOnce, void(float));
     };
 } // namespace adapter_mocks

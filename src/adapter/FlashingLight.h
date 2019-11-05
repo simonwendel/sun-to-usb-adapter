@@ -24,10 +24,9 @@
 #include "IToggle.h"
 
 namespace adapter
-{   
+{
     class FlashingLight : public IFlashingLight
     {
-        bool timerStarted{false};
         IToggle *toggle;
         hardware::timers::ICTCTimer *blinkTimer;
         hardware::timers::ICTCModeCalculator *calculator;
@@ -39,6 +38,7 @@ namespace adapter
 
         bool isFlashing() override;
         void startFlashing(float frequencyHz) override;
-        void stopFlashing() override;   
+        void stopFlashing() override;
+        void flashOnce(float interval) override;
     };
 } // namespace adapter
