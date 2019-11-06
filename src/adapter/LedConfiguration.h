@@ -24,7 +24,11 @@ namespace adapter
 {
     class LedConfiguration
     {
-    private:
+        static const int NUM_LOCK_BIT = 0;
+        static const int COMPOSE_BIT = 1;
+        static const int SCROLL_LOCK_BIT = 2;
+        static const int CAPS_LOCK_BIT = 3;
+
         uint8_t payload;
 
     public:

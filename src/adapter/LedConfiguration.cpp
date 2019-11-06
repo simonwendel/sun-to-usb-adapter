@@ -29,7 +29,8 @@ namespace adapter
     {
     }
 
-    LedConfiguration::LedConfiguration(uint8_t initialPayload) : payload{initialPayload}
+    LedConfiguration::LedConfiguration(uint8_t initialPayload) :
+        payload{initialPayload}
     {
     }
 
@@ -55,42 +56,42 @@ namespace adapter
 
     void LedConfiguration::setNumLock()
     {
-        setBit(payload, 0);
+        setBit(payload, NUM_LOCK_BIT);
     }
 
     void LedConfiguration::unsetNumLock()
     {
-        unsetBit(payload, 0);
+        unsetBit(payload, NUM_LOCK_BIT);
     }
 
     void LedConfiguration::setCompose()
     {
-        setBit(payload, 1);
+        setBit(payload, COMPOSE_BIT);
     }
 
     void LedConfiguration::unsetCompose()
     {
-        unsetBit(payload, 1);
+        unsetBit(payload, COMPOSE_BIT);
     }
 
     void LedConfiguration::setScrollLock()
     {
-        setBit(payload, 2);
+        setBit(payload, SCROLL_LOCK_BIT);
     }
 
     void LedConfiguration::unsetScrollLock()
     {
-        unsetBit(payload, 2);
+        unsetBit(payload, SCROLL_LOCK_BIT);
     }
 
     void LedConfiguration::setCapsLock()
     {
-        setBit(payload, 3);
+        setBit(payload, CAPS_LOCK_BIT);
     }
 
     void LedConfiguration::unsetCapsLock()
     {
-        unsetBit(payload, 3);
+        unsetBit(payload, CAPS_LOCK_BIT);
     }
 
     static void setBit(uint8_t &value, int bit)
