@@ -37,15 +37,19 @@ namespace adapter
 
         void setNumLock();
         void unsetNumLock();
+        void toggleNumLock();
 
         void setCompose();
         void unsetCompose();
+        void toggleCompose();
 
         void setScrollLock();
         void unsetScrollLock();
+        void toggleScrollLock();
 
         void setCapsLock();
         void unsetCapsLock();
+        void toggleCapsLock();
 
         bool operator==(const int rhs) const;
         bool operator==(const uint8_t rhs) const;

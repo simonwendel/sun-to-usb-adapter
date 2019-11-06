@@ -62,6 +62,11 @@ namespace adapter
         unsetBit(payload, NUM_LOCK_BIT);
     }
 
+    void LedConfiguration::toggleNumLock()
+    {
+        toggleBit(payload, NUM_LOCK_BIT);
+    }
+
     void LedConfiguration::setCompose()
     {
         setBit(payload, COMPOSE_BIT);
@@ -70,6 +75,11 @@ namespace adapter
     void LedConfiguration::unsetCompose()
     {
         unsetBit(payload, COMPOSE_BIT);
+    }
+
+    void LedConfiguration::toggleCompose()
+    {
+        toggleBit(payload, COMPOSE_BIT);
     }
 
     void LedConfiguration::setScrollLock()
@@ -82,6 +92,11 @@ namespace adapter
         unsetBit(payload, SCROLL_LOCK_BIT);
     }
 
+    void LedConfiguration::toggleScrollLock()
+    {
+        toggleBit(payload, SCROLL_LOCK_BIT);
+    }
+
     void LedConfiguration::setCapsLock()
     {
         setBit(payload, CAPS_LOCK_BIT);
@@ -90,5 +105,10 @@ namespace adapter
     void LedConfiguration::unsetCapsLock()
     {
         unsetBit(payload, CAPS_LOCK_BIT);
+    }
+
+    void LedConfiguration::toggleCapsLock()
+    {
+        toggleBit(payload, CAPS_LOCK_BIT);
     }
 } // namespace adapter

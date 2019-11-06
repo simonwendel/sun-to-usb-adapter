@@ -59,6 +59,15 @@ namespace adapter_tests
         EXPECT_EQ(sutInitiallyOnes, 0b11111110);
     }
 
+    TEST_F(adapter_LedConfiguration, toggleNumLock_TogglesBitZero)
+    {
+        sutInitiallyOnes.toggleNumLock();
+        EXPECT_EQ(sutInitiallyOnes, 0b11111110);
+        
+        sutInitiallyZeros.toggleNumLock();
+        EXPECT_EQ(sutInitiallyZeros, 0b00000001);
+    }
+
     TEST_F(adapter_LedConfiguration, setCompose_SetsBitOne)
     {
         sutInitiallyZeros.setCompose();
@@ -69,6 +78,15 @@ namespace adapter_tests
     {
         sutInitiallyOnes.unsetCompose();
         EXPECT_EQ(sutInitiallyOnes, 0b11111101);
+    }
+
+    TEST_F(adapter_LedConfiguration, toggleCompose_TogglesBitOne)
+    {
+        sutInitiallyOnes.toggleCompose();
+        EXPECT_EQ(sutInitiallyOnes, 0b11111101);
+        
+        sutInitiallyZeros.toggleCompose();
+        EXPECT_EQ(sutInitiallyZeros, 0b00000010);
     }
 
     TEST_F(adapter_LedConfiguration, setScrollLock_SetsBitTwo)
@@ -83,6 +101,15 @@ namespace adapter_tests
         EXPECT_EQ(sutInitiallyOnes, 0b11111011);
     }
 
+    TEST_F(adapter_LedConfiguration, toggleScrollLock_TogglesBitTwo)
+    {
+        sutInitiallyOnes.toggleScrollLock();
+        EXPECT_EQ(sutInitiallyOnes, 0b11111011);
+        
+        sutInitiallyZeros.toggleScrollLock();
+        EXPECT_EQ(sutInitiallyZeros, 0b00000100);
+    }
+
     TEST_F(adapter_LedConfiguration, setCapsLock_SetsBitThree)
     {
         sutInitiallyZeros.setCapsLock();
@@ -93,5 +120,14 @@ namespace adapter_tests
     {
         sutInitiallyOnes.unsetCapsLock();
         EXPECT_EQ(sutInitiallyOnes, 0b11110111);
+    }
+
+    TEST_F(adapter_LedConfiguration, toggleCapsLock_TogglesBitThree)
+    {
+        sutInitiallyOnes.toggleCapsLock();
+        EXPECT_EQ(sutInitiallyOnes, 0b11110111);
+        
+        sutInitiallyZeros.toggleCapsLock();
+        EXPECT_EQ(sutInitiallyZeros, 0b00001000);
     }
 } // namespace adapter_tests
