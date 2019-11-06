@@ -18,31 +18,18 @@
 
 #pragma once
 
-#include "HidDevice.h"
-
-#include <HID-Project.h>
-#include <stdint.h>
+#include "../adapter/HidCode.h"
+#include "../adapter/IUsbKeyboard.h"
+#include "IHidDevice.h"
 
 namespace hid
 {
-    HidDevice::HidDevice()
+    class UsbKeyboard : public adapter::IUsbKeyboard
     {
-        Keyboard.begin();
-        Keyboard.releaseAll();
-    }
+        IHidDevice *hidDevice;
 
-    void HidDevice::pressKey(KeyboardKeycode key)
-    {
-        Keyboard.press(key);
-    }
-
-    void HidDevice::releaseKey(KeyboardKeycode key)
-    {
-        Keyboard.release(key);
-    }
-
-    void HidDevice::releaseAll()
-    {
-        Keyboard.releaseAll();
-    }
+    public:
+        UsbKeyboard(IHidDevice *hidDevice);
+        void emit(adapter::HidCode hidCode) override;
+    };
 } // namespace hid

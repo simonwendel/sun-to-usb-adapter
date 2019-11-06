@@ -20,14 +20,17 @@
 
 #include "IHidDevice.h"
 
+#include <HID-Project.h>
 #include <stdint.h>
 
 namespace hid
 {
     class HidDevice : public IHidDevice
     {
-        void pressKey(uint8_t usage) override;
-        void releaseKey(uint8_t usage) override;
+    public:
+        HidDevice();
+        void pressKey(KeyboardKeycode key) override;
+        void releaseKey(KeyboardKeycode key) override;
         void releaseAll() override;
     };
 } // namespace hid

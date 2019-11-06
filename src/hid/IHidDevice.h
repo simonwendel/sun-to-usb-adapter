@@ -18,14 +18,16 @@
 
 #pragma once
 
+#include <HID-Project.h>
 #include <stdint.h>
 
 namespace hid
 {
     class IHidDevice
     {
-        virtual void pressKey(uint8_t usage) = 0;
-        virtual void releaseKey(uint8_t usage) = 0;
+    public:
+        virtual void pressKey(KeyboardKeycode key) = 0;
+        virtual void releaseKey(KeyboardKeycode key) = 0;
         virtual void releaseAll() = 0;
     };
 } // namespace hid

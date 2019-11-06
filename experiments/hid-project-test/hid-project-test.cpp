@@ -33,6 +33,8 @@
 #include "../../src/hardware/SerialPort.h"
 #include "../../src/hardware/timers/CTCModeCalculator.h"
 #include "../../src/hardware/timers/CTCTimer1.h"
+#include "../../src/hid/HidDevice.h"
+#include "../../src/hid/UsbKeyboard.h"
 
 #include <HID-Project.h>
 #include <arduino-platform.h>
@@ -60,13 +62,12 @@ adapter::SunKeyboard sunKeyboard{&sunSerialPort};
 adapter::ScanCodeTranslationMap translationMap;
 adapter::ScanCodeTranslator translator{&translationMap};
 
+hid::HidDevice hidDevice;
+hid::UsbKeyboard usbKeyboard{&hidDevice};
+
 void setup()
 {
     Serial.begin(9600);
-
-    Keyboard.begin();
-    Keyboard.releaseAll();
-
     sunKeyboard.turnOffClicks();
 }
 
@@ -76,24 +77,13 @@ void loop()
     if (next == 127)
     {
         light.flashOnce(2400);
-        Keyboard.releaseAll();
         return;
     }
 
     auto translation = translator.translate(next);
     if (translation.isValid())
     {
-        auto hidCode = translation.getHidCode();
-        auto usageId = hidCode.getUsageId();
-
-        if (hidCode.isBreakCode())
-        {
-            Keyboard.release(KeyboardKeycode(usageId));
-        }
-        else
-        {
-            Keyboard.press(KeyboardKeycode(usageId));
-        }
+        usbKeyboard.emit(translation.getHidCode());
     }
     else
     {
