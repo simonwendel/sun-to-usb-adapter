@@ -1,6 +1,6 @@
 {
 	"name": "Arduino Build Environment",
-	"dockerFile": "Dockerfile",
+	"image": "simonwendel/devcontainer-sun-to-usb-adapter",
 
 	"runArgs": [
 	],
