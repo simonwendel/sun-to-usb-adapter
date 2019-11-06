@@ -46,7 +46,6 @@ namespace adapter
 
         if (numLockSetting->isOn())
         {
-            LedConfiguration leds;
             leds.setNumLock();
             sunKeyboard->setLeds(leds);
         }

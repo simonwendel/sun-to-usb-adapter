@@ -37,7 +37,9 @@ namespace adapter
         IUsbKeyboard *usbKeyboard;
         IScanCodeTranslator *translator;
         IFlashingLight *errorIndicator;
-        bool started;
+        
+        bool started {false};
+        LedConfiguration leds;
 
     public:
         Program(ILog *log,
