@@ -20,11 +20,8 @@
 #include "../../mocks/hardware/MockIInterruptsControl.h"
 
 #include <arduino-platform.h>
+#include <bitstuff.h>
 #include <gtest/gtest.h>
-
-// thanks to stack overflow for this nasty thing ;-P
-// https://stackoverflow.com/a/523737
-#define CHECK_BIT(var, pos) ((var) & (1 << (pos)))
 
 namespace hardware_timers_tests
 {
@@ -85,7 +82,7 @@ namespace hardware_timers_tests
         setup(settings, timerFunction);
 
         // CTCMode set on bit 3 in TCCR1B
-        EXPECT_TRUE(CHECK_BIT(ControlRegisterB->readRegister(), 3));
+        EXPECT_TRUE(checkBit(ControlRegisterB->readRegister(), 3));
     }
 
     TEST_F(hardware_timers_CTCTimer1,
@@ -94,9 +91,9 @@ namespace hardware_timers_tests
         setup(settings, timerFunction);
 
         // Prescaler 8 is TCCR1B | 0b010
-        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 0));
-        EXPECT_TRUE(CHECK_BIT(ControlRegisterB->readRegister(), 1));
-        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 2));
+        EXPECT_FALSE(checkBit(ControlRegisterB->readRegister(), 0));
+        EXPECT_TRUE(checkBit(ControlRegisterB->readRegister(), 1));
+        EXPECT_FALSE(checkBit(ControlRegisterB->readRegister(), 2));
     }
 
     TEST_F(hardware_timers_CTCTimer1,
@@ -112,7 +109,7 @@ namespace hardware_timers_tests
            setup_GivenCTCModeSettings_DoesntEnableTimerCompareInterrupt)
     {
         setup(settings, timerFunction);
-        EXPECT_FALSE(CHECK_BIT(InterruptMaskRegister->readRegister(), 1));
+        EXPECT_FALSE(checkBit(InterruptMaskRegister->readRegister(), 1));
     }
 
     TEST_F(hardware_timers_CTCTimer1, start_WhenTimerSetUp_StartsCTCTimer)
@@ -125,7 +122,7 @@ namespace hardware_timers_tests
         EXPECT_CALL(interruptsControl, enableInterrupts());
 
         start();
-        EXPECT_TRUE(CHECK_BIT(InterruptMaskRegister->readRegister(), 1));
+        EXPECT_TRUE(checkBit(InterruptMaskRegister->readRegister(), 1));
     }
 
     TEST_F(hardware_timers_CTCTimer1, stop_WhenTimerSetUp_StopsCTCTimer)
@@ -140,8 +137,8 @@ namespace hardware_timers_tests
 
         stop();
 
-        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 0));
-        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 1));
-        EXPECT_FALSE(CHECK_BIT(ControlRegisterB->readRegister(), 2));
+        EXPECT_FALSE(checkBit(ControlRegisterB->readRegister(), 0));
+        EXPECT_FALSE(checkBit(ControlRegisterB->readRegister(), 1));
+        EXPECT_FALSE(checkBit(ControlRegisterB->readRegister(), 2));
     }
 } // namespace hardware_timers_tests

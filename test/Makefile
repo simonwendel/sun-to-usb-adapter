@@ -20,7 +20,7 @@ GOOGLE_TEST_INCLUDE	= /usr/include
 
 CXX					= g++
 
-CXX_FLAGS			= -c -I $(GOOGLE_TEST_INCLUDE) -I ../lib/stubs
+CXX_FLAGS			= -c -I $(GOOGLE_TEST_INCLUDE) -I ../lib -I ../lib/stubs
 CXX_FLAGS			+= -pedantic -Wall -Wextra -std=gnu++17
 
 CXX_FLAGS			+= -DSTUB_ARDUINO
@@ -37,7 +37,7 @@ define find_cpp_files
 	$(shell find $(1) -type f -name '*.cpp' $(foreach exc, $(SKIP_FILES), -and -not -name $(exc)))
 endef
 
-SOURCE_FOLDERS 		= ../lib/ ../src/adapter ../src/hardware ./
+SOURCE_FOLDERS 		=  ../lib/stubs ../src/adapter ../src/hardware ./
 SKIP_FILES			= ScanCodeTranslationMap.cpp
 
 SRCS				= $(foreach dir, $(SOURCE_FOLDERS), $(call find_cpp_files, $(dir)))

@@ -18,13 +18,11 @@
 
 #include "LedConfiguration.h"
 
+#include <bitstuff.h>
 #include <stdint.h>
 
 namespace adapter
 {
-    static void setBit(uint8_t &value, int bit);
-    static void unsetBit(uint8_t &value, int bit);
-
     LedConfiguration::LedConfiguration() : payload{0}
     {
     }
@@ -92,15 +90,5 @@ namespace adapter
     void LedConfiguration::unsetCapsLock()
     {
         unsetBit(payload, CAPS_LOCK_BIT);
-    }
-
-    static void setBit(uint8_t &value, int bit)
-    {
-        value |= 1 << bit;
-    }
-
-    static void unsetBit(uint8_t &value, int bit)
-    {
-        value &= ~(1 << bit);
     }
 } // namespace adapter
