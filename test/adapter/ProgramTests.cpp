@@ -159,13 +159,6 @@ namespace adapter_tests
         sut.loop();
     }
 
-    TEST_F(adapter_Program, loop_WhenTranslationFails_LogsAnError)
-    {
-        String message{"Failed to translate, invalid code."};
-        EXPECT_CALL(log, error(message));
-        sut.loop();
-    }
-
     TEST_F(
     adapter_Program,
     loop_WhenTranslationFailsAndErrorIndicatorFlashing_DoesNotStartFlashing)

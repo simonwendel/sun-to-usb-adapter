@@ -71,7 +71,6 @@ namespace adapter
         }
         else
         {
-            log->error("Failed to translate, invalid code.");
             if (!errorIndicator->isFlashing())
             {
                 errorIndicator->startFlashing(2);
