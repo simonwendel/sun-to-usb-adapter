@@ -18,7 +18,8 @@
 
 #include "ScanCodeTranslationMap.h"
 
-#include <HID-Project.h>
+#include "HidUsageCode.h"
+
 #include <stdint.h>
 
 namespace adapter

@@ -34,11 +34,10 @@ BUILD_DIR			= ../build
 OBJDIR				= $(BUILD_DIR)/test
 
 define find_cpp_files
-	$(shell find $(1) -type f -name '*.cpp' $(foreach exc, $(SKIP_FILES), -and -not -name $(exc)))
+	$(shell find $(1) -type f -name '*.cpp')
 endef
 
 SOURCE_FOLDERS 		=  ../lib/stubs ../src/adapter ../src/hardware ./
-SKIP_FILES			= ScanCodeTranslationMap.cpp
 
 SRCS				= $(foreach dir, $(SOURCE_FOLDERS), $(call find_cpp_files, $(dir)))
 OBJECTS				= $(patsubst %.cpp,$(OBJDIR)/%.o,$(SRCS))
