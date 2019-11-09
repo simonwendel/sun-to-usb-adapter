@@ -22,7 +22,9 @@
 
 /**
  * Mirror the HID usage codes to those in HID-Project source, only cherry-
- * picking what we need for the Sun keyoard.
+ * picking what we need for our specific Sun keyboard. Defined in the standard:
+ * https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf
+ * (have a look at page 53, Keyboard/Keypad Page (0x07))
  */
 enum HidUsageCode : uint8_t
 {
