@@ -36,6 +36,7 @@ namespace adapter
 
         int getCount();
         int getCapacity();
+        bool hasMapping(int key);
         bool mapAction(int key, Action<TParam> action);
         Action<TParam> getAction(int key);
     };

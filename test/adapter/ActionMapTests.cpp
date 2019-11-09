@@ -87,12 +87,12 @@ namespace adapter_tests
         EXPECT_EQ(sut.getCount(), 1);
     }
 
-    TEST_F(adapter_ActionMap, getAction_GivenNonExistantKey_ReturnsNullptr)
+    TEST_F(adapter_ActionMap, getAction_GivenNonMappedKey_ReturnsNullptr)
     {
         auto action = sut.getAction(1);
         EXPECT_EQ(action, nullptr);
     }
-
+    
     TEST_F(adapter_ActionMap, getAction_GivenKeyLessThanZero_ReturnsNullptr)
     {
         auto action = sut.getAction(-1);
@@ -111,5 +111,27 @@ namespace adapter_tests
         sut.mapAction(11, actionToMap);
         auto action = sut.getAction(11);
         EXPECT_EQ(action, actionToMap);
+    }
+
+    TEST_F(adapter_ActionMap, hasMapping_GivenNonMappedKey_ReturnsFalse)
+    {
+        EXPECT_FALSE(sut.hasMapping(11));
+    }
+
+    TEST_F(adapter_ActionMap, hasMapping_GivenNegativeKey_ReturnsFalse)
+    {
+        EXPECT_FALSE(sut.hasMapping(-1));
+    }
+
+    TEST_F(adapter_ActionMap,
+           hasMapping_GivenKeyGreaterThanCapacity_ReturnsFalse)
+    {
+        EXPECT_FALSE(sut.hasMapping(defaultCapacity + 1));
+    }
+
+    TEST_F(adapter_ActionMap, hasMapping_GivenMappedKey_ReturnsTrue)
+    {
+        sut.mapAction(11, actionToMap);
+        EXPECT_TRUE(sut.hasMapping(11));
     }
 } // namespace adapter_tests

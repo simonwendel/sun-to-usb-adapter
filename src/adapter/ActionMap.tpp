@@ -46,6 +46,12 @@ namespace adapter
     }
 
     template <typename TParam>
+    bool ActionMap<TParam>::hasMapping(int key)
+    {
+        return getAction(key) != nullptr;
+    }
+
+    template <typename TParam>
     bool ActionMap<TParam>::mapAction(int key, Action<TParam> action)
     {
         if (key < 0 || key >= capacity)
