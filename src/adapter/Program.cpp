@@ -18,7 +18,9 @@
 
 #include "Program.h"
 
-#include "../adapter/LedConfiguration.h"
+#include "HidCode.h"
+#include "HidUsageCode.h"
+#include "LedConfiguration.h"
 
 namespace adapter
 {
@@ -67,7 +69,10 @@ namespace adapter
 
         if (translation.isValid())
         {
-            usbKeyboard->emit(translation.getHidCode());
+            auto hidCode = translation.getHidCode();
+            
+            maybeToggleLeds(hidCode);
+            usbKeyboard->emit(hidCode);
         }
         else
         {
@@ -76,5 +81,33 @@ namespace adapter
                 errorIndicator->startFlashing(2);
             }
         }
+    }
+
+    void Program::maybeToggleLeds(HidCode hidCode)
+    {
+        if (hidCode.isBreakCode())
+        {
+            return;
+        }
+
+        switch (hidCode.getUsageId())
+        {
+            case HidUsageCode::HID_KEYPAD_NUM_LOCK_AND_CLEAR:
+                leds.toggleNumLock();
+                break;
+
+            case HidUsageCode::HID_KEYBOARD_CAPS_LOCK:
+                leds.toggleCapsLock();
+                break;
+
+            case HidUsageCode::HID_KEYBOARD_SCROLL_LOCK:
+                leds.toggleScrollLock();
+                break;
+
+            default:
+                return;
+        }
+
+        sunKeyboard->setLeds(leds);
     }
 } // namespace adapter

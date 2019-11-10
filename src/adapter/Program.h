@@ -24,6 +24,7 @@
 #include "IScanCodeTranslator.h"
 #include "ISetting.h"
 #include "IUsbKeyboard.h"
+#include "ActionMap.h"
 
 namespace adapter
 {
@@ -40,6 +41,9 @@ namespace adapter
         
         bool started {false};
         LedConfiguration leds;
+        ActionMap<LedConfiguration> ledActions;
+
+        void maybeToggleLeds(HidCode hidCode);
 
     public:
         Program(ILog *log,
