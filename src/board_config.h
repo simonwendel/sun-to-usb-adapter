@@ -20,6 +20,7 @@
 
 const struct board_config
 {
+    const int onboard_led = 13;
     const int cpu_frequency_mhz = 16;
     const int serial_rx = 10;
     const int serial_tx = 11;
