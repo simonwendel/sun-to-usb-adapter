@@ -23,6 +23,11 @@
 
 namespace hardware
 {
+    void SerialMonitor::begin(long speed)
+    {
+        Serial.begin(speed);
+    }
+
     int SerialMonitor::read()
     {
         return Serial.read();

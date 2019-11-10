@@ -28,11 +28,12 @@ namespace hardware
     class SerialMonitor : public ISerialPort
     {
     public:
+        void begin(long speed) override;
         int read() override;
-        
+
         size_t write(uint8_t byte) override;
         size_t write(const uint8_t *buffer, size_t size) override;
-        
+
         size_t print(const String &s) override;
         size_t println(const String &s) override;
     };
