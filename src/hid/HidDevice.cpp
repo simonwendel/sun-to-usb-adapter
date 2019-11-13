@@ -27,22 +27,22 @@ namespace hid
 {
     HidDevice::HidDevice()
     {
-        Keyboard.begin();
-        Keyboard.releaseAll();
+        BootKeyboard.begin();
+        BootKeyboard.releaseAll();
     }
 
     void HidDevice::pressKey(KeyboardKeycode key)
     {
-        Keyboard.press(key);
+        BootKeyboard.press(key);
     }
 
     void HidDevice::releaseKey(KeyboardKeycode key)
     {
-        Keyboard.release(key);
+        BootKeyboard.release(key);
     }
 
     void HidDevice::releaseAll()
     {
-        Keyboard.releaseAll();
+        BootKeyboard.releaseAll();
     }
 } // namespace hid
