@@ -17,6 +17,8 @@ Because of this I wanted to prove to myself that I could accomplish a few key po
 3. Develop in a Test Driven fashion (unit tests first on as much code as possible)
 4. Don't cut corners, figuratively speaking!
 
+Following these 4 principles, I totally over-engineered this project, but it was fun!
+
 # Structure and Makefile
 
 As a software developer I value both modeling constructs and hierachies. To this end I created a somewhat complex root Makefile, allowing me to include subfolders and source files into my final AVR binary, based on the awesome work from the [Arduino Makefile] project.
