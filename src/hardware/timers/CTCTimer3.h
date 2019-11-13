@@ -18,17 +18,28 @@
 
 #pragma once
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-Print.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-Stream.h"
-#include "stub-Timer1.h"
-#include "stub-Timer3.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#include "stub-interrupt.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+#include "../IInterruptsControl.h"
+#include "CTCModeSettings.h"
+#include "CTCTimer.h"
+#include "ICTCTimer.h"
+
+#include <stdint.h>
+
+namespace hardware::timers
+{
+    /*
+        Because of how timer interrupts work, creating more than one instance
+        of this class will not work. Much static-ness ahead!
+    */
+    class CTCTimer3 : public CTCTimer<uint16_t>
+    {
+        hardware::IInterruptsControl *interruptsControl;
+
+    public:
+        CTCTimer3(hardware::IInterruptsControl *interruptsControl);
+        void setup(CTCModeSettings settings,
+                   TimerFunction timerFunction) override;
+        void start() override;
+        void stop() override;
+    };
+} // namespace hardware::timers

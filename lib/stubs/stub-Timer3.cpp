@@ -16,19 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include <stdint.h>
 
-#ifdef STUB_ARDUINO
-#include "stub-Arduino.h"
-#include "stub-Print.h"
-#include "stub-SoftwareSerial.h"
-#include "stub-Stream.h"
-#include "stub-Timer1.h"
-#include "stub-Timer3.h"
-#include "stub-USBAPI.h"
-#include "stub-WString.h"
-#include "stub-interrupt.h"
-#else
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#endif
+uint8_t TCCR3A;
+uint8_t TCCR3B;
+uint8_t TIMSK3;
+
+uint16_t TCNT3;
+uint16_t OCR3A;

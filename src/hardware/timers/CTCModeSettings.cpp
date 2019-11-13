@@ -37,7 +37,7 @@ namespace hardware::timers
     int CTCModeSettings::getPrescalerRegister()
     {
         /*
-            |CS12|CS11|CS10|Prescaler|
+            |CSx2|CSx1|CSx0|Prescaler|
             +------------------------+
             |  0 |  0 |  1 | PS_1    |
             |  0 |  1 |  0 | PS_8    |

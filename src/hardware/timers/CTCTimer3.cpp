@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "CTCTimer1.h"
+#include "CTCTimer3.h"
 
 #include <arduino-platform.h>
 
@@ -24,17 +24,17 @@ namespace hardware::timers
 {
     namespace
     {
-        bool started = false;
         TimerFunction timerF;
+        bool started = false;
     } // namespace
 
-    CTCTimer1::CTCTimer1(hardware::IInterruptsControl *interruptsControl) :
-        CTCTimer(&TCCR1A, &TCCR1B, &TIMSK1, &TCNT1, &OCR1A)
+    CTCTimer3::CTCTimer3(hardware::IInterruptsControl *interruptsControl) :
+        CTCTimer(&TCCR3A, &TCCR3B, &TIMSK3, &TCNT3, &OCR3A)
     {
         this->interruptsControl = interruptsControl;
     }
 
-    void CTCTimer1::setup(CTCModeSettings settings, TimerFunction timerFunction)
+    void CTCTimer3::setup(CTCModeSettings settings, TimerFunction timerFunction)
     {
         // because of low-level bullshit, the order here is important
 
@@ -48,28 +48,28 @@ namespace hardware::timers
         CounterRegister->clearRegister();
         CompareMatchRegister->setRegister(settings.getCompareMatchRegister());
 
-        ControlRegisterB->turnOnBits(1 << WGM12);
+        ControlRegisterB->turnOnBits(1 << WGM32);
         ControlRegisterB->turnOnBits(settings.getPrescalerRegister());
 
         interruptsControl->enableInterrupts();
     }
 
-    void CTCTimer1::start()
+    void CTCTimer3::start()
     {
         interruptsControl->disableInterrupts();
 
-        InterruptMaskRegister->turnOnBits(1 << OCIE1A);
+        InterruptMaskRegister->turnOnBits(1 << OCIE3A);
         started = true;
 
         interruptsControl->enableInterrupts();
     }
 
-    void CTCTimer1::stop()
+    void CTCTimer3::stop()
     {
         interruptsControl->disableInterrupts();
 
         // basically clock source 'none'
-        ControlRegisterB->turnOffBits(1 << CS12 | 1 << CS11 | 1 << CS10);
+        ControlRegisterB->turnOffBits(1 << CS32 | 1 << CS31 | 1 << CS30);
 
         interruptsControl->enableInterrupts();
     }
@@ -77,7 +77,7 @@ namespace hardware::timers
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wattributes"
 
-    ISR(TIMER1_COMPA_vect)
+    ISR(TIMER3_COMPA_vect)
     {
         if (started)
         {
