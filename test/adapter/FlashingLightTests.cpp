@@ -49,12 +49,6 @@ namespace adapter_tests
             ON_CALL(calculator, createSettings(frequencyHz))
             .WillByDefault(Return(calculationResults));
         }
-
-        ~adapter_FlashingLight()
-        {
-            // this is needed due to stupid staticness of onTimer function
-            sut.stopFlashing();
-        }
     };
 
     TEST_F(adapter_FlashingLight,
@@ -92,25 +86,25 @@ namespace adapter_tests
     }
 
     TEST_F(adapter_FlashingLight,
-           startFlashing_WhenCalledMoreThanOnce_CalculatesTimerSettingsAgain)
+           startFlashing_WhenCalledMoreThanOnce_OnlyCalculatesTimerSettingsOnce)
     {
-        EXPECT_CALL(calculator, createSettings(frequencyHz)).Times(2);
+        EXPECT_CALL(calculator, createSettings(frequencyHz)).Times(1);
         sut.startFlashing(frequencyHz);
         sut.startFlashing(frequencyHz);
     }
 
     TEST_F(adapter_FlashingLight,
-           startFlashing_WhenCalledMoreThanOnce_SetsUpBlinkTimerAgain)
+           startFlashing_WhenCalledMoreThanOnce_OnlySetsUpBlinkTimerOnce)
     {
-        EXPECT_CALL(timer, setup(settings, anyTimerFunction)).Times(2);
+        EXPECT_CALL(timer, setup(settings, anyTimerFunction)).Times(1);
         sut.startFlashing(frequencyHz);
         sut.startFlashing(frequencyHz);
     }
 
     TEST_F(adapter_FlashingLight,
-           startFlashing_WhenCalledMoreThanOnce_StartsBlinkTimerAgain)
+           startFlashing_WhenCalledMoreThanOnce_OnlyStartsBlinkTimerOnce)
     {
-        EXPECT_CALL(timer, start()).Times(2);
+        EXPECT_CALL(timer, start()).Times(1);
         sut.startFlashing(frequencyHz);
         sut.startFlashing(frequencyHz);
     }
@@ -155,26 +149,5 @@ namespace adapter_tests
         EXPECT_CALL(toggle, reset());
         sut.startFlashing(frequencyHz);
         sut.stopFlashing();
-    }
-
-    TEST_F(adapter_FlashingLight,
-           flashOnce_WhenCalledFirstTime_CalculatesTimerSettings)
-    {
-        EXPECT_CALL(calculator, createSettings(frequencyHz)).Times(1);
-        sut.flashOnce(frequencyHz);
-    }
-
-    TEST_F(adapter_FlashingLight,
-           flashOnce_WhenCalledFirstTime_SetsUpBlinkTimer)
-    {
-        EXPECT_CALL(timer, setup(settings, anyTimerFunction)).Times(1);
-        sut.flashOnce(frequencyHz);
-    }
-
-    TEST_F(adapter_FlashingLight,
-           flashOnce_WhenCalledFirstTime_StartsBlinkTimer)
-    {
-        EXPECT_CALL(timer, start()).Times(1);
-        sut.flashOnce(frequencyHz);
     }
 } // namespace adapter_tests

@@ -23,60 +23,6 @@
 
 namespace adapter
 {
-    // magic needed since capturing lambdas are not compatible with what we
-    // need from TimerFunction
-    namespace
-    {
-        bool timerStarted;
-        bool toggleOnce;
-        bool toggled;
-
-        hardware::timers::ICTCTimer *capturedTimer;
-        IToggle *capturedToggle;
-
-        void stopTimer()
-        {
-            timerStarted = false;
-            toggleOnce = false;
-            toggled = false;
-
-            if (capturedTimer != nullptr)
-            {
-                capturedTimer->stop();
-            }
-
-            if (capturedToggle != nullptr)
-            {
-                capturedToggle->reset();
-            }
-        }
-
-        void onTimer()
-        {
-            if (toggleOnce && toggled)
-            {
-                stopTimer();
-                return;
-            }
-
-            capturedToggle->toggle();
-            toggled = !toggled;
-        }
-
-        void startTimer(hardware::timers::ICTCTimer *timerToCapture,
-                        IToggle *toggleToCapture,
-                        hardware::timers::CTCModeSettings settings)
-        {
-            capturedToggle = toggleToCapture;
-            capturedTimer = timerToCapture;
-
-            timerStarted = true;
-
-            capturedTimer->setup(settings, onTimer);
-            capturedTimer->start();
-        }
-    } // namespace
-
     FlashingLight::FlashingLight(
     IToggle *toggle,
     hardware::timers::ICTCTimer *blinkTimer,
@@ -86,6 +32,17 @@ namespace adapter
     {
     }
 
+    // magic needed since capturing lambdas are not compatible with what we
+    // need from TimerFunction
+    namespace
+    {
+        IToggle *toggleCapture;
+        void onTimer()
+        {
+            toggleCapture->toggle();
+        }
+    } // namespace
+
     bool FlashingLight::isFlashing()
     {
         return timerStarted;
@@ -93,32 +50,25 @@ namespace adapter
 
     void FlashingLight::startFlashing(float frequencyHz)
     {
-        if (timerStarted)
+        if (timerStarted == false)
         {
-            stopTimer();
-        }
+            auto results = calculator->createSettings(frequencyHz);
 
-        auto results = calculator->createSettings(frequencyHz);
-        startTimer(this->blinkTimer, this->toggle, results.value);
+            toggleCapture = this->toggle;
+            blinkTimer->setup(results.value, onTimer);
+
+            blinkTimer->start();
+            timerStarted = true;
+        }
     }
 
     void FlashingLight::stopFlashing()
     {
         if (timerStarted)
         {
-            stopTimer();
+            blinkTimer->stop();
+            toggle->reset();
+            timerStarted = false;
         }
-    }
-
-    void FlashingLight::flashOnce(float interval)
-    {
-        if (timerStarted)
-        {
-            stopTimer();
-        }
-
-        toggled = false;
-        toggleOnce = true;
-        startFlashing(interval);
     }
 } // namespace adapter
