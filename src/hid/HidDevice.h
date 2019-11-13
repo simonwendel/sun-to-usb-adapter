@@ -32,5 +32,6 @@ namespace hid
         void pressKey(KeyboardKeycode key) override;
         void releaseKey(KeyboardKeycode key) override;
         void releaseAll() override;
+        uint8_t getLeds() override;
     };
 } // namespace hid

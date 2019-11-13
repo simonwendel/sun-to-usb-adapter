@@ -26,5 +26,6 @@ namespace adapter
     {
     public:
         virtual void emit(HidCode hidCode) = 0;
+        virtual uint8_t getLeds() = 0;
     };
 } // namespace adapter

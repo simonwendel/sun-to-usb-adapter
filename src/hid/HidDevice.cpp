@@ -45,4 +45,9 @@ namespace hid
     {
         BootKeyboard.releaseAll();
     }
+
+    uint8_t HidDevice::getLeds()
+    {
+        return BootKeyboard.getLeds();
+    }
 } // namespace hid

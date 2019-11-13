@@ -28,5 +28,6 @@ namespace adapter_mocks
     {
     public:
         MOCK_METHOD1(emit, void(adapter::HidCode));
+        MOCK_METHOD0(getLeds, uint8_t());
     };
 } // namespace adapter_mocks

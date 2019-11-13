@@ -29,5 +29,6 @@ namespace hid
         virtual void pressKey(KeyboardKeycode key) = 0;
         virtual void releaseKey(KeyboardKeycode key) = 0;
         virtual void releaseAll() = 0;
+        virtual uint8_t getLeds() = 0;
     };
 } // namespace hid

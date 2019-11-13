@@ -31,5 +31,6 @@ namespace hid
     public:
         UsbKeyboard(IHidDevice *hidDevice);
         void emit(adapter::HidCode hidCode) override;
+        uint8_t getLeds() override;
     };
 } // namespace hid

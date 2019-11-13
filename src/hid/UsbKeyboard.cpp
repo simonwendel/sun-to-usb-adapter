@@ -43,4 +43,9 @@ namespace hid
             hidDevice->pressKey(key);
         }
     }
+
+    uint8_t UsbKeyboard::getLeds()
+    {
+        return hidDevice->getLeds();
+    }
 } // namespace hid
