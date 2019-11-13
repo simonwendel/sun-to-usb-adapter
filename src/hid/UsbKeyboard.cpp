@@ -27,7 +27,7 @@
 
 namespace hid
 {
-    UsbKeyboard::UsbKeyboard(IHidDevice *hidDevice) : hidDevice(hidDevice)
+    UsbKeyboard::UsbKeyboard(IHidDevice *hidDevice) : hidDevice{hidDevice}
     {
     }
 

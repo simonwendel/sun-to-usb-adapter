@@ -27,8 +27,8 @@ namespace adapter
     IToggle *toggle,
     hardware::timers::ICTCTimer *blinkTimer,
     hardware::timers::ICTCModeCalculator *calculator) :
-        toggle(toggle),
-        blinkTimer(blinkTimer), calculator(calculator)
+        toggle{toggle},
+        blinkTimer{blinkTimer}, calculator{calculator}
     {
     }
 

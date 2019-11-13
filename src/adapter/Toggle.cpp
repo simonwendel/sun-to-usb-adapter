@@ -24,7 +24,7 @@
 
 namespace adapter
 {
-    Toggle::Toggle(hardware::IOutputPin *output) : output(output)
+    Toggle::Toggle(hardware::IOutputPin *output) : output{output}
     {
     }
 

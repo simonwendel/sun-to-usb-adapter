@@ -25,9 +25,9 @@ namespace adapter
                            IUsbKeyboard *usbKeyboard,
                            ISunKeyboard *sunKeyboard,
                            ILedConverter *converter) :
-        checkTimer(checkTimer),
-        calculator(calculator), usbKeyboard(usbKeyboard),
-        sunKeyboard(sunKeyboard), converter(converter)
+        checkTimer{checkTimer},
+        calculator{calculator}, usbKeyboard{usbKeyboard},
+        sunKeyboard{sunKeyboard}, converter{converter}
     {
     }
 
