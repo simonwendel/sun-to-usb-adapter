@@ -65,8 +65,12 @@ namespace adapter
         }
 
         auto next = sunKeyboard->read();
-        auto translation = translator->translate(next);
+        if(next == Translation::NO_KEYS)
+        {
+            return;
+        }
 
+        auto translation = translator->translate(next);
         if (translation.isValid())
         {
             auto hidCode = translation.getHidCode();

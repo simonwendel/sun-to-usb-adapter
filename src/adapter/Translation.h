@@ -31,6 +31,8 @@ namespace adapter
         Translation(HidCode hidCode);
 
     public:
+        static const int NO_KEYS = 127;
+
         static Translation makeInvalid();
         static Translation makeValid(HidCode hidCode);
 
