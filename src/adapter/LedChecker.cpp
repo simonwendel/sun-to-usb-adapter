@@ -46,6 +46,7 @@ namespace adapter
             if (sunLeds != *ledsCapture)
             {
                 sunKeyboardCapture->setLeds(sunLeds);
+                *ledsCapture = sunLeds;
             }
         }
     } // namespace
