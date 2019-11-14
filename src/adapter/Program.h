@@ -24,7 +24,7 @@
 #include "IScanCodeTranslator.h"
 #include "ISetting.h"
 #include "IUsbKeyboard.h"
-#include "ActionMap.h"
+#include "ILedChecker.h"
 
 namespace adapter
 {
@@ -33,26 +33,24 @@ namespace adapter
         ILog *log;
 
         ISetting *keyboardClicksSetting;
-        ISetting *numLockSetting;
+        ISetting *checkLedsSetting;
         ISunKeyboard *sunKeyboard;
         IUsbKeyboard *usbKeyboard;
         IScanCodeTranslator *translator;
         IFlashingLight *errorIndicator;
-        
-        bool started {false};
-        LedConfiguration leds;
-        ActionMap<LedConfiguration> ledActions;
+        ILedChecker *ledChecker;
 
-        void maybeToggleLeds(HidCode hidCode);
+        bool started {false};
 
     public:
         Program(ILog *log,
                 ISetting *keyboardClicksSetting,
-                ISetting *numLockSetting,
+                ISetting *checkLedsSetting,
                 ISunKeyboard *sunKeyboard,
                 IUsbKeyboard *usbKeyboard,
                 IScanCodeTranslator *translator,
-                IFlashingLight *errorIndicator);
+                IFlashingLight *errorIndicator,
+                ILedChecker *ledChecker);
 
         void setup();
         void loop();

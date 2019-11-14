@@ -22,6 +22,7 @@
 #include "../../src/adapter/Program.h"
 #include "../../src/adapter/Translation.h"
 #include "../mocks/adapter/MockIFlashingLight.h"
+#include "../mocks/adapter/MockILedChecker.h"
 #include "../mocks/adapter/MockILog.h"
 #include "../mocks/adapter/MockIScanCodeTranslator.h"
 #include "../mocks/adapter/MockISetting.h"
@@ -48,24 +49,27 @@ namespace adapter_tests
         adapter::Translation::makeValid(adapter::HidCode{});
 
         float errorFrequencyHz = 2;
+        float ledCheckingIntervalHz = 20;
 
         adapter::LedConfiguration leds;
 
         adapter_mocks::MockISetting keyboardClicks;
-        adapter_mocks::MockISetting numLock;
+        adapter_mocks::MockISetting checkLeds;
         adapter_mocks::MockISunKeyboard sunKeyboard;
         adapter_mocks::MockIUsbKeyboard usbKeyboard;
         adapter_mocks::MockILog log;
         adapter_mocks::MockIScanCodeTranslator translator;
         adapter_mocks::MockIFlashingLight errorIndicator;
+        adapter_mocks::MockILedChecker ledChecker;
 
         adapter::Program sut{&log,
                              &keyboardClicks,
-                             &numLock,
+                             &checkLeds,
                              &sunKeyboard,
                              &usbKeyboard,
                              &translator,
-                             &errorIndicator};
+                             &errorIndicator,
+                             &ledChecker};
 
         adapter_Program()
         {
@@ -101,26 +105,19 @@ namespace adapter_tests
         sut.setup();
     }
 
-    TEST_F(adapter_Program, setup_GivenNumLockSetting_ReadsSetting)
+    TEST_F(adapter_Program,
+           setup_GivenCheckLedsSettingIsOff_DoesNotTurnOnLedChecker)
     {
-        EXPECT_CALL(numLock, isOn());
+        ON_CALL(checkLeds, isOn()).WillByDefault(Return(false));
+        EXPECT_CALL(ledChecker, startChecking(_)).Times(Exactly(0));
         sut.setup();
     }
 
-    TEST_F(adapter_Program, setup_GivenNumLockSettingIsOn_TurnsOnNumLock)
+    TEST_F(adapter_Program,
+           setup_GivenCheckLedsSettingIsOn_TurnsOnLedChecker)
     {
-        leds.setNumLock();
-        ON_CALL(numLock, isOn()).WillByDefault(Return(true));
-
-        EXPECT_CALL(sunKeyboard, setLeds(leds));
-
-        sut.setup();
-    }
-
-    TEST_F(adapter_Program, setup_GivenNumLockSettingIsOff_DoesNotTurnOnNumLock)
-    {
-        ON_CALL(numLock, isOn()).WillByDefault(Return(false));
-        EXPECT_CALL(sunKeyboard, setLeds(_)).Times(Exactly(0));
+        ON_CALL(checkLeds, isOn()).WillByDefault(Return(true));
+        EXPECT_CALL(ledChecker, startChecking(ledCheckingIntervalHz)).Times(Exactly(1));
         sut.setup();
     }
 
@@ -129,7 +126,7 @@ namespace adapter_tests
         String message{"Setup completed."};
 
         Expectation clicksSetup = EXPECT_CALL(keyboardClicks, isOn());
-        Expectation numLockSetup = EXPECT_CALL(numLock, isOn());
+        Expectation numLockSetup = EXPECT_CALL(checkLeds, isOn());
 
         EXPECT_CALL(log, info(message)).After(clicksSetup, numLockSetup);
 
@@ -187,76 +184,6 @@ namespace adapter_tests
     {
         ON_CALL(sunKeyboard, read()).WillByDefault(Return(validCode));
         EXPECT_CALL(usbKeyboard, emit(validTranslation.getHidCode()));
-        sut.loop();
-    }
-
-    TEST_F(adapter_Program, loop_WhenReceivingNumLockMakeCode_TogglesLed)
-    {
-        leds.toggleNumLock();
-        auto numLock = adapter::Translation::makeValid(
-        adapter::HidCode{HID_KEYPAD_NUM_LOCK_AND_CLEAR, false});
-
-        ON_CALL(translator, translate(_)).WillByDefault(Return(numLock));
-        EXPECT_CALL(sunKeyboard, setLeds(leds)).Times(1);
-
-        sut.loop();
-    }
-
-    TEST_F(adapter_Program, loop_WhenReceivingNumLockBreakCode_DoesntToggleLed)
-    {
-        auto numLock = adapter::Translation::makeValid(
-        adapter::HidCode{HID_KEYPAD_NUM_LOCK_AND_CLEAR, true});
-
-        ON_CALL(translator, translate(_)).WillByDefault(Return(numLock));
-        EXPECT_CALL(sunKeyboard, setLeds(_)).Times(0);
-
-        sut.loop();
-    }
-
-    TEST_F(adapter_Program, loop_WhenReceivingCapsLockMakeCode_TogglesLed)
-    {
-        leds.toggleCapsLock();
-        auto capsLock = adapter::Translation::makeValid(
-        adapter::HidCode{HID_KEYBOARD_CAPS_LOCK, false});
-
-        ON_CALL(translator, translate(_)).WillByDefault(Return(capsLock));
-        EXPECT_CALL(sunKeyboard, setLeds(leds)).Times(1);
-
-        sut.loop();
-    }
-
-    TEST_F(adapter_Program, loop_WhenReceivingCapsLockBreakCode_DoesntToggleLed)
-    {
-        auto numLock = adapter::Translation::makeValid(
-        adapter::HidCode{HID_KEYBOARD_CAPS_LOCK, true});
-
-        ON_CALL(translator, translate(_)).WillByDefault(Return(numLock));
-        EXPECT_CALL(sunKeyboard, setLeds(_)).Times(0);
-
-        sut.loop();
-    }
-
-    TEST_F(adapter_Program, loop_WhenReceivingScrollLockMakeCode_TogglesLed)
-    {
-        leds.toggleScrollLock();
-        auto scrollLock = adapter::Translation::makeValid(
-        adapter::HidCode{HID_KEYBOARD_SCROLL_LOCK, false});
-
-        ON_CALL(translator, translate(_)).WillByDefault(Return(scrollLock));
-        EXPECT_CALL(sunKeyboard, setLeds(leds)).Times(1);
-
-        sut.loop();
-    }
-
-    TEST_F(adapter_Program,
-           loop_WhenReceivingScrollLockBreakCode_DoesntToggleLed)
-    {
-        auto numLock = adapter::Translation::makeValid(
-        adapter::HidCode{HID_KEYBOARD_SCROLL_LOCK, true});
-
-        ON_CALL(translator, translate(_)).WillByDefault(Return(numLock));
-        EXPECT_CALL(sunKeyboard, setLeds(_)).Times(0);
-
         sut.loop();
     }
 } // namespace adapter_tests

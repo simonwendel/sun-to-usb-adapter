@@ -17,6 +17,8 @@
  */
 
 #include "adapter/FlashingLight.h"
+#include "adapter/LedChecker.h"
+#include "adapter/LedConverter.h"
 #include "adapter/Log.h"
 #include "adapter/Program.h"
 #include "adapter/ScanCodeTranslationMap.h"
@@ -33,13 +35,14 @@
 #include "hardware/SerialPort.h"
 #include "hardware/timers/CTCModeCalculator.h"
 #include "hardware/timers/CTCTimer1.h"
+#include "hardware/timers/CTCTimer3.h"
 #include "hid/HidDevice.h"
 #include "hid/UsbKeyboard.h"
 
 #include <arduino-platform.h>
 
 const int ERROR_LED_PIN = default_config.onboard_led;
-const int NUM_LOCK_ON_RESET_DIP_SWITCH = 7;
+const int CHECK_LEDS_DIP_SWITCH = 7;
 const int KEYBOARD_CLICKS_DIP_SWITCH = 8;
 
 // logger
@@ -48,11 +51,12 @@ adapter::Log logger{&logSerialPort};
 
 // dip switch settings
 hardware::PinControl pinControl;
-hardware::InputPin numLockInput{&pinControl, NUM_LOCK_ON_RESET_DIP_SWITCH};
-hardware::InputPin keyboardClicksInput{&pinControl, KEYBOARD_CLICKS_DIP_SWITCH};
 
-adapter::Setting numLockSetting{&numLockInput};
+hardware::InputPin keyboardClicksInput{&pinControl, KEYBOARD_CLICKS_DIP_SWITCH};
+hardware::InputPin checkLedsInput{&pinControl, CHECK_LEDS_DIP_SWITCH};
+
 adapter::Setting keyboardClicksSetting{&keyboardClicksInput};
+adapter::Setting checkLedsSetting{&checkLedsInput};
 
 // actual Sun hardware
 hardware::SerialPort sunSerial{
@@ -67,24 +71,31 @@ hid::UsbKeyboard usbKeyboard{&hidDevice};
 adapter::ScanCodeTranslationMap translationMap;
 adapter::ScanCodeTranslator translator{&translationMap};
 
+// timer setup
+hardware::timers::CTCModeCalculator calculator;
+hardware::InterruptsControl interruptsControl;
+
 // error indicator, flashing light
 hardware::OutputPin flashingLedPin{&pinControl, ERROR_LED_PIN};
 adapter::Toggle toggle{&flashingLedPin};
-
-hardware::InterruptsControl interruptsControl;
 hardware::timers::CTCTimer1 timer{&interruptsControl};
-hardware::timers::CTCModeCalculator calculator;
-
 adapter::FlashingLight errorIndicator{&toggle, &timer, &calculator};
+
+// led checking to sync with Sun keyboard
+hardware::timers::CTCTimer3 ledTimer{&interruptsControl};
+adapter::LedConverter ledConverter;
+adapter::LedChecker ledChecker{
+&ledTimer, &calculator, &usbKeyboard, &sunKeyboard, &ledConverter};
 
 // and now the final piece
 adapter::Program program{&logger,
                          &keyboardClicksSetting,
-                         &numLockSetting,
+                         &checkLedsSetting,
                          &sunKeyboard,
                          &usbKeyboard,
                          &translator,
-                         &errorIndicator};
+                         &errorIndicator,
+                         &ledChecker};
 
 void setup()
 {

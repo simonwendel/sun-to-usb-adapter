@@ -26,16 +26,17 @@ namespace adapter
 {
     Program::Program(ILog *log,
                      ISetting *keyboardClicksSetting,
-                     ISetting *numLockSetting,
+                     ISetting *checkLedsSetting,
                      ISunKeyboard *sunKeyboard,
                      IUsbKeyboard *usbKeyboard,
                      IScanCodeTranslator *translator,
-                     IFlashingLight *errorIndicator) :
+                     IFlashingLight *errorIndicator,
+                     ILedChecker *ledChecker) :
         log{log},
         keyboardClicksSetting{keyboardClicksSetting},
-        numLockSetting{numLockSetting}, sunKeyboard{sunKeyboard},
+        checkLedsSetting{checkLedsSetting}, sunKeyboard{sunKeyboard},
         usbKeyboard{usbKeyboard}, translator{translator},
-        errorIndicator{errorIndicator}, started{false}
+        errorIndicator{errorIndicator}, ledChecker{ledChecker}, started{false}
     {
     }
 
@@ -46,10 +47,9 @@ namespace adapter
             sunKeyboard->turnOnClicks();
         }
 
-        if (numLockSetting->isOn())
+        if (checkLedsSetting->isOn())
         {
-            leds.setNumLock();
-            sunKeyboard->setLeds(leds);
+            ledChecker->startChecking(20);
         }
 
         log->info("Setup completed.");
@@ -65,7 +65,7 @@ namespace adapter
         }
 
         auto next = sunKeyboard->read();
-        if(next == Translation::NO_KEYS)
+        if (next == Translation::NO_KEYS)
         {
             return;
         }
@@ -74,8 +74,6 @@ namespace adapter
         if (translation.isValid())
         {
             auto hidCode = translation.getHidCode();
-            
-            maybeToggleLeds(hidCode);
             usbKeyboard->emit(hidCode);
         }
         else
@@ -85,33 +83,5 @@ namespace adapter
                 errorIndicator->startFlashing(2);
             }
         }
-    }
-
-    void Program::maybeToggleLeds(HidCode hidCode)
-    {
-        if (hidCode.isBreakCode())
-        {
-            return;
-        }
-
-        switch (hidCode.getUsageId())
-        {
-            case HidUsageCode::HID_KEYPAD_NUM_LOCK_AND_CLEAR:
-                leds.toggleNumLock();
-                break;
-
-            case HidUsageCode::HID_KEYBOARD_CAPS_LOCK:
-                leds.toggleCapsLock();
-                break;
-
-            case HidUsageCode::HID_KEYBOARD_SCROLL_LOCK:
-                leds.toggleScrollLock();
-                break;
-
-            default:
-                return;
-        }
-
-        sunKeyboard->setLeds(leds);
     }
 } // namespace adapter
