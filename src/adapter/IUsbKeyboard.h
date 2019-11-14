@@ -20,6 +20,8 @@
 
 #include "HidCode.h"
 
+#include <stdint.h>
+
 namespace adapter
 {
     class IUsbKeyboard

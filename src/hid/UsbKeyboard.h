@@ -22,6 +22,8 @@
 #include "../adapter/IUsbKeyboard.h"
 #include "IHidDevice.h"
 
+#include <stdint.h>
+
 namespace hid
 {
     class UsbKeyboard : public adapter::IUsbKeyboard
